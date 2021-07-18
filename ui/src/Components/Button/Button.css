@@ -17,6 +17,10 @@
   color: #22417A;
 }
 
+.button.full-width {
+  width: 100%;
+}
+
 .button.small {
   font-size: 20px;
 }

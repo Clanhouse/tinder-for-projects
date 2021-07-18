@@ -1,0 +1,8 @@
+.landing a {
+	padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.landing a:hover {
+  border-bottom: 2px solid var(--color-secondary-dark);
+}

@@ -1,0 +1,11 @@
+.alt-signing {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 40px;
+}
+
+.alt-signing svg {
+  height: 30px;
+  width: 30px;
+  margin: 0 20px;
+}
