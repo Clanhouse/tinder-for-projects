@@ -1,0 +1,31 @@
+.quote {
+  position: relative;
+  width: 50%;
+}
+
+.quote:first-child {
+  margin-right: 32px;
+}
+
+.quote__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 95px;
+  height: 95px;
+}
+
+.quote__body {
+  margin-left: 120px;
+  margin-top: 30px;
+  color: var(--color-primary);
+  font-size: 20px;
+}
+
+.quote__citation {
+  font-style: italic;
+}
+
+.quote__author {
+  font-weight: 500;
+}

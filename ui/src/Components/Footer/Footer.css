@@ -1,0 +1,21 @@
+.footer {
+  border-top: 2px solid var(--color-primary-light);
+  padding: 30px 0;
+  color: var(--color-primary);
+}
+
+.footer__nav-list {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer__nav-item {
+  margin: 0 30px;
+}
+
+.footer__copy {
+  text-align: center;
+}

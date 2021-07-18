@@ -1,0 +1,32 @@
+.button {
+  background-color: transparent;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: .6em 1em;
+  font-family: inherit;
+  font-weight: 500;
+  border-radius: 10px;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  transition: all .2s;
+}
+
+.button.ghost {
+  background-color: #fff;
+  border: 2px solid var(--color-secondary);
+  color: #22417A;
+}
+
+.button.small {
+  font-size: 20px;
+}
+
+.button.big {
+  font-size: 30px;
+}
+
+.button:hover {
+  background-color: var(--color-secondary-dark);
+  border: 2px solid var(--color-secondary-dark);
+  color: var(--color-white);
+}

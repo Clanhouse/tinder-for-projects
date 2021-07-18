@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
-import LoginSite from './Components/LoginSite/LoginSite'
+import React from 'react'
+import LandingPage from './Components/LandingPage/LandingPage'
+import './App.css'
 
 const App = () => (
   <div>
-    <LoginSite />
+    <LandingPage />
   </div>
 )
 
-export default App;
+export default App
