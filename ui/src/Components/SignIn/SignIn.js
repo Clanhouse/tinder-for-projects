@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import InputField from '../Form/InputField/InputField'
 import CheckboxField from '../Form/CheckboxField/CheckboxField'
 import Button from '../Button/Button'
@@ -48,7 +49,7 @@ const SignIn = () => {
         <p>or use</p>
         <AltSigning />
         <p>
-          Don’t have an account? <a href="/">Create new one</a>
+          Don’t have an account? <Link to="/signup">Create new one</Link>
         </p>
       </div>
     </div>

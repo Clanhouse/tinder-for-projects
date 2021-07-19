@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import InputField from '../Form/InputField/InputField'
 import RadioGroup from '../Form/RadioGroup/RadioGroup'
 import CheckboxField from '../Form/CheckboxField/CheckboxField'
@@ -64,8 +65,8 @@ const SignUp = () => {
               name="terms"
               label={
                 <>
-                  By signing up you accept the <a href="/">Term of service</a> and{' '}
-                  <a href="/">Privacy Policy</a>
+                  By signing up you accept the <a href="/">Term of service</a>{' '}
+                  and <a href="/">Privacy Policy</a>
                 </>
               }
             />
@@ -77,7 +78,7 @@ const SignUp = () => {
         <p>or use</p>
         <AltSigning />
         <p>
-          Already have an account? <a href="/">Sign In</a>
+          Already have an account? <Link to="/signin">Sign In</Link>
         </p>
       </div>
     </div>
