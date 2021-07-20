@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Developers")
-public class Developer {
-
+@Table(name = "projects")
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String firstName;
-    private String lastName;
-    private String content;
+    private String description;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "developer")
+    @OneToOne(mappedBy = "project")
     private TableToMatch tableToMatch;
 
-    public Developer() {
+    @ManyToOne
+    private Company company;
+
+
+    public Project() {
     }
 
     public Integer getId() {
@@ -31,20 +31,12 @@ public class Developer {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public TableToMatch getTableToMatch() {
@@ -55,11 +47,11 @@ public class Developer {
         this.tableToMatch = tableToMatch;
     }
 
-    public String getContent() {
-        return content;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
