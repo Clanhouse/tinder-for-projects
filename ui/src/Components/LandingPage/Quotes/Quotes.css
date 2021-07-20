@@ -1,4 +1,8 @@
 .quotes {
   margin-top: 60px;
+  height: 200px;
+}
+
+.quotes__container {
   display: flex;
 }
