@@ -1,16 +1,13 @@
 import React from "react";
+import ListBenefits from "./ListBenefits";
 import "./Benefits.css";
 
-const benefits = [
-  "dummy data 1",
-  "dummy data 2",
-  "dummy data 3",
-  "dummy data 4",
-];
-const ListBenefits = benefits.map((data) => (
-  <div className="ListBenefits__div">
-    <p>{data}</p>
-  </div>
-));
+const Benefits = () => {
+  return (
+    <div className="benefits">
+      {ListBenefits}
+    </div>
+  );
+};
 
-export default ListBenefits;
+export default Benefits;

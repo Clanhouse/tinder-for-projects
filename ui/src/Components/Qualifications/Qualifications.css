@@ -1,19 +1,15 @@
-.ListQualifications__div{
-    width:fit-content;
+.qualifications__item {
     display: flex;
+    height: 49px;
+    font-size: 20px;
+    padding: 1em .6em;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    height: 49px;
-    margin: 10px;
-    border-style: solid;
-    border-width: 2px;
+    border: 2px solid var(--color-primary);
     border-radius: 10px;
-    border-color: var(--color-primary);
     color: var(--color-primary);
 }
-
-.ListQualifications__div > p {
-    margin-left: 12px;
-    margin-right: 12px;
+.qualifications__list {
+    display: flex;
+    flex-wrap: wrap;
 }
