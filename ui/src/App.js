@@ -4,8 +4,7 @@ import LandingPage from "./Components/LandingPage/LandingPage";
 import SignUp from "./Components/SignUp/SignUp";
 import SignIn from "./Components/SignIn/SignIn";
 import "./App.css";
-import ListBenefits from "./Components/Benefits/ListBenefits";
-import ListQualifications from "./Components/Qualifications/ListQualifications";
+
 const App = () => (
   <Router>
     <Switch>
