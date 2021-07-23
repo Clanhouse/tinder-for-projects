@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../Button/Button'
+import RouterButton from '../RouterButton/RouterButton'
 import './Navbar.css'
 import logo from '../../Data/Images/logo.png'
 
@@ -17,9 +17,9 @@ const Navbar = () => {
           </li>
         </ul>
         <div className="navbar__cta">
-          <Button ghost size="small">
+          <RouterButton ghost size="small" to="/signin">
             Log In
-          </Button>
+          </RouterButton>
         </div>
       </div>
     </nav>

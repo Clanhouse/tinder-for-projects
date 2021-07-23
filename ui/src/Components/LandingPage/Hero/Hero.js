@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../Button/Button'
+import RouterButton from '../../RouterButton/RouterButton'
 import './Hero.css'
 
 const Hero = () => {
@@ -14,7 +14,9 @@ const Hero = () => {
             Find your next business partner
           </h2>
         </div>
-        <Button size="big">Sign Up</Button>
+        <RouterButton size="big" to="/signup">
+          Sign Up
+        </RouterButton>
       </div>
     </div>
   )

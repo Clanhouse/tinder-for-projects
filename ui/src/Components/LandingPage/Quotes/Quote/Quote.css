@@ -1,6 +1,7 @@
 .quote {
   position: relative;
   width: 50%;
+  animation: show 1s ease-out;
 }
 
 .quote:first-child {
@@ -28,4 +29,9 @@
 
 .quote__author {
   font-weight: 500;
+}
+
+@keyframes show {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
