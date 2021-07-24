@@ -1,0 +1,36 @@
+.developerCard{
+    width: 604px;
+    height: 701px;
+    border: 1px solid;
+    border-radius: 10px;
+    box-shadow: 5px 5px #E5E5E5;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.thumbUp{
+    background-image: url(../../Data/Images/thumb-up.png);
+    width: 100px;
+    height: 100px;
+    border: none;
+    position: absolute;
+    bottom: -50px;
+    left: 135px;
+    background-color: transparent;
+}
+.thumbUp:hover{
+    cursor: pointer;
+}
+.thumbDown{
+    background-image: url(../../Data/Images/thumb-down.png);
+    width: 100px;
+    height: 100px;
+    border: none;
+    position: absolute;
+    bottom: -50px;
+    right: 135px;
+    background-color: transparent;
+}
+.thumbDown:hover{
+    cursor: pointer;
+}

@@ -2,6 +2,9 @@
     display: flex;
     
 }
+.listBenefits{
+    padding: 23px;
+}
 .benefits__heading {
 display: flex;
 }

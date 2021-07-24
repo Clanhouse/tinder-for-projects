@@ -11,14 +11,14 @@ const qualifications = [
 ];
 const ListQualifications = () => {
   return (
-    <>
+    <div className="listQualifications">
           <h3 className="qualifications__heading">Qualifications</h3>
     <ul className="qualifications__list">
       {qualifications.map((qualification) => (
         <li className="qualifications__item">{qualification}</li>
       ))}
     </ul>
-    </>
+    </div>
   );
 };
 

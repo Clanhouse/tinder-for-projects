@@ -1,7 +1,8 @@
 import React from "react";
+import './ProjectDescription.css'
 
 const ProjectDescription = (props) => {
-  return <span>{props.projectDescription}</span>;
+  return <span className="projectDescription__span">{props.projectDescription}</span>;
 };
 
 export default ProjectDescription;

@@ -9,14 +9,14 @@ const benefits = [
 ];
 const ListBenefits = () => {
   return (
-    <>
+    <div className="listBenefits">
       <h3 className="benefits__heading">Benefits</h3>
       <ul className="benefits__list">
         {benefits.map((benefit) => (
           <li className="benefits__item">{benefit}</li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

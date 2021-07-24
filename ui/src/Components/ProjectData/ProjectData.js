@@ -13,11 +13,11 @@ const dummyData = {
 
 const ProjectData = () => {
   return (
-    <>
+    <div className="projectData__div">
       <ProjectName projectName={dummyData.name} />
       <ProjectOwner projectOwner={dummyData.owner} />
       <ProjectDescription projectDescription={dummyData.description} />
-    </>
+      </div>
   );
 };
 

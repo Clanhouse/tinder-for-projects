@@ -1,3 +1,6 @@
+.listQualifications{
+    padding: 23px;
+}
 .qualifications__item {
     display: flex;
     height: 49px;
