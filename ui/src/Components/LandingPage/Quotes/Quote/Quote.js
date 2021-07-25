@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import './Quote.css'
 import quoteIcon from '../../../../Data/Images/quote-icon.png'

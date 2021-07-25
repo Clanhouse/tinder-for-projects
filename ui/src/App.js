@@ -4,7 +4,6 @@ import LandingPage from "./Components/LandingPage/LandingPage";
 import SignUp from "./Components/SignUp/SignUp";
 import SignIn from "./Components/SignIn/SignIn";
 import "./App.css";
-
 const App = () => (
   <Router>
     <Switch>

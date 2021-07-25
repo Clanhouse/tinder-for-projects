@@ -1,3 +1,6 @@
+.projectData{
+    display: flex;
+}
 .projectData__div{
     padding: 23px;
 }
