@@ -10,7 +10,12 @@ public class Project extends StampedModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String description;
+
+    private String qualifications;
+
+    private String benefits;
 
     @JsonIgnore
     @OneToOne(mappedBy = "project")
@@ -55,5 +60,21 @@ public class Project extends StampedModel{
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public String getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(String qualifications) {
+        this.qualifications = qualifications;
+    }
+
+    public String getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
     }
 }

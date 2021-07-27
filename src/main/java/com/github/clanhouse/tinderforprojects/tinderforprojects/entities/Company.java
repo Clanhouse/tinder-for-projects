@@ -12,11 +12,6 @@ public class Company extends StampedModel {
 
     private String companyName;
 
-    private String description;
-
-    private String qualifications;
-
-    private String benefits;
 
     public Company() {
     }
@@ -37,27 +32,5 @@ public class Company extends StampedModel {
         this.companyName = companyName;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getQualifications() {
-        return qualifications;
-    }
-
-    public void setQualifications(String qualifications) {
-        this.qualifications = qualifications;
-    }
-
-    public String getBenefits() {
-        return benefits;
-    }
-
-    public void setBenefits(String benefits) {
-        this.benefits = benefits;
-    }
 }
