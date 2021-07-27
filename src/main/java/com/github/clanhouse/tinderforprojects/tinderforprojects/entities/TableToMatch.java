@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "teble_to_matches")
-public class TableToMatch {
+public class TableToMatch extends StampedModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

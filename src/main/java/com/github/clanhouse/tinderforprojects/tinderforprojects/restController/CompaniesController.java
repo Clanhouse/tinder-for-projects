@@ -11,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 public class CompaniesController {
@@ -40,8 +42,8 @@ public class CompaniesController {
     }
 
     @PostMapping("/addCompany")
-    public void addCompany(@RequestBody Company company) {
-        companyRepository.save(company);
+    public Company addCompany(@Valid @RequestBody Company company) {
+       return companyRepository.save(company);
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)

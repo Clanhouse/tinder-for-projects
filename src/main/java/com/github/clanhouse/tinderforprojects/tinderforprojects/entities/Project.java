@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class Project extends StampedModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

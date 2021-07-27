@@ -6,15 +6,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Developers")
-public class Developer {
+public class Developer extends StampedModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String firstName;
+
     private String lastName;
-    private String content;
+
+    private String description;
+
+    private String skills;
+
+    private String achievements;
 
     @JsonIgnore
     @OneToOne(mappedBy = "developer")
@@ -55,11 +61,27 @@ public class Developer {
         this.tableToMatch = tableToMatch;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
     }
 }
