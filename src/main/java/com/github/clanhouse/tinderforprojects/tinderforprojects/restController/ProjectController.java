@@ -1,6 +1,7 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.ResourceAccessException;
+
 
 @RestController
 public class ProjectController {
@@ -30,7 +31,7 @@ public class ProjectController {
         return companyRepository.findById(idCompany).map(company -> {
             project.setCompany(company);
             return projectRepository.save(project);
-        }).orElseThrow(() -> new ResourceAccessException("idCompany " + idCompany + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("idCompany " + idCompany + " not found"));
 
     }
 }
