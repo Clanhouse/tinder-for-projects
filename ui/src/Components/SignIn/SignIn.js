@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import InputField from '../Form/InputField/InputField'
 import CheckboxField from '../Form/CheckboxField/CheckboxField'
@@ -6,15 +7,19 @@ import Button from '../Button/Button'
 import AltSigning from '../AltSigning/AltSigning'
 import './SignIn.css'
 
-const SignIn = () => {
+const SignIn = ({ setUser }) => {
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   })
 
+  const history = useHistory()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(userData)
+    setUser({ role: 'developer' })
+    history.push('/')
   }
   return (
     <div className="signin">

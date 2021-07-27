@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import InputField from '../Form/InputField/InputField'
 import RadioGroup from '../Form/RadioGroup/RadioGroup'
@@ -7,7 +8,7 @@ import Button from '../Button/Button'
 import AltSigning from '../AltSigning/AltSigning'
 import './SignUp.css'
 
-const SignUp = () => {
+const SignUp = ({ setUser }) => {
   const [userData, setUserData] = useState({
     fullName: '',
     email: '',
@@ -15,9 +16,13 @@ const SignUp = () => {
     passwordConfirm: '',
   })
 
+  const history = useHistory()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(userData)
+    setUser({ role: 'project' })
+    history.push('/')
   }
   return (
     <div className="signup">
