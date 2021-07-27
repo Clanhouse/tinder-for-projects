@@ -16,7 +16,9 @@ public class Project {
     @OneToOne(mappedBy = "project")
     private TableToMatch tableToMatch;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "company_id", nullable = false)
+    @JsonIgnore
     private Company company;
 
 
