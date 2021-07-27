@@ -18,6 +18,7 @@ public class ProjectController {
 
     private ProjectRepository projectRepository;
 
+    @Autowired
     public ProjectController(CompanyRepository companyRepository, ProjectRepository projectRepository) {
         this.companyRepository = companyRepository;
         this.projectRepository = projectRepository;
