@@ -18,18 +18,18 @@ public class ProjectController {
 
     private ProjectRepository projectRepository;
 
-    @Autowired
     public ProjectController(CompanyRepository companyRepository, ProjectRepository projectRepository) {
         this.companyRepository = companyRepository;
         this.projectRepository = projectRepository;
     }
 
+
     @PostMapping("/addProject/{idCompany}")
-    public Project addProjectForCompany(@Validated @RequestBody Project project, @PathVariable Integer idCompany ){
+    public Project addProjectForCompany(@Validated @RequestBody Project project, @PathVariable Integer idCompany) {
         return companyRepository.findById(idCompany).map(company -> {
             project.setCompany(company);
             return projectRepository.save(project);
-        }).orElseThrow(() -> new ResourceAccessException("PostId " + idCompany + " not found"));
+        }).orElseThrow(() -> new ResourceAccessException("idCompany " + idCompany + " not found"));
 
     }
 }
