@@ -11,6 +11,8 @@ public class Project extends StampedModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String projectName;
+
     private String description;
 
     private String qualifications;
@@ -21,8 +23,8 @@ public class Project extends StampedModel{
     @OneToOne(mappedBy = "project")
     private TableToMatch tableToMatch;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "company_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+   // @JoinColumn(name = "company_id", nullable = false)
     @JsonIgnore
     private Company company;
 
@@ -36,6 +38,14 @@ public class Project extends StampedModel{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getDescription() {

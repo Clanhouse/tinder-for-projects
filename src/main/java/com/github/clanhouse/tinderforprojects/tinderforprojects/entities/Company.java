@@ -1,9 +1,11 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Companies")
+@Table(name = "companies")
 public class Company extends StampedModel {
 
     @Id
@@ -11,6 +13,13 @@ public class Company extends StampedModel {
     private int id;
 
     private String companyName;
+
+    @OneToMany(
+            mappedBy = "company",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Project> projectList = new ArrayList<>();
 
 
     public Company() {
@@ -32,5 +41,11 @@ public class Company extends StampedModel {
         this.companyName = companyName;
     }
 
+    public List<Project> getProjectList() {
+        return projectList;
+    }
 
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
 }

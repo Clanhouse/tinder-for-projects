@@ -6,10 +6,9 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.Compa
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
@@ -34,4 +33,10 @@ public class ProjectController {
         }).orElseThrow(() -> new ResourceNotFoundException("idCompany " + idCompany + " not found"));
 
     }
+
+    @GetMapping("/getProjectById/{idProject}")
+    public Optional<Project> getProjectById(@PathVariable Integer idProject){
+       return projectRepository.findById(idProject);
+    }
+
 }

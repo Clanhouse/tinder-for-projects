@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RestController
@@ -44,6 +45,11 @@ public class CompaniesController {
     @PostMapping("/addCompany")
     public Company addCompany(@Valid @RequestBody Company company) {
        return companyRepository.save(company);
+    }
+
+    @GetMapping("/getCompanyById/{idCompany}")
+    public Optional<Company> getCompanyById(@PathVariable Integer idCompany){
+        return companyRepository.findById(idCompany);
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
