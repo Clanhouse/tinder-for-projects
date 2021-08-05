@@ -1,0 +1,13 @@
+.user-window {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: var(--color-primary-light);
+}
+
+.user-window__card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}

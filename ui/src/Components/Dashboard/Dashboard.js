@@ -1,65 +1,59 @@
-import React, { useState, useEffect } from 'react'
-import Card from '../Card/Card'
+import React, { useState } from 'react'
 import './Dashboard.css'
+import profilePicture from '../../Data/Images/profile.jpeg'
 
-const card1 = {
-  image: 'http://shezannj.com/wp-content/uploads/2019/01/dummy-logo-png-7.png',
-  name: 'Trauma APP',
-  subtitle: 'Trauma Team International',
-  description:
-    "We are looking for an experienced full-stack web developer, who helps us improve our Trauma App. New functionalities will allow Trauma paramedics to respond even faster to our client's every sudden emergency.",
-  features: [
-    {
-      name: 'qualifications',
-      values: [
-        'React.js',
-        'Node.js',
-        'Express',
-        'Mongo DB',
-        'Mongoose',
-        '4+ Years of Experience',
-      ],
-    },
-    {
-      name: 'benefits',
-      values: ['Fully Remote', 'Flat Structure', 'Competetive Salary'],
-    },
-  ],
-}
-
-const card2 = {
-  image:
-    'https://s.ciekawostkihistoryczne.pl/uploads/2019/03/Albert_Einstein_Head.jpg',
-  name: 'Albert Einstein',
-  subtitle: 'Aspiring full-stack developer',
-  description:
-    'I know nothing about web development. I have developed the theory of relativity, though, so developing minor web apps won’t be a problem for me!',
-  features: [
-    {
-      name: 'Skills',
-      values: ['Physics', 'Philosophy', 'Quantum Theory', 'Mathematics'],
-    },
-    {
-      name: 'Achievments',
-      values: ['E=mc2', 'Nobel Prize in Physics', 'Proper Genius'],
-    },
-  ],
-}
-
-const Dashboard = ({ role }) => {
-  const [card, setCard] = useState(null)
-  useEffect(() => {
-    if (role === 'developer') {
-      setCard(card1)
-    } else if (role === 'project') {
-      setCard(card2)
+const Dashboard = () => {
+  const [dashboardState, setdashboardState] = useState('connections')
+  const renderSwitch = (param) => {
+    switch (param) {
+      case 'connections':
+        return 'CONNECTIONS'
+      case 'conversations':
+        return 'CONVERSATIONS'
+      case 'profile':
+        return 'PROFILE'
+      default:
+        return 'ERROR'
     }
-  }, [role])
-
+  }
+  const handleMenuClick = (e) => {
+    setdashboardState(e.target.id)
+  }
   return (
-    <div className="dashboard">
-      <Card card={card} />
-    </div>
+    <aside className="dashboard">
+      <div className="dashboard__menu">
+        <div
+          className="dashboard__profile-image"
+          id="profile"
+          onClick={handleMenuClick}
+        >
+          <img src={profilePicture} alt="" />
+        </div>
+        <ul className="dashboard__list">
+          <li
+            className={`dashboard__item ${
+              dashboardState === 'connections' ? 'dashboard__item--active' : ''
+            }`}
+            id="connections"
+            onClick={handleMenuClick}
+          >
+            Connections
+          </li>
+          <li
+            className={`dashboard__item ${
+              dashboardState === 'conversations'
+                ? 'dashboard__item--active'
+                : ''
+            }`}
+            id="conversations"
+            onClick={handleMenuClick}
+          >
+            Conversations
+          </li>
+        </ul>
+      </div>
+      <div className="dashboard__dialog">{renderSwitch(dashboardState)}</div>
+    </aside>
   )
 }
 

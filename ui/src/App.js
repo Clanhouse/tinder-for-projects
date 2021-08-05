@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import LandingPage from './Components/LandingPage/LandingPage'
 import SignUp from './Components/SignUp/SignUp'
 import SignIn from './Components/SignIn/SignIn'
-import Dashboard from './Components/Dashboard/Dashboard'
+import UserWindow from './Components/UserWindow/UserWindow'
 import './App.css'
 const App = () => {
   const [user, setUser] = useState(null)
@@ -18,7 +18,7 @@ const App = () => {
           <SignUp setUser={setUser} />
         </Route>
         <Route exact path="/">
-          {user ? <Dashboard role={user.role} /> : <LandingPage />}
+          {user ? <UserWindow role={user.role} /> : <LandingPage />}
         </Route>
       </Switch>
     </Router>
