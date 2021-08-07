@@ -1,12 +1,15 @@
 .dashboard {
   width: 386px;
+  max-height: 100vh;
+  overflow: hidden;
   background-color: var(--color-white);
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .dashboard__menu {
   display: flex;
   align-items: center;
+  padding: 0 20px;
   margin-bottom: 20px;
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
 import profilePicture from '../../Data/Images/profile.jpeg'
 
@@ -9,7 +10,7 @@ const Dashboard = () => {
       case 'connections':
         return 'CONNECTIONS'
       case 'conversations':
-        return 'CONVERSATIONS'
+        return <ConversationsList />
       case 'profile':
         return 'PROFILE'
       default:
