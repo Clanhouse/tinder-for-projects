@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   background-color: var(--color-primary-light);
+  position: relative;
 }
 
 .user-window__card-container {

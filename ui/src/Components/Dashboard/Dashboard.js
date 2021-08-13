@@ -3,14 +3,14 @@ import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
 import profilePicture from '../../Data/Images/profile.jpeg'
 
-const Dashboard = () => {
+const Dashboard = ({ setPopupMenuState }) => {
   const [dashboardState, setdashboardState] = useState('connections')
   const renderSwitch = (param) => {
     switch (param) {
       case 'connections':
         return 'CONNECTIONS'
       case 'conversations':
-        return <ConversationsList />
+        return <ConversationsList setPopupMenuState={setPopupMenuState} />
       case 'profile':
         return 'PROFILE'
       default:

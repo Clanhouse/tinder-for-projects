@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Dashboard from '../Dashboard/Dashboard'
 import Card from '../Card/Card'
+import PopupMenu from '../PopupMenu/PopupMenu'
 import './UserWindow.css'
 
 const card1 = {
@@ -57,12 +58,21 @@ const UserWindow = ({ role }) => {
     }
   }, [role])
 
+  const [popupMenuState, setPopupMenuState] = useState({})
+
+  const closePopupMenu = (e) => {
+    if (!e.target.closest('.conversation__menu-btn')) {
+      setPopupMenuState({ visibility: 'hidden' })
+    }
+  }
+
   return (
-    <div className="user-window">
-      <Dashboard />
+    <div className="user-window" onClick={closePopupMenu}>
+      <Dashboard setPopupMenuState={setPopupMenuState} />
       <div className="user-window__card-container">
         <Card card={card} />
       </div>
+      <PopupMenu popupMenuState={popupMenuState} />
     </div>
   )
 }

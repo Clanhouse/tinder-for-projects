@@ -35,6 +35,15 @@
   margin: 0;
 }
 
+.conversation__menu {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+}
+
 .conversation__menu-btn {
   position: absolute;
   width: 40px;
@@ -42,13 +51,13 @@
   background-color: #ffffff;
   border: 1px solid var(--color-primary);
   border-radius: 100%;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   visibility: hidden;
+  z-index: 1;
 }
 
 .conversation__menu-btn:hover {
