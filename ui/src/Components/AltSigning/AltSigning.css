@@ -9,3 +9,17 @@
   width: 30px;
   margin: 0 20px;
 }
+
+@media only screen and (max-width: 480px) {
+  .alt-signing {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 20px;
+  }
+
+  .alt-signing svg {
+    height: 25px;
+    width: 25px;
+    margin: 0 20px;
+  }
+}

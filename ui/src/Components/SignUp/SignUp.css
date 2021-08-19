@@ -1,7 +1,7 @@
 .signup {
   width: 100%;
   height: 100vh;
-  padding: 32px;
+  padding: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,4 +44,23 @@
 .signup p {
   margin: 0;
   font-size: 12px;
+}
+
+@media only screen and (max-width: 480px) {
+  .signup {
+    padding: 15px;
+  }
+
+  .signup__container {
+    padding: 30px 15px;
+    max-width: 100%;
+  }
+
+  .signup__group {
+    margin-bottom: 15px;
+  }
+
+  .signup__form {
+    margin-bottom: 20px;
+  }
 }

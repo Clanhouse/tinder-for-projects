@@ -49,6 +49,10 @@
     display: block;
   }
 
+  .button.small {
+    font-size: 18px;
+  }
+
   .button.big {
     font-size: 20px;
   }
