@@ -2,19 +2,23 @@
   background-color: transparent;
   border: 2px solid transparent;
   cursor: pointer;
-  padding: .6em 1em;
+  padding: 0.6em 1em;
   font-family: inherit;
   font-weight: 500;
   border-radius: 10px;
   background-color: var(--color-secondary);
   color: var(--color-white);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .button.ghost {
   background-color: #fff;
   border: 2px solid var(--color-secondary);
-  color: #22417A;
+  color: #22417a;
+}
+
+.button.mobile {
+  display: none;
 }
 
 .button.full-width {
@@ -33,4 +37,19 @@
   background-color: var(--color-secondary-dark);
   border: 2px solid var(--color-secondary-dark);
   color: var(--color-white);
+}
+
+@media only screen and (max-width: 768px) {
+  .button {
+    display: block;
+    width: 100%;
+  }
+
+  .button.mobile {
+    display: block;
+  }
+
+  .button.big {
+    font-size: 20px;
+  }
 }

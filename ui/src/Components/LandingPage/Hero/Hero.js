@@ -17,6 +17,15 @@ const Hero = () => {
         <RouterButton size="big" to="/signup">
           Sign Up
         </RouterButton>
+        <RouterButton
+          ghost
+          mobile
+          size="big"
+          to="/signin"
+          style={{ marginTop: '20px' }}
+        >
+          Log In
+        </RouterButton>
       </div>
     </div>
   )

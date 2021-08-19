@@ -1,8 +1,19 @@
 .quotes {
   margin-top: 60px;
-  height: 200px;
 }
 
 .quotes__container {
   display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .quotes__container {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .quotes {
+    margin-top: 30px;
+  }
 }

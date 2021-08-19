@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 30px;
 }
 
 .hero__content {
@@ -27,10 +28,43 @@
   font-size: 80px;
   text-transform: uppercase;
   font-weight: 500;
-  
 }
 
 .hero__heading--secondary {
   font-size: 50px;
   font-weight: 300;
+}
+
+@media only screen and (max-width: 1024px) {
+  .hero__heading--primary {
+    font-size: 70px;
+  }
+
+  .hero__heading--secondary {
+    font-size: 45px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .hero__heading--primary {
+    font-size: 55px;
+  }
+
+  .hero__heading--secondary {
+    font-size: 35px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .hero {
+    padding: 0 15px;
+  }
+
+  .hero__heading--primary {
+    font-size: 40px;
+  }
+
+  .hero__heading--secondary {
+    font-size: 25px;
+  }
 }
