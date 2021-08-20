@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Dashboard from '../Dashboard/Dashboard'
 import Card from '../Card/Card'
+import UserWindowMenu from './UserWindowMenu/UserWindowMenu'
 import PopupMenu from '../PopupMenu/PopupMenu'
 import './UserWindow.css'
 
@@ -59,6 +60,7 @@ const UserWindow = ({ role }) => {
   }, [role])
 
   const [popupMenuState, setPopupMenuState] = useState({})
+  const [dashboardState, setdashboardState] = useState('connections')
 
   const closePopupMenu = (e) => {
     if (!e.target.closest('.conversation__menu-btn')) {
@@ -68,8 +70,17 @@ const UserWindow = ({ role }) => {
 
   return (
     <div className="user-window" onClick={closePopupMenu}>
-      <Dashboard setPopupMenuState={setPopupMenuState} />
-      <div className="user-window__card-container">
+      <div className="user-window__aside">
+        <UserWindowMenu
+          dashboardState={dashboardState}
+          setdashboardState={setdashboardState}
+        />
+        <Dashboard
+          setPopupMenuState={setPopupMenuState}
+          dashboardState={dashboardState}
+        />
+      </div>
+      <div className="user-window__main">
         <Card card={card} />
       </div>
       <PopupMenu popupMenuState={popupMenuState} />

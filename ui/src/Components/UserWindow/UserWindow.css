@@ -6,9 +6,16 @@
   position: relative;
 }
 
-.user-window__card-container {
+.user-window__main {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+  padding: 0 32px;
+}
+
+@media only screen and (max-width: 768px) {
+  .user-window__main {
+    height: calc(100vh - 80px);
+  }
 }
