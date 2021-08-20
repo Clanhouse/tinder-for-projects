@@ -10,7 +10,9 @@ const Dashboard = ({ setPopupMenuState, dashboardState }) => {
   const renderSwitch = (param) => {
     switch (param) {
       case 'connections':
-        return <ConnectionsList setPopupMenuState={setPopupMenuState} />
+        return showDashboard(
+        <ConnectionsList setPopupMenuState={setPopupMenuState} />
+        )
       case 'conversations':
         return showDashboard(
           <ConversationsList setPopupMenuState={setPopupMenuState} />

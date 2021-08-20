@@ -28,6 +28,31 @@ const data = [
     name: 'Christina Dam',
     picture: 'https://randomuser.me/api/portraits/women/58.jpg',
   },
+  {
+    id: '6',
+    name: 'Julia Williams',
+    picture: 'https://randomuser.me/api/portraits/women/67.jpg',
+  },
+  {
+    id: '7',
+    name: 'Keith Robertson',
+    picture: 'https://randomuser.me/api/portraits/men/41.jpg',
+  },
+  {
+    id: '8',
+    name: 'Nadia Mcclean',
+    picture: 'https://randomuser.me/api/portraits/women/24.jpg',
+  },
+  {
+    id: '9',
+    name: 'Joseph Perez',
+    picture: 'https://randomuser.me/api/portraits/men/77.jpg',
+  },
+  {
+    id: '10',
+    name: 'Christina Dam',
+    picture: 'https://randomuser.me/api/portraits/women/58.jpg',
+  },
 ]
 
 const ConnectionsList = ({ setPopupMenuState }) => {
