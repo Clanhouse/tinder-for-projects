@@ -5,7 +5,7 @@
 }
 
 .quote:first-child {
-  margin-right: 32px;
+  margin-right: 30px;
 }
 
 .quote__icon {
@@ -32,6 +32,50 @@
 }
 
 @keyframes show {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .quote__icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .quote__body {
+    margin-left: 105px;
+    margin-top: 15px;
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .quote {
+    width: 100%;
+  }
+
+  .quote:first-child {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .quote:first-child {
+    margin-bottom: 15px;
+  }
+
+  .quote__icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .quote__body {
+    margin-left: 80px;
+    font-size: 16px;
+  }
 }

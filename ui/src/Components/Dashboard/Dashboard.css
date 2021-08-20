@@ -1,9 +1,9 @@
 .dashboard {
-  width: 386px;
-  max-height: 100vh;
+  flex-shrink: 0;
+  height: calc(100vh - 80px);
   overflow: hidden;
   background-color: var(--color-white);
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .dashboard__menu {

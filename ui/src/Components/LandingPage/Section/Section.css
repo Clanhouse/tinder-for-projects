@@ -2,7 +2,7 @@
   max-width: 1240px;
   width: 100%;
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: 80px 30px;
 }
 
 .section h2 {
@@ -11,4 +11,27 @@
   line-height: 1;
   color: var(--color-primary);
   text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .section h2 {
+    font-size: 45px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .section h2 {
+    font-size: 35px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .section {
+    padding: 40px 15px;
+  }
+
+  .section h2 {
+    font-size: 25px;
+    font-weight: 400;
+  }
 }

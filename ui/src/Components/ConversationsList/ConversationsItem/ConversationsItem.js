@@ -7,6 +7,7 @@ const ConversationsItem = ({ conversation, setPopupMenuState }) => {
     const { top, left } = e.target
       .closest('.conversation__menu-btn')
       .getBoundingClientRect()
+    console.log(left)
     setPopupMenuState({ position: { top, left }, visibility: 'visible' })
   }
 

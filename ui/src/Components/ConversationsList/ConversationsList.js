@@ -47,6 +47,13 @@ const ConversationsList = ({ setPopupMenuState }) => {
               setPopupMenuState={setPopupMenuState}
             />
           ))}
+          {data.map((conversation) => (
+            <ConversationsItem
+              key={conversation.id}
+              conversation={conversation}
+              setPopupMenuState={setPopupMenuState}
+            />
+          ))}
         </ul>
       ) : (
         <div className="conversations__empty">

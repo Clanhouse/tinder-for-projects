@@ -34,17 +34,27 @@
 }
 
 .radio .radio__button:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
   top: 6px;
   left: 6px;
-	width: 9px;
-	height: 9px;
-	border-radius: 50%;
-	background: white;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: white;
 }
 
 .radio input:checked ~ .radio__button:after {
   display: block;
+}
+
+@media only screen and (max-width: 480px) {
+  .radio-group {
+    margin-bottom: 15px;
+  }
+
+  .radio {
+    font-size: 15px;
+  }
 }

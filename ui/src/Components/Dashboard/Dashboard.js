@@ -1,61 +1,44 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
+import Profile from '../Profile/Profile'
 import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
 import profilePicture from '../../Data/Images/profile.jpeg'
 import ConnectionsList from '../ConnectionList/ConnectionsList'
 
-const Dashboard = ({ setPopupMenuState }) => {
-  const [dashboardState, setdashboardState] = useState('connections')
+const Dashboard = ({ setPopupMenuState, dashboardState }) => {
+  const dashboard = useRef(null)
   const renderSwitch = (param) => {
     switch (param) {
       case 'connections':
         return <ConnectionsList setPopupMenuState={setPopupMenuState} />
       case 'conversations':
-        return <ConversationsList setPopupMenuState={setPopupMenuState} />
+        return showDashboard(
+          <ConversationsList setPopupMenuState={setPopupMenuState} />
+        )
       case 'profile':
-        return 'PROFILE'
+        return showDashboard(<Profile />)
+      case 'match':
+        return hideDashboard()
       default:
         return 'ERROR'
     }
   }
-  const handleMenuClick = (e) => {
-    setdashboardState(e.target.id)
+
+  const hideDashboard = () => {
+    dashboard.current.style.display = 'none'
   }
+
+  const showDashboard = (component) => {
+    if (dashboard.current) {
+      dashboard.current.style.display = 'block'
+    }
+    return component
+  }
+
   return (
-    <aside className="dashboard">
-      <div className="dashboard__menu">
-        <div
-          className="dashboard__profile-image"
-          id="profile"
-          onClick={handleMenuClick}
-        >
-          <img src={profilePicture} alt="" />
-        </div>
-        <ul className="dashboard__list">
-          <li
-            className={`dashboard__item ${
-              dashboardState === 'connections' ? 'dashboard__item--active' : ''
-            }`}
-            id="connections"
-            onClick={handleMenuClick}
-          >
-            Connections
-          </li>
-          <li
-            className={`dashboard__item ${
-              dashboardState === 'conversations'
-                ? 'dashboard__item--active'
-                : ''
-            }`}
-            id="conversations"
-            onClick={handleMenuClick}
-          >
-            Conversations
-          </li>
-        </ul>
-      </div>
-      <div className="dashboard__dialog">{renderSwitch(dashboardState)}</div>
-    </aside>
+    <div ref={dashboard} className="dashboard">
+      {renderSwitch(dashboardState)}
+    </div>
   )
 }
 

@@ -2,12 +2,20 @@ import React from 'react'
 
 import './Button.css'
 
-const Button = ({ children, size, ghost, fullWidth, onClick }) => {
-  const style = `button ${size} ${ghost ? 'ghost' : ''} ${
-    fullWidth ? 'full-width' : ''
-  }`
+const Button = ({
+  children,
+  size,
+  ghost,
+  mobile,
+  fullWidth,
+  style,
+  onClick,
+}) => {
+  const classes = `button ${size} ${ghost ? 'ghost' : ''} ${
+    mobile ? 'mobile' : ''
+  } ${fullWidth ? 'full-width' : ''}`
   return (
-    <button className={style} onClick={onClick}>
+    <button className={classes} style={style} onClick={onClick}>
       {children}
     </button>
   )
