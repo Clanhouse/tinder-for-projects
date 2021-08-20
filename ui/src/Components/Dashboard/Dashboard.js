@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
 import profilePicture from '../../Data/Images/profile.jpeg'
+import ConnectionsList from '../ConnectionList/ConnectionsList'
 
 const Dashboard = ({ setPopupMenuState }) => {
   const [dashboardState, setdashboardState] = useState('connections')
   const renderSwitch = (param) => {
     switch (param) {
       case 'connections':
-        return 'CONNECTIONS'
+        return <ConnectionsList setPopupMenuState={setPopupMenuState} />
       case 'conversations':
         return <ConversationsList setPopupMenuState={setPopupMenuState} />
       case 'profile':
