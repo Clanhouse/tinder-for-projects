@@ -63,7 +63,7 @@ const UserWindow = ({ role }) => {
   const [dashboardState, setdashboardState] = useState('connections')
 
   const closePopupMenu = (e) => {
-    if (!e.target.closest('.conversation__menu-btn')) {
+    if (!e.target.closest('.conversation__menu-btn') && !e.target.closest('.connection__menu-btn')) {
       setPopupMenuState({ visibility: 'hidden' })
     }
   }

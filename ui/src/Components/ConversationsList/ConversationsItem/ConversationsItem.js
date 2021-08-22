@@ -3,6 +3,7 @@ import menuIcon from '../../../Data/Images/menu-icon.svg'
 import './ConversationsItem.css'
 
 const ConversationsItem = ({ conversation, setPopupMenuState }) => {
+  
   const handleMenuBtnClick = (e) => {
     const { top, left } = e.target
       .closest('.conversation__menu-btn')

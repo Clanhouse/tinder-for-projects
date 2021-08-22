@@ -1,11 +1,9 @@
 .connections {
   width: 386px;
-  height: calc(100vh - 110px);
-display: flex;
-justify-content: center;
-align-items: center;  
-overflow: auto;  
-position: relative;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+ 
   }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -23,6 +21,7 @@ position: relative;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
+      overflow: auto;
   }
   
   .connections__empty {
