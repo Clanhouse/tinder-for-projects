@@ -35,7 +35,7 @@ const data = [
   },
 ]
 
-const ConversationsList = ({ setPopupMenuState }) => {
+const ConversationsList = () => {
   return (
     <div className="conversations">
       {data.length > 0 ? (
@@ -44,14 +44,12 @@ const ConversationsList = ({ setPopupMenuState }) => {
             <ConversationsItem
               key={conversation.id}
               conversation={conversation}
-              setPopupMenuState={setPopupMenuState}
             />
           ))}
           {data.map((conversation) => (
             <ConversationsItem
               key={conversation.id}
               conversation={conversation}
-              setPopupMenuState={setPopupMenuState}
             />
           ))}
         </ul>

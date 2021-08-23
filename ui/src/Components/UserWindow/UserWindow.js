@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Dashboard from '../Dashboard/Dashboard'
 import Card from '../Card/Card'
 import UserWindowMenu from './UserWindowMenu/UserWindowMenu'
-import PopupMenu from '../PopupMenu/PopupMenu'
+import { PopupProvider, PopupWrapper, PopupMenu } from '../Popup/Popup'
 import './UserWindow.css'
 
 const card1 = {
@@ -59,32 +59,26 @@ const UserWindow = ({ role }) => {
     }
   }, [role])
 
-  const [popupMenuState, setPopupMenuState] = useState({})
   const [dashboardState, setdashboardState] = useState('connections')
 
-  const closePopupMenu = (e) => {
-    if (!e.target.closest('.conversation__menu-btn') && !e.target.closest('.connection__menu-btn')) {
-      setPopupMenuState({ visibility: 'hidden' })
-    }
-  }
-
   return (
-    <div className="user-window" onClick={closePopupMenu}>
-      <div className="user-window__aside">
-        <UserWindowMenu
-          dashboardState={dashboardState}
-          setdashboardState={setdashboardState}
-        />
-        <Dashboard
-          setPopupMenuState={setPopupMenuState}
-          dashboardState={dashboardState}
-        />
-      </div>
-      <div className="user-window__main">
-        <Card card={card} />
-      </div>
-      <PopupMenu popupMenuState={popupMenuState} />
-    </div>
+    <PopupProvider>
+      <PopupWrapper>
+        <div className="user-window">
+          <div className="user-window__aside">
+            <UserWindowMenu
+              dashboardState={dashboardState}
+              setdashboardState={setdashboardState}
+            />
+            <Dashboard dashboardState={dashboardState} />
+          </div>
+          <div className="user-window__main">
+            <Card card={card} />
+          </div>
+          <PopupMenu />
+        </div>
+      </PopupWrapper>
+    </PopupProvider>
   )
 }
 

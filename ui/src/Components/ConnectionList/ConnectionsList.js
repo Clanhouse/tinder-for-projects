@@ -55,19 +55,15 @@ const data = [
   },
 ]
 
-const ConnectionsList = ({ setPopupMenuState }) => {
+const ConnectionsList = () => {
   return (
-    <ul className="connections">
+    <div className="connections">
       {data.length > 0 ? (
-        <div className="connections__list">
+        <ul className="connections__list">
           {data.map((connection) => (
-            <ConnectionsItem
-              key={connection.id}
-              connection={connection}
-              setPopupMenuState={setPopupMenuState}
-            />
+            <ConnectionsItem key={connection.id} connection={connection} />
           ))}
-        </div>
+        </ul>
       ) : (
         <div className="connection__empty">
           <p>
@@ -76,7 +72,7 @@ const ConnectionsList = ({ setPopupMenuState }) => {
           </p>
         </div>
       )}
-    </ul>
+    </div>
   )
 }
 

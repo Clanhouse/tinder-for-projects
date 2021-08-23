@@ -1,12 +1,10 @@
 .connections {
-  width: 386px;
-  height: 100%;
+  height: calc(100vh - 110px);
   overflow: auto;
   position: relative;
- 
-  }
+}
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera */
 .connections::-webkit-scrollbar {
   display: none;
 }
@@ -16,22 +14,20 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-  .connections__list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      overflow: auto;
-  }
-  
-  .connections__empty {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    transform: translate(-50%, -50%);
-    padding: 0 30px;
-    font-size: 30px;
-    font-weight: 500;
-    color: var(--color-primary-light);
-  }
+
+.connections__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.connections__empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  padding: 0 30px;
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--color-primary-light);
+}

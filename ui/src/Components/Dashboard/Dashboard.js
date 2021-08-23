@@ -2,21 +2,16 @@ import React, { useRef } from 'react'
 import Profile from '../Profile/Profile'
 import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
-import profilePicture from '../../Data/Images/profile.jpeg'
 import ConnectionsList from '../ConnectionList/ConnectionsList'
 
-const Dashboard = ({ setPopupMenuState, dashboardState }) => {
+const Dashboard = ({ dashboardState }) => {
   const dashboard = useRef(null)
   const renderSwitch = (param) => {
     switch (param) {
       case 'connections':
-        return showDashboard(
-        <ConnectionsList setPopupMenuState={setPopupMenuState} />
-        )
+        return showDashboard(<ConnectionsList />)
       case 'conversations':
-        return showDashboard(
-          <ConversationsList setPopupMenuState={setPopupMenuState} />
-        )
+        return showDashboard(<ConversationsList />)
       case 'profile':
         return showDashboard(<Profile />)
       case 'match':

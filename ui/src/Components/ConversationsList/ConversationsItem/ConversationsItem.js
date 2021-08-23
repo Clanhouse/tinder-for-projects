@@ -1,17 +1,8 @@
 import React from 'react'
-import menuIcon from '../../../Data/Images/menu-icon.svg'
+import { PopupButton } from '../../Popup/Popup'
 import './ConversationsItem.css'
 
-const ConversationsItem = ({ conversation, setPopupMenuState }) => {
-  
-  const handleMenuBtnClick = (e) => {
-    const { top, left } = e.target
-      .closest('.conversation__menu-btn')
-      .getBoundingClientRect()
-    console.log(left)
-    setPopupMenuState({ position: { top, left }, visibility: 'visible' })
-  }
-
+const ConversationsItem = ({ conversation }) => {
   return (
     <li className="conversation">
       <div className="conversation__image">
@@ -25,9 +16,7 @@ const ConversationsItem = ({ conversation, setPopupMenuState }) => {
         )}...`}</p>
       </div>
       <div className="conversation__menu">
-        <div className="conversation__menu-btn" onClick={handleMenuBtnClick}>
-          <img src={menuIcon} alt="" />
-        </div>
+        <PopupButton />
       </div>
     </li>
   )
