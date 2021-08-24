@@ -1,4 +1,5 @@
 import React from 'react'
+import { PopupMenu, PopupScrollHandler } from '../Popup/Popup'
 import ConversationsItem from './ConversationsItem/ConversationsItem'
 import './ConversationsList.css'
 
@@ -37,31 +38,44 @@ const data = [
 
 const ConversationsList = () => {
   return (
-    <div className="conversations">
-      {data.length > 0 ? (
-        <ul className="conversations__list">
-          {data.map((conversation) => (
-            <ConversationsItem
-              key={conversation.id}
-              conversation={conversation}
-            />
-          ))}
-          {data.map((conversation) => (
-            <ConversationsItem
-              key={conversation.id}
-              conversation={conversation}
-            />
-          ))}
-        </ul>
-      ) : (
-        <div className="conversations__empty">
-          <p>
-            You don't have any conversations. Send a message to one of your new
-            contacts under the connections tab.
-          </p>
-        </div>
-      )}
-    </div>
+    <PopupScrollHandler>
+      <PopupMenu>
+        <li className="popup-menu__item">Mark as unread</li>
+        <li className="popup-menu__item">Show card</li>
+        <li className="popup-menu__item">Delete chat</li>
+      </PopupMenu>
+      <div className="conversations">
+        {data.length > 0 ? (
+          <ul className="conversations__list">
+            {data.map((conversation) => (
+              <ConversationsItem
+                key={conversation.id}
+                conversation={conversation}
+              />
+            ))}
+            {data.map((conversation) => (
+              <ConversationsItem
+                key={conversation.id}
+                conversation={conversation}
+              />
+            ))}
+            {data.map((conversation) => (
+              <ConversationsItem
+                key={conversation.id}
+                conversation={conversation}
+              />
+            ))}
+          </ul>
+        ) : (
+          <div className="conversations__empty">
+            <p>
+              You don't have any conversations. Send a message to one of your
+              new contacts under the connections tab.
+            </p>
+          </div>
+        )}
+      </div>
+    </PopupScrollHandler>
   )
 }
 

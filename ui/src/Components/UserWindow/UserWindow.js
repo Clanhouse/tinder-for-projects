@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Dashboard from '../Dashboard/Dashboard'
 import Card from '../Card/Card'
 import UserWindowMenu from './UserWindowMenu/UserWindowMenu'
-import { PopupProvider, PopupWrapper, PopupMenu } from '../Popup/Popup'
+import { PopupProvider, PopupWrapper } from '../Popup/Popup'
 import './UserWindow.css'
 
 const card1 = {
@@ -75,7 +75,6 @@ const UserWindow = ({ role }) => {
           <div className="user-window__main">
             <Card card={card} />
           </div>
-          <PopupMenu />
         </div>
       </PopupWrapper>
     </PopupProvider>

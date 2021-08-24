@@ -1,18 +1,6 @@
 .connections {
   height: calc(100vh - 110px);
-  overflow: auto;
   position: relative;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.connections::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.connections {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
 .connections__list {

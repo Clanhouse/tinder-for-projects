@@ -1,4 +1,5 @@
 import React from 'react'
+import { PopupMenu, PopupScrollHandler } from '../Popup/Popup'
 import ConnectionsItem from './ConnectionsItem/ConnectionsItem'
 import './ConnectionsList.css'
 
@@ -57,22 +58,28 @@ const data = [
 
 const ConnectionsList = () => {
   return (
-    <div className="connections">
-      {data.length > 0 ? (
-        <ul className="connections__list">
-          {data.map((connection) => (
-            <ConnectionsItem key={connection.id} connection={connection} />
-          ))}
-        </ul>
-      ) : (
-        <div className="connection__empty">
-          <p>
-            You don't have any connections yet. Add new connection you are
-            interested in by clicking the thumb-up.
-          </p>
-        </div>
-      )}
-    </div>
+    <PopupScrollHandler>
+      <PopupMenu>
+        <li className="popup-menu__item">Start chat</li>
+        <li className="popup-menu__item">Delete contact</li>
+      </PopupMenu>
+      <div className="connections">
+        {data.length > 0 ? (
+          <ul className="connections__list">
+            {data.map((connection) => (
+              <ConnectionsItem key={connection.id} connection={connection} />
+            ))}
+          </ul>
+        ) : (
+          <div className="connection__empty">
+            <p>
+              You don't have any connections yet. Add new connection you are
+              interested in by clicking the thumb-up.
+            </p>
+          </div>
+        )}
+      </div>
+    </PopupScrollHandler>
   )
 }
 

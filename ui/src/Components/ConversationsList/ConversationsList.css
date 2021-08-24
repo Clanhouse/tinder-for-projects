@@ -1,18 +1,6 @@
 .conversations {
   height: calc(100vh - 110px);
-  overflow: auto;
   position: relative;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.conversations::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.conversations {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
 .conversations__empty {
