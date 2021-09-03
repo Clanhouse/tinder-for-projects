@@ -4,6 +4,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
+  useCallback,
 } from 'react'
 import menuIcon from '../../Data/Images/menu-icon.svg'
 import './Popup.css'
@@ -12,15 +13,44 @@ export const popupContext = createContext()
 
 export const PopupProvider = ({ children }) => {
   const [popupMenuState, setPopupMenuState] = useState({})
-  const val = { popupMenuState, setPopupMenuState }
-  return <popupContext.Provider value={val}>{children}</popupContext.Provider>
+  const updatePopupMenuState = useCallback((stateChanges) => {
+    setPopupMenuState((prevPopupMenuState) => {
+      return { ...prevPopupMenuState, ...stateChanges }
+    })
+  }, [])
+  const getPopupMenuStyle = () => {
+    if (popupMenuState.isDisplayed) {
+      return {
+        top: popupMenuState.top,
+        left: popupMenuState.left,
+        transform: `translate(${
+          popupMenuState.left + popupMenuState.width > window.innerWidth
+            ? 'calc(-100% + 40px)'
+            : '0'
+        }, ${
+          popupMenuState.top + popupMenuState.height >
+          popupMenuState.limitBottom
+            ? 'calc(-100% + 40px)'
+            : '0'
+        })`,
+      }
+    }
+    return null
+  }
+
+  const value = {
+    popupMenuState,
+    updatePopupMenuState,
+    getPopupMenuStyle,
+  }
+  return <popupContext.Provider value={value}>{children}</popupContext.Provider>
 }
 
 export const PopupWrapper = ({ children }) => {
-  const { setPopupMenuState } = useContext(popupContext)
+  const { updatePopupMenuState } = useContext(popupContext)
   const closePopupMenu = (e) => {
     if (!e.target.closest('.popup-menu-btn')) {
-      setPopupMenuState({ visibility: 'hidden' })
+      updatePopupMenuState({ isDisplayed: false })
     }
   }
   return (
@@ -32,64 +62,73 @@ export const PopupWrapper = ({ children }) => {
 
 export const PopupScrollHandler = ({ children }) => {
   const [scrollPosition, setScrollPosition] = useState(null)
-  const list = useRef(null)
-  const { popupMenuState, setPopupMenuState } = useContext(popupContext)
-  useEffect(() => {
-    const listRef = list.current
-    listRef.addEventListener('scroll', updateMenuPosition)
-    return () => {
-      listRef.removeEventListener('scroll', updateMenuPosition)
-    }
-  })
+  const containerRef = useRef()
+  const { popupMenuState, updatePopupMenuState } = useContext(popupContext)
 
-  const updateMenuPosition = () => {
-    if (popupMenuState.position) {
-      setPopupMenuState({
-        position: {
-          top:
-            popupMenuState.position.top -
-            list.current.scrollTop +
-            scrollPosition,
-          left: popupMenuState.position.left,
-        },
-        visibility: 'visible',
+  useEffect(() => {
+    updatePopupMenuState({
+      limitBottom:
+        containerRef.current.offsetHeight +
+        containerRef.current.getBoundingClientRect().top,
+      limitTop: containerRef.current.getBoundingClientRect().top,
+    })
+  }, [updatePopupMenuState])
+
+  const handleScrollEvent = () => {
+    if (popupMenuState.isDisplayed) {
+      updatePopupMenuState({
+        top:
+          popupMenuState.top - containerRef.current.scrollTop + scrollPosition,
+        isDisplayed:
+          popupMenuState.top + 40 < popupMenuState.limitBottom &&
+          popupMenuState.top > popupMenuState.limitTop,
       })
-      setScrollPosition(list.current.scrollTop)
     }
+    setScrollPosition(containerRef.current.scrollTop)
   }
 
   return (
-    <div className="popup-scroll-handler" ref={list}>
+    <div
+      className="popup-scroll-handler"
+      ref={containerRef}
+      onScroll={handleScrollEvent}
+    >
       {children}
     </div>
   )
 }
 
 export const PopupMenu = ({ children }) => {
-  const { popupMenuState } = useContext(popupContext)
-  let style = {}
-  if (popupMenuState.position) {
-    style = {
-      ...style,
-      top: popupMenuState.position.top,
-      left: popupMenuState.position.left,
-      visibility: popupMenuState.visibility,
+  const popupMenuRef = useRef()
+  const { updatePopupMenuState, getPopupMenuStyle, popupMenuState } =
+    useContext(popupContext)
+  useEffect(() => {
+    if (popupMenuRef.current) {
+      updatePopupMenuState({
+        width: popupMenuRef.current.offsetWidth,
+        height: popupMenuRef.current.offsetHeight,
+      })
     }
-  }
-  return (
-    <div className="popup-menu" style={style}>
+  }, [updatePopupMenuState, popupMenuState.isDisplayed])
+  let style = getPopupMenuStyle()
+  return popupMenuState.isDisplayed ? (
+    <div className="popup-menu" style={style} ref={popupMenuRef}>
       <ul className="popup-menu__list">{children}</ul>
     </div>
-  )
+  ) : null
 }
 
 export const PopupButton = () => {
-  const { setPopupMenuState } = useContext(popupContext)
+  const { updatePopupMenuState } = useContext(popupContext)
   const handleMenuBtnClick = (e) => {
     const { top, left } = e.target
       .closest('.popup-menu-btn')
       .getBoundingClientRect()
-    setPopupMenuState({ position: { top, left }, visibility: 'visible' })
+    updatePopupMenuState({
+      top,
+      left,
+      isDisplayed: true,
+    })
   }
   return (
     <div className="popup-menu-btn" onClick={handleMenuBtnClick}>
