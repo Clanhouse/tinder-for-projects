@@ -1,21 +1,26 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.service.JwtUtil;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.service.MyUserDetailsService;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class DeveloperController {
+    private DeveloperRepository developerRepository;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private MyUserDetailsService userDetailsService;
+    public DeveloperController(DeveloperRepository developerRepository) {
+        this.developerRepository = developerRepository;
+    }
+    @RequestMapping("/addDev")
+    public Developer addNewDeveloper(@RequestBody Developer developer){
+        return developerRepository.save(developer);
+    }
+    @RequestMapping("/getDevById/{idDev}")
+    public Optional<Developer> getDeveloperById(@PathVariable Integer idDev){
+       return developerRepository.findById(idDev);
+    }
 }

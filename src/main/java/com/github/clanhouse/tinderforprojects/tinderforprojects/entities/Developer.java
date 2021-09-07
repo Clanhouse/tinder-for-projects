@@ -23,7 +23,7 @@ public class Developer extends StampedModel {
     private String achievements;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "developer")
+    @OneToOne(mappedBy = "developer", cascade = CascadeType.ALL)
     private TableToMatch tableToMatch;
 
     public Developer() {
