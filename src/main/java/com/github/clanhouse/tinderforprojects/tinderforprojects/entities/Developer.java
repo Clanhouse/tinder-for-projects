@@ -1,9 +1,11 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 
+@CrossOrigin
 @Entity
 @Table(name = "Developers")
 public class Developer extends StampedModel {
