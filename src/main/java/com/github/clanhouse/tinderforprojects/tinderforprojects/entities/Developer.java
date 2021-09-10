@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
+import java.util.List;
 
 @CrossOrigin
 @Entity
@@ -20,9 +21,13 @@ public class Developer extends StampedModel {
 
     private String description;
 
-    private String skills;
+    //private String skills;
 
     private String achievements;
+
+
+    @ManyToMany(mappedBy = "dev")
+    private List<Skill> skills;
 
     @JsonIgnore
     @OneToOne(mappedBy = "developer", cascade = CascadeType.ALL)
@@ -71,11 +76,11 @@ public class Developer extends StampedModel {
         this.description = description;
     }
 
-    public String getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(String skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 
