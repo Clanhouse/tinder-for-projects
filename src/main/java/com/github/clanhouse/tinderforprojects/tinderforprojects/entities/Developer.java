@@ -21,8 +21,6 @@ public class Developer extends StampedModel {
 
     private String description;
 
-    //private String skills;
-
     private String achievements;
 
 
