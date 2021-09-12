@@ -1,0 +1,53 @@
+.profile {
+    color: var(--text-color-dark);
+    font-size: 1em;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 10px;
+    height: calc(100vh - 100px);
+}
+.profile svg {
+    width: auto;
+    height: 29px;
+    color: var(--color-primary-light);
+    margin: 0 0 0 0;
+}
+.profile svg:hover {
+    color: var(--color-primary);
+}
+.profile  p {
+}
+.profile__accounts {
+
+}
+.profile__accounts--header {
+    font-weight: 700;
+    color: var(--text-color-dark);
+}
+.profile--settings {
+
+}
+.profile__settings--header {
+    font-weight: 700;
+    color: var(--text-color-dark);
+}
+.profile--item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.profile--item input {
+    height: 1.2em;
+    color: var(--text-color-dark);
+    border: none;
+    font-size: 1em;
+}
+.profile--buttons {
+
+}
+.profile-editIcon {
+    width: 1.5em;
+    height: auto;
+    fill: var(--color-primary-light);
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import './PopupMenu.css'
 
-const Menu = ({ popupMenuState }) => {
+const Menu = ({ popupMenuState, dashboardState }) => {
   let style = {}
   if (popupMenuState.position) {
     style = {
