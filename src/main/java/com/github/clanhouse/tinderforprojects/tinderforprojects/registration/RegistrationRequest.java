@@ -5,13 +5,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@Getter
+//@Getter
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+//@EqualsAndHashCode
+//@ToString
 public class RegistrationRequest {
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String password;
+   // private final String firstName;
+   // private final String lastName;
+   // private final String email;
+  //  private final String password;
 }

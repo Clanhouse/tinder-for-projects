@@ -43,6 +43,10 @@ public class DeveloperController {
         }).orElseThrow(() -> new ResourceNotFoundException("idCompany " + idDev + " not found"));
 
     }
+    @GetMapping("/getRandomDeveloper")
+    public Developer getRandomDeveloper(){
+        return developerRepository.getFirstRandomDeveloper();
+    }
 
     }
 
