@@ -76,10 +76,14 @@ const Card = ({
           ) : null}
         </div>
       </div>
-      <div className="card__buttons">
-        <button className="thumbUp" onClick={handleClick}></button>
-        <button className="thumbDown" onClick={handleClick}></button>
-      </div>
+      {isProfile ? (
+        <div className="card__buttons">
+          <button className="thumbUp" onClick={handleClick}></button>
+          <button className="thumbDown" onClick={handleClick}></button>
+        </div>
+      ) : (
+        <div>ERROR</div>
+      )}
     </div>
   )
 }

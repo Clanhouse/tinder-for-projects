@@ -1,10 +1,30 @@
-import React from 'react'
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import Button from '../Button/Button'
+import { Modal } from 'react-responsive-modal'
+import './Profile.css'
+import 'react-responsive-modal/styles.css'
 import { ReactComponent as EditIcon } from '../../Data/Images/edit-solid.svg'
 import { ReactComponent as SwitchButton } from '../../Data/Images/switch-button.svg'
-import './Profile.css'
+import DevProfileCard from './DevProfileCard/DevProfileCard'
 
+export const ProfileCard = {
+  image:
+    'https://s.ciekawostkihistoryczne.pl/uploads/2019/03/Albert_Einstein_Head.jpg',
+  name: 'Albert Einstein',
+  subtitle: 'Aspiring full-stack developer',
+  description:
+    'I know nothing about web development. I have developed the theory of relativity, though, so developing minor web apps won’t be a problem for me!',
+  features: [
+    {
+      name: 'Skills',
+      values: ['Physics', 'Philosophy', 'Quantum Theory', 'Mathematics'],
+    },
+    {
+      name: 'Achievments',
+      values: ['E=mc2', 'Nobel Prize in Physics', 'Proper Genius'],
+    },
+  ],
+}
 const Profile = () => {
   const initProfileState = {
     name: 'John Dow',
@@ -14,14 +34,23 @@ const Profile = () => {
     darkMode: false,
   }
   const [profileState, setProfileState] = useState(initProfileState)
+  const [editMyCardModalState, setEditMyCardModalState] = useState(false)
+  const [logOutModalState, setlogoutOutModalState] = useState(false)
+  const [deleteAccountState, setDeleteAccountState] = useState(false)
   const name = useRef(null)
   const email = useRef(null)
   const phone = useRef(null)
 
+  const onOpenCardModal = () => setEditMyCardModalState(true)
+  const onCloseCardModal = () => setEditMyCardModalState(false)
+  const onOpenLogoutOutModal = () => setlogoutOutModalState(true)
+  const onCloseLogoutOutModal = () => setlogoutOutModalState(false)
+  const onOpenDeleteAccountModal = () => setDeleteAccountState(true)
+  const onCloseDeleteAccountModal = () => setDeleteAccountState(false)
+
   function handleClick() {
     console.log('Kliknięto')
   }
-  const handleChange = (e) => {}
 
   return (
     <div className="profile">
@@ -30,6 +59,7 @@ const Profile = () => {
         <div className="profile--item">
           <p>Name: </p>
           <input
+            className="profile__input"
             ref={name}
             value={profileState.name}
             onChange={(e) =>
@@ -88,11 +118,50 @@ const Profile = () => {
       </div>
 
       <div className="profile--buttons">
-        <Button fullWidth>Logout</Button>
-        <Button fullWidth ghost>
+        <Button fullWidth>Save</Button>
+        <Button fullWidth onClick={onOpenCardModal}>
+          Edit my card
+        </Button>
+        <Button fullWidth onClick={onOpenLogoutOutModal}>
+          Logout
+        </Button>
+        <Button fullWidth ghost onClick={onOpenDeleteAccountModal}>
           Delete account
         </Button>
       </div>
+
+      {/*Modal to handle User Profile Card for edit - Edit My Card button clicked*/}
+      <Modal open={editMyCardModalState} onClose={onCloseCardModal} center>
+        <div>
+          <DevProfileCard card={ProfileCard} />
+        </div>
+      </Modal>
+
+      {/*Modal to handle Logout button */}
+      <Modal open={logOutModalState} onClose={onCloseLogoutOutModal} center>
+        <div className="profile__modal">
+          <span>Do you really want to log out?</span>
+          <div className="profile__modal--buttons">
+            <Button ghost>Cancel</Button>
+            <Button>Log me out</Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/*Modal to handle Delete Account button */}
+      <Modal
+        open={deleteAccountState}
+        onClose={onCloseDeleteAccountModal}
+        center
+      >
+        <div className="profile__modal">
+          <span>Are you sure you want to delete your account?</span>
+          <div className="profile__modal--buttons">
+            <Button ghost>Cancel</Button>
+            <Button>Delete my account</Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }
