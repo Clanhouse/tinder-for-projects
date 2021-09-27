@@ -10,10 +10,12 @@ import './SignUp.css'
 
 const SignUp = ({ setUser }) => {
   const [userData, setUserData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     passwordConfirm: '',
+    role: '',
   })
 
   const history = useHistory()
@@ -21,7 +23,7 @@ const SignUp = ({ setUser }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(userData)
-    setUser({ role: 'project' })
+    setUser({ role: userData.role })
     history.push('/')
   }
   return (
@@ -29,15 +31,31 @@ const SignUp = ({ setUser }) => {
       <div className="signup__container">
         <form className="signup__form" onSubmit={handleSubmit}>
           <InputField
-            name="name"
-            label="Full Name"
+            name="firstName"
+            label="First Name"
             type="text"
-            value={userData.fullName}
+            value={userData.firstName}
             onChange={(e) =>
-              setUserData({ ...userData, fullName: e.target.value })
+              setUserData({ ...userData, firstName: e.target.value })
             }
           />
-          <RadioGroup name="role" options={['Developer', 'Project Leader']} />
+          <InputField
+            name="lastName"
+            label="Last Name"
+            type="text"
+            value={userData.lastName}
+            onChange={(e) =>
+              setUserData({ ...userData, lastName: e.target.value })
+            }
+          />
+          <RadioGroup
+            name="role"
+            options={[
+              { name: 'Developer', value: 'developer' },
+              { name: 'Project Leader', value: 'project' },
+            ]}
+            onChange={(e) => setUserData({ ...userData, role: e.target.value })}
+          />
           <InputField
             name="email"
             label="Email"
