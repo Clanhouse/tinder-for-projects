@@ -28,7 +28,7 @@ public class Developer extends StampedModel {
     private List<Skill> skills;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "developer", cascade = CascadeType.ALL)
+    @OneToOne
     private TableToMatch tableToMatch;
 
     public Developer() {

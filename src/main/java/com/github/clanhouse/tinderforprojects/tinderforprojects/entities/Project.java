@@ -20,7 +20,7 @@ public class Project extends StampedModel{
     private String benefits;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "project")
+    @OneToOne
     private TableToMatch tableToMatch;
 
     @ManyToOne(fetch = FetchType.LAZY)
