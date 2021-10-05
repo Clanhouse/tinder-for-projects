@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.connection--active {
+  background-color: var(--color-primary-light);
+}
+
 .connection:hover {
   background-color: var(--color-primary-light);
 }

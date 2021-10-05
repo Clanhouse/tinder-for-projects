@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import LoaderSpinner from '../LoaderSpinner/LoaderSpinner'
 import Card from './Card'
+import { useActiveCard } from '../../Contexts/ActiveCard'
 
 const DeveloperCard = () => {
   const [cardData, setCardData] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
 
-  const fetchCardData = async () => {
+  const { selectCard, activeCard } = useActiveCard()
+
+  const fetchRandomCardData = async () => {
     try {
       const result = await axios.get(
         `https://desolate-chamber-92880.herokuapp.com/getRandomDeveloper`
@@ -21,17 +24,38 @@ const DeveloperCard = () => {
     }
   }
 
+  const fetchCardData = async (id) => {
+    try {
+      const result = await axios.get(
+        `https://desolate-chamber-92880.herokuapp.com/getDevById/${id}`
+      )
+      setCardData(result.data)
+    } catch (err) {
+      setError(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
-    fetchCardData()
+    fetchRandomCardData()
   }, [])
 
+  useEffect(() => {
+    if (activeCard) {
+      setLoading(true)
+      fetchCardData(activeCard)
+    }
+  }, [activeCard])
+
   const handleClick = () => {
+    selectCard('')
     setLoading(true)
-    fetchCardData()
+    fetchRandomCardData()
   }
 
   if (loading) return <LoaderSpinner />
-  if (error) return <p>{error}</p>
+  if (error) return <p>{error.message}</p>
   return (
     <Card
       title={`${cardData.firstName} ${cardData.lastName}`}

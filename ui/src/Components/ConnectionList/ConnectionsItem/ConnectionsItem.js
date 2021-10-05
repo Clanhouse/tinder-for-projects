@@ -1,10 +1,23 @@
 import React from 'react'
 import { PopupButton } from '../../Popup/Popup'
+import { useActiveCard } from '../../../Contexts/ActiveCard'
 import './ConnectionsItem.css'
 
 const ConnectionsItem = ({ connection }) => {
+  const { selectCard, activeCard } = useActiveCard()
+
+  const handleConnectionClick = (e) => {
+    const cardId = e.target.closest('.connection').id.replace('connection-', '')
+    selectCard(cardId)
+  }
   return (
-    <li className="connection">
+    <li
+      className={`connection ${
+        connection.id === activeCard ? 'connection--active' : ''
+      }`}
+      id={`connection-${connection.id}`}
+      onClick={handleConnectionClick}
+    >
       <div className="connection__image">
         <img src={connection.picture} alt={connection.name} />
       </div>
