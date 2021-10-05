@@ -5,15 +5,20 @@ import SignUp from './Components/SignUp/SignUp'
 import SignIn from './Components/SignIn/SignIn'
 import DeveloperWindow from './Components/UserWindow/DeveloperWindow'
 import ProjectLeaderWindow from './Components/UserWindow/ProjectLeaderWindow'
+import { ActiveCardProvider } from './Contexts/ActiveCard'
 
 import './App.css'
 const App = () => {
   const [user, setUser] = useState(null)
   const userWindow =
     user && user.role === 'developer' ? (
-      <DeveloperWindow />
+      <ActiveCardProvider>
+        <DeveloperWindow />
+      </ActiveCardProvider>
     ) : (
-      <ProjectLeaderWindow />
+      <ActiveCardProvider>
+        <ProjectLeaderWindow />
+      </ActiveCardProvider>
     )
   return (
     <Router>

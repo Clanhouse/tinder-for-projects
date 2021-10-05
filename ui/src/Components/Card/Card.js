@@ -30,7 +30,7 @@ const Card = ({
               <p className="header__description">{description}</p>
             </div>
           </div>
-          {skills ? (
+          {skills && Array.isArray(skills) && skills.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Skills</h3>
               <ul className="features__list">
@@ -42,15 +42,23 @@ const Card = ({
               </ul>
             </div>
           ) : null}
-          {achievements ? (
+          {achievements &&
+          Array.isArray(achievements) &&
+          achievements.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Achievements</h3>
               <ul className="features__list">
-                <li className="features__item">{achievements}</li>
+                {achievements.map((achievement) => (
+                  <li key={achievement.id} className="features__item">
+                    {achievement.name}
+                  </li>
+                ))}
               </ul>
             </div>
           ) : null}
-          {qualifications ? (
+          {qualifications &&
+          Array.isArray(qualifications) &&
+          qualifications.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Qualifications</h3>
               <ul className="features__list">
@@ -62,7 +70,7 @@ const Card = ({
               </ul>
             </div>
           ) : null}
-          {benefits ? (
+          {benefits && Array.isArray(benefits) && benefits.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Benefits</h3>
               <ul className="features__list">
@@ -76,14 +84,10 @@ const Card = ({
           ) : null}
         </div>
       </div>
-      {isProfile ? (
-        <div className="card__buttons">
-          <button className="thumbUp" onClick={handleClick}></button>
-          <button className="thumbDown" onClick={handleClick}></button>
-        </div>
-      ) : (
-        <div>ERROR</div>
-      )}
+      <div className="card__buttons">
+        <button className="thumbUp" onClick={handleClick}></button>
+        <button className="thumbDown" onClick={handleClick}></button>
+      </div>
     </div>
   )
 }
