@@ -16,4 +16,4 @@ public class RegistrationController {
         return registrationService.register(registrationRequest);
     }
 }
-}
+
