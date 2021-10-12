@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class TinderForProjectsApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(TinderForProjectsApplication.class, args);
     }
