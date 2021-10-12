@@ -1,4 +1,4 @@
-package com.github.clanhouse.tinderforprojects.tinderforprojects.service;
+package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.ProjectDevDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;

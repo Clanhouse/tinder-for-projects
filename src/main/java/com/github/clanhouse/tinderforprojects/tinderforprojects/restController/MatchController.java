@@ -8,7 +8,7 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.Compa
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.service.TableToMatchService;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl.TableToMatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +61,8 @@ public class MatchController {
     public TableToMatch getMatchById(@PathVariable Integer idMatch){
         return tableToMatchRepository.getById(idMatch);
     }
+
+
+
 }
 
