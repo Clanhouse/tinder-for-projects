@@ -7,13 +7,14 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.TableTo
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.TableToMatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class TableToMatchService {
+public class TableToMatchServiceImpl implements TableToMatchService {
 
     private TableToMatchRepository tableToMatchRepository;
 
@@ -22,7 +23,7 @@ public class TableToMatchService {
      private ProjectRepository projectRepository;
 
      @Autowired
-    public TableToMatchService(TableToMatchRepository tableToMatchRepository, DeveloperRepository developerRepository, ProjectRepository projectRepository) {
+    public TableToMatchServiceImpl(TableToMatchRepository tableToMatchRepository, DeveloperRepository developerRepository, ProjectRepository projectRepository) {
         this.tableToMatchRepository = tableToMatchRepository;
         this.developerRepository = developerRepository;
         this.projectRepository = projectRepository;

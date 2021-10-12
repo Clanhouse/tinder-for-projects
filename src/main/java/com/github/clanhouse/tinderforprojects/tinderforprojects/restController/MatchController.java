@@ -8,7 +8,7 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.Compa
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl.TableToMatchService;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl.TableToMatchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +27,15 @@ public class MatchController {
     private CompanyRepository companyRepository;
 
 
-    private TableToMatchService tableToMatchService;
+    private TableToMatchServiceImpl tableToMatchServiceImpl;
 
     @Autowired
-    public MatchController(DeveloperRepository developerRepository, ProjectRepository projectRepository, TableToMatchRepository tableToMatchRepository, CompanyRepository companyRepository, TableToMatchService tableToMatchService) {
+    public MatchController(DeveloperRepository developerRepository, ProjectRepository projectRepository, TableToMatchRepository tableToMatchRepository, CompanyRepository companyRepository, TableToMatchServiceImpl tableToMatchServiceImpl) {
         this.developerRepository = developerRepository;
         this.projectRepository = projectRepository;
         this.tableToMatchRepository = tableToMatchRepository;
         this.companyRepository = companyRepository;
-        this.tableToMatchService = tableToMatchService;
+        this.tableToMatchServiceImpl = tableToMatchServiceImpl;
     }
 
     @PostMapping("/addDev")
@@ -53,7 +53,7 @@ public class MatchController {
 
     @PostMapping("/addLikeForProject")
     public ResponseEntity addDevToMatch(@RequestBody ProjectDevDto projectDevDto) {
-        tableToMatchService.match(projectDevDto);
+        tableToMatchServiceImpl.match(projectDevDto);
         return new  ResponseEntity(HttpStatus.CREATED);
     }
 
