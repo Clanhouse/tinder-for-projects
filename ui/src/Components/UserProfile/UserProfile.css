@@ -90,3 +90,8 @@
     background-color: var(--color-primary-light);
     padding: 20px;
 }
+.email--control {
+    border: none;
+    font-size: 25px;
+    color: var(--color-primary)
+}
