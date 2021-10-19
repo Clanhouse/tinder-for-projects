@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/registration")
 @AllArgsConstructor
 public class RegistrationController {
+
     RegistrationService registrationService;
 
     public String register(@RequestBody RegistrationRequest registrationRequest) {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-class ApplicationUserService implements UserDetailsService {
+public class ApplicationUserService implements UserDetailsService {
 
     private final ApplicationUserRepository applicationUserRepository;
 
