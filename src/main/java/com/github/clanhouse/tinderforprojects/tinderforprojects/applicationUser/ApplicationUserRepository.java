@@ -1,7 +1,9 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.applicationUser;
 
-import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+@Repository
 public class ApplicationUserRepository {
     public Optional<Object> findByEmail(String email) {
 
