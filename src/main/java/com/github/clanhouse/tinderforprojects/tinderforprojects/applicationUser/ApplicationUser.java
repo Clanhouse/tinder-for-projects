@@ -20,35 +20,41 @@ public class ApplicationUser implements UserDetails {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String userName;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private UsersRole usersRole;
-    private Boolean locked;
-    private Boolean enabled;
+    private Boolean locked = false;
+    private Boolean enabled = false;
 
-    public ApplicationUser(String name,
-                           String userName,
+    public ApplicationUser(String firstNamename,
+                           String lastName,
                            String email,
                            String password,
-                           UsersRole usersRole,
-                           Boolean locked,
-                           Boolean enabled) {
-        this.name = name;
-        this.userName = userName;
+                           UsersRole usersRole
+                           ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.usersRole = usersRole;
-        this.locked = locked;
-        this.enabled = enabled;
+
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(usersRole.name());
         return Collections.singletonList(authority);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     @Override
@@ -58,7 +64,7 @@ public class ApplicationUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
 
     @Override
