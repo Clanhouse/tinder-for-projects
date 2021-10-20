@@ -39,9 +39,13 @@ function UserProfile() {
           center
           showCloseIcon={false}
         >
-          <div className="nameModal">
-            <span>Enter your name</span>
-            <input type="text" value={profile.name}></input>
+          <div className="modal">
+            <span className="modal--span">Enter your name</span>
+            <input
+              className="modal--control"
+              value={profile.name}
+            ></input>
+            <Button>Ok</Button>
           </div>
         </Modal>
         <Modal
@@ -50,18 +54,10 @@ function UserProfile() {
           center
           showCloseIcon={false}
         >
-          <div className="nameModal">
-            <span>Enter your email</span>
-            <Email className="email--control" placeholder="Enter your email" />
-            <Button
-              children={undefined}
-              size={undefined}
-              ghost={undefined}
-              mobile={undefined}
-              fullWidth={undefined}
-              style={undefined}
-              onClick={undefined}
-            />
+          <div className="modal">
+            <span className="modal--span">Enter your email</span>
+            <Email className="modal--control" placeholder={profile.email} />
+            <Button>Ok</Button>
           </div>
         </Modal>
         <Modal
@@ -70,23 +66,16 @@ function UserProfile() {
           center
           showCloseIcon={false}
         >
-          <div className="nameModal">
-            <span>Enter your phone</span>
+          <div className="modal">
+            <span className="modal--span">Enter your phone</span>
             <PhoneInput
-              placeholder="Enter phone number"
+              defaultCountry="PL"
+              placeholder={profile.phone}
               value={actualPhone}
               onChange={() => setActualPhone}
             />
-            <Button
-              children={undefined}
-              size={undefined}
-              ghost={undefined}
-              mobile={undefined}
-              fullWidth={undefined}
-              style={undefined}
-              onClick={undefined}
-            />
-          </div>{' '}
+            <Button>Ok</Button>
+          </div>
         </Modal>
       </div>
 

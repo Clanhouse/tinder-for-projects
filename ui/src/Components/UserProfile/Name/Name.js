@@ -8,7 +8,7 @@ const Name = (props) => {
     <div className="name">
       Name:
       <div className="name__right" onClick={() => props.setIsName(true)}>
-        {props.name} <Chevron />
+        {props.name} <Chevron className='name__right--chevron' />
       </div>
     </div>
   )

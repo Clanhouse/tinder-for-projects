@@ -10,6 +10,7 @@
 }
 .name__right:hover {
     cursor: pointer;
+    color: var(--color-secondary);
 }
 .nameModal {
     width: 30vw;

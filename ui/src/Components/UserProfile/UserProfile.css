@@ -82,16 +82,32 @@
 *:focus {
     outline: none;
 }
-.nameModal {
+.modal {
     width: 30vw;
     height: 60vh;
     border: 1px solid var(--color-primary-light);
     border-radius: 10px;
     background-color: var(--color-primary-light);
     padding: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
 }
-.email--control {
+.modal--control {
     border: none;
+    border-radius: 10px;
     font-size: 25px;
+    color: var(--color-primary)
+}
+.modal--span {
+    font-size: 25px;
+    font-weight: 500;
+}
+.PhoneInputInput {
+    font-size: 25px;
+    border: none;
+    border-radius: 10px;
     color: var(--color-primary)
 }

@@ -10,4 +10,5 @@
 }
 .phone__right:hover {
     cursor: pointer;
+    color: var(--color-secondary);
 }
