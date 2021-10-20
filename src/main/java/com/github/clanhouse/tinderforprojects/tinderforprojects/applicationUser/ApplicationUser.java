@@ -11,14 +11,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 public class ApplicationUser implements UserDetails {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "applicationUserSequence",
+            sequenceName = "applicationUserSequence",
+            allocationSize = 1
+    )
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
+            generator = "applicationUserSequence")
     private Long id;
     private String firstName;
     private String lastName;
@@ -34,7 +41,7 @@ public class ApplicationUser implements UserDetails {
                            String email,
                            String password,
                            UsersRole usersRole
-                           ) {
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
