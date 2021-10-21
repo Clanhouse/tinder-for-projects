@@ -3,6 +3,7 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +14,21 @@ import java.util.Optional;
 @RestController
 public class CompaniesController {
 
-    private CompanyRepository companyRepository;
+   private CompanyService companyService;
 
-    @Autowired
-    public CompaniesController(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
+   @Autowired
+    public CompaniesController(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     @PostMapping("/addCompany")
     public Company addCompany(@Valid @RequestBody Company company) {
-       return companyRepository.save(company);
+       return companyService.saveCompany(company);
     }
 
     @GetMapping("/getCompanyById/{idCompany}")
     public Optional<Company> getCompanyById(@PathVariable Integer idCompany){
-        return companyRepository.findById(idCompany);
+        return companyService.findCompanyById(idCompany);
     }
 
 
