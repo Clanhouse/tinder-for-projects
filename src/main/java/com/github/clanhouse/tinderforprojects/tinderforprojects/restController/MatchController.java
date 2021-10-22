@@ -46,7 +46,6 @@ public class MatchController {
 
     @PostMapping("/addProject")
     public void addProject(@RequestBody Project project) {
-
         projectRepository.save(project);
     }
 

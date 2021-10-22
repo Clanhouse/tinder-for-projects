@@ -1,9 +1,12 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.ProjectDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.ProjectService;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl.ProjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,29 +18,20 @@ import java.util.Optional;
 @RestController
 public class ProjectController {
 
-    private CompanyRepository companyRepository;
+    private ProjectService projectService;
 
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    public ProjectController(CompanyRepository companyRepository, ProjectRepository projectRepository) {
-        this.companyRepository = companyRepository;
-        this.projectRepository = projectRepository;
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
-
 
     @PostMapping("/addProject/{idCompany}")
     public Project addProjectForCompany(@Validated @RequestBody Project project, @PathVariable Integer idCompany) {
-        return companyRepository.findById(idCompany).map(company -> {
-            project.setCompany(company);
-            return projectRepository.save(project);
-        }).orElseThrow(() -> new ResourceNotFoundException("idCompany " + idCompany + " not found"));
-
+        return projectService.addProjectForCompany(project, idCompany);
     }
 
     @GetMapping("/getProjectById/{idProject}")
-    public Optional<Project> getProjectById(@PathVariable Integer idProject){
-       return projectRepository.findById(idProject);
+    public Optional<ProjectDto> getProjectById(@PathVariable Integer idProject){
+       return projectService.getProjectById(idProject);
     }
 
 
