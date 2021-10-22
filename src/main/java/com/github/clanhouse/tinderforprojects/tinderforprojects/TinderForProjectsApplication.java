@@ -1,7 +1,9 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.CompanyDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.DeveloperDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.ProjectDto;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
 import org.modelmapper.ModelMapper;
@@ -46,6 +48,14 @@ public class TinderForProjectsApplication {
                 map().setDescription(source.getDescription());
                 map().setQualifications(source.getQualifications());
                 map().setBenefits(source.getBenefits());
+            }
+        });
+        modelMapper.addMappings(new PropertyMap<Company, CompanyDto>() {
+            @Override
+            protected void configure() {
+                map().setCompanyId(source.getId());
+                map().setName(source.getCompanyName());
+                map().setProjects(new ArrayList<>());
             }
         });
         return modelMapper;

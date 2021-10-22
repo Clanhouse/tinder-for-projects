@@ -1,5 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.CompanyDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 
@@ -27,7 +28,7 @@ public class CompaniesController {
     }
 
     @GetMapping("/getCompanyById/{idCompany}")
-    public Optional<Company> getCompanyById(@PathVariable Integer idCompany){
+    public Optional<CompanyDto> getCompanyById(@PathVariable Integer idCompany){
         return companyService.findCompanyById(idCompany);
     }
 
