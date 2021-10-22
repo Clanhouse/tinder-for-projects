@@ -65,8 +65,8 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Developer findRandomDeveloper() {
-        return developerRepository.getFirstRandomDeveloper();
+    public DeveloperDto findRandomDeveloper() {
+        return modelMapper.map(developerRepository.getFirstRandomDeveloper(), DeveloperDto.class);
     }
 
 }

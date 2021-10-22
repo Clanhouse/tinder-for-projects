@@ -49,7 +49,7 @@ public class DeveloperController {
 
     }
     @GetMapping("/getRandomDeveloper")
-    public Developer getRandomDeveloper(){
+    public DeveloperDto getRandomDeveloper(){
         return developerService.findRandomDeveloper();
     }
 

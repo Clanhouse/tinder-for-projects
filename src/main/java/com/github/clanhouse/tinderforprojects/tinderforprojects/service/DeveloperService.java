@@ -12,7 +12,7 @@ public interface DeveloperService {
 
     Optional<DeveloperDto> findDeveloperById(Integer idDeveloper);
 
-    Developer findRandomDeveloper();
+    DeveloperDto findRandomDeveloper();
 
     Skill addSkillForDev(Integer idDeveloper, Skill skill);
 
