@@ -1,11 +1,13 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.DeveloperDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Skill;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.SkillRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +27,7 @@ public class DeveloperController {
 
     private SkillRepository skillRepository;
 
+
     public DeveloperController(DeveloperService developerService, DeveloperRepository developerRepository, SkillRepository skillRepository) {
         this.developerService = developerService;
         this.developerRepository = developerRepository;
@@ -37,15 +40,12 @@ public class DeveloperController {
     }
 
     @RequestMapping("/getDevById/{idDev}")
-    public Optional<Developer> getDeveloperById(@PathVariable Integer idDev){
+    public Optional<DeveloperDto> getDeveloperById(@PathVariable Integer idDev){
        return developerService.findDeveloperById(idDev);
     }
      @PostMapping("/addSkill/{idDev}")
     public Skill addSkillForDev(@PathVariable Integer idDev,@RequestBody Skill skill ){
-        return developerRepository.findById(idDev).map(dev -> {
-            skill.setDev(Collections.singletonList(dev));
-            return skillRepository.save(skill);
-        }).orElseThrow(() -> new ResourceNotFoundException("idCompany " + idDev + " not found"));
+        return developerService.addSkillForDev(idDev, skill);
 
     }
     @GetMapping("/getRandomDeveloper")

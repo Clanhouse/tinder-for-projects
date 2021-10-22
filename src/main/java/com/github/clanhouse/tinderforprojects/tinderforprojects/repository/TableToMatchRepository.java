@@ -1,7 +1,10 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.repository;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.ProjectDto;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.TableToMatch;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +14,10 @@ public interface TableToMatchRepository extends JpaRepository<TableToMatch, Inte
     boolean existsById(Integer idDev);
 
     Optional<TableToMatch> findByDeveloperIdAndProjectId(Integer idDev, Integer idProject);
+
+    @Query("SELECT p FROM TableToMatch t JOIN t.project p WHERE t.developer.id = :id AND t.isMatch = true")
+    List<Project> getAllLikedProjectByDevId(Integer id);
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.DeveloperDto;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Skill;
 
@@ -9,9 +10,11 @@ public interface DeveloperService {
 
     Developer saveDeveloper(Developer developer);
 
-    Optional<Developer> findDeveloperById(Integer idDeveloper);
+    Optional<DeveloperDto> findDeveloperById(Integer idDeveloper);
 
     Developer findRandomDeveloper();
+
+    Skill addSkillForDev(Integer idDeveloper, Skill skill);
 
 
 }

@@ -16,8 +16,8 @@ public class Skill {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            joinColumns = {@JoinColumn(name = "id_dev")},
-            inverseJoinColumns = {@JoinColumn(name = "id_skill")}
+            joinColumns = {@JoinColumn(name = "id_skill")},
+            inverseJoinColumns = {@JoinColumn(name = "id_dev")}
     )
     private List<Developer> dev;
 

@@ -11,4 +11,6 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 
     @Query(nativeQuery=true, value="SELECT *  FROM Developers ORDER BY random() LIMIT 1")
     Developer getFirstRandomDeveloper();
+
+
 }
