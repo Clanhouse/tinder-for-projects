@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
-import Profile from '../Profile/Profile'
 import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
 import ConnectionsList from '../ConnectionList/ConnectionsList'
+import UserProfileRouting from '../UserProfile/UserProfileRouting/UserProfileRouting'
 
 const Dashboard = ({ dashboardState }) => {
   const dashboard = useRef(null)
@@ -13,7 +13,7 @@ const Dashboard = ({ dashboardState }) => {
       case 'conversations':
         return showDashboard(<ConversationsList />)
       case 'profile':
-        return showDashboard(<Profile />)
+        return showDashboard(<UserProfileRouting />)
       case 'match':
         return hideDashboard()
       default:

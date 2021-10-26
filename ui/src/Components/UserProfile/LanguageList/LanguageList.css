@@ -1,0 +1,5 @@
+.languageList {
+    display: flex;
+    flex-flow: column;
+    margin: 15px;
+}

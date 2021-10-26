@@ -1,0 +1,13 @@
+.language {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: solid 1px var(--color-primary-light);
+    border-radius: 10px;
+}
+.language__right:hover {
+    cursor: pointer;
+    color: var(--color-secondary);
+}
