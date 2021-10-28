@@ -22,28 +22,31 @@ public class CompanyServiceImpl implements CompanyService {
     private ModelMapper modelMapper;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper modelMapper, ProjectRepository projectRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, ProjectRepository projectRepository, ModelMapper modelMapper) {
         this.companyRepository = companyRepository;
-        this.modelMapper = modelMapper;
         this.projectRepository = projectRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public Optional<CompanyDto> findCompanyById(Integer idCompany) {
         Company company = companyRepository.findById(idCompany).get();
         CompanyDto companyDto = modelMapper.map(company, CompanyDto.class);
-        List<Project> projectList = projectRepository.findAllByCompanyId(idCompany);
-        List<ProjectDto> projectDtoList = new ArrayList<>();
-        for (Project project : projectList) {
-            projectDtoList.add(modelMapper.map(project, ProjectDto.class));
-        }
-        companyDto.setProjects(projectDtoList);
+        companyDto.setProjects(getProjectDtoByCompanyId(idCompany));
         return Optional.of(companyDto);
-
     }
 
     @Override
     public Company saveCompany(Company company) {
         return companyRepository.save(company);
+    }
+
+    private List<ProjectDto> getProjectDtoByCompanyId(Integer idCompany){
+        List<Project> projectList = projectRepository.findAllByCompanyId(idCompany);
+        List<ProjectDto> projectDtoList = new ArrayList<>();
+        for (Project project : projectList) {
+            projectDtoList.add(modelMapper.map(project, ProjectDto.class));
+        }
+        return projectDtoList;
     }
 }

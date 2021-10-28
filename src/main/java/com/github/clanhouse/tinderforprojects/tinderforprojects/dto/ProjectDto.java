@@ -1,6 +1,7 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.dto;
 
 
+import java.util.List;
 
 public class ProjectDto {
 
@@ -10,6 +11,7 @@ public class ProjectDto {
     private String description;
     private String qualifications;
     private String benefits;
+    private List<DeveloperDto> likedDevs;
 
 
     public ProjectDto(Integer id, Integer companyId, String projectName, String description, String qualifications, String benefits) {
@@ -22,6 +24,14 @@ public class ProjectDto {
     }
 
     public ProjectDto() {
+    }
+
+    public void setLikedDevs(List<DeveloperDto> likedDevs) {
+        this.likedDevs = likedDevs;
+    }
+
+    public List<DeveloperDto> getLikedDevs() {
+        return likedDevs;
     }
 
     public Integer getId() {

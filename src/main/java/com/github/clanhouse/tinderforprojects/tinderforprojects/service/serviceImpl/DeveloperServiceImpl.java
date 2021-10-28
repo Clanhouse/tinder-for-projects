@@ -10,8 +10,10 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.Devel
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.SkillRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
+import lombok.NonNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,20 +25,17 @@ import java.util.Optional;
 public class DeveloperServiceImpl implements DeveloperService {
 
     private DeveloperRepository developerRepository;
-
     private SkillRepository skillRepository;
-
     private TableToMatchRepository tableToMatchRepository;
-
     private ModelMapper modelMapper;
+
 
     @Autowired
     public DeveloperServiceImpl(DeveloperRepository developerRepository, SkillRepository skillRepository, TableToMatchRepository tableToMatchRepository, ModelMapper modelMapper) {
         this.developerRepository = developerRepository;
         this.skillRepository = skillRepository;
-        this.tableToMatchRepository =tableToMatchRepository;
+        this.tableToMatchRepository = tableToMatchRepository;
         this.modelMapper = modelMapper;
-
     }
 
     @Override
@@ -46,18 +45,23 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Optional<DeveloperDto> findDeveloperById(Integer idDeveloper) {
-        List<Project> projectList = tableToMatchRepository.getAllLikedProjectByDevId(idDeveloper);
-        List<ProjectDto> projectDtoList = new ArrayList<>();
-        for (Project project : projectList) {
-            projectDtoList.add(modelMapper.map(project, ProjectDto.class));
-        }
         Developer developer = developerRepository.findById(idDeveloper).get();
         DeveloperDto developerDto = modelMapper.map(developer, DeveloperDto.class);
-        developerDto.setLikedProjects(projectDtoList);
+        developerDto.setLikedProjects(getLikedProjectsByDevId(idDeveloper));
         return Optional.of(developerDto);
     }
 
-    public Skill addSkillForDev(Integer idDev, Skill skill){
+    private List<ProjectDto> getLikedProjectsByDevId(Integer idDeveloper){
+        List<Project> projects = tableToMatchRepository.getAllLikedProjectByDevId(idDeveloper);
+        List<ProjectDto> projectDtoList = new ArrayList<>();
+        for(Project project : projects){
+            projectDtoList.add(modelMapper.map(project, ProjectDto.class));
+        }
+        return projectDtoList;
+    }
+
+
+    public Skill addSkillForDev(Integer idDev, Skill skill) {
         return developerRepository.findById(idDev).map(dev -> {
             skill.setDev(Collections.singletonList(dev));
             return skillRepository.save(skill);
