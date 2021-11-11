@@ -1,29 +1,44 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.CompanyMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.CompanyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
 
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
+    private final CompanyMapper companyMapper;
 
-    @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
+    @Override
+    public List<CompanyDTO> findAll() {
+        return companyMapper.toCompanyDTOs(companyRepository.findAll());
     }
 
     @Override
-    public Optional<Company> findCompanyById(Integer idCompany) {
-        return companyRepository.findById(idCompany);
+    public CompanyDTO findById(Integer id) {
+        if(isExistById(id)){
+            return companyMapper.toCompanyDTO(companyRepository.getById(id));
+        }else{
+            throw new ResourceNotFoundException("Company not found");
+        }
     }
 
     @Override
-    public Company saveCompany(Company company) {
-        return companyRepository.save(company);
+    public CompanyDTO create(CompanyDTO companyDTO) {
+        companyDTO.setId(companyRepository.save(companyMapper.toCompany(companyDTO)).getId());
+        return companyDTO;
+    }
+
+
+    public boolean isExistById(Integer id){
+        return companyRepository.findById(id).isPresent();
     }
 }

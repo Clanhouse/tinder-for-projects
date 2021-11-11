@@ -1,90 +1,44 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
+@Data
 public class Project extends StampedModel{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String projectName;
+    private String name;
 
     private String description;
 
-    private String qualifications;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name="projects_skills",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skill> skills;
 
-    private String benefits;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name="projects_benefits",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "benefits_id")
+    )
+    private List<Benefit> benefits;
 
-    @JsonIgnore
-    @OneToOne
-    private TableToMatch tableToMatch;
+    @OneToMany(mappedBy = "project")
+    private List<TableToMatch> tableToMatch;
 
     @ManyToOne(fetch = FetchType.LAZY)
-   // @JoinColumn(name = "company_id", nullable = false)
-    @JsonIgnore
     private Company company;
 
 
-    public Project() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public TableToMatch getTableToMatch() {
-        return tableToMatch;
-    }
-
-    public void setTableToMatch(TableToMatch tableToMatch) {
-        this.tableToMatch = tableToMatch;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public String getQualifications() {
-        return qualifications;
-    }
-
-    public void setQualifications(String qualifications) {
-        this.qualifications = qualifications;
-    }
-
-    public String getBenefits() {
-        return benefits;
-    }
-
-    public void setBenefits(String benefits) {
-        this.benefits = benefits;
-    }
 }

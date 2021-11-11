@@ -1,41 +1,62 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.DeveloperMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.SkillRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DeveloperServiceImpl implements DeveloperService {
 
-    private DeveloperRepository developerRepository;
+    private final DeveloperRepository developerRepository;
+    private final TableToMatchRepository tableToMatchRepository;
+    private final DeveloperMapper developerMapper;
 
-    private SkillRepository skillRepository;
-
-    @Autowired
-    public DeveloperServiceImpl(DeveloperRepository developerRepository, SkillRepository skillRepository) {
-        this.developerRepository = developerRepository;
-        this.skillRepository = skillRepository;
+    @Override
+    public DeveloperDTO create(DeveloperDTO developerDTO) {
+        developerDTO.setId(developerRepository.save(developerMapper.toDeveloper(developerDTO)).getId());
+        return developerDTO;
     }
 
 
     @Override
-    public Developer saveDeveloper(Developer developer) {
-        return developerRepository.save(developer);
+    public DeveloperDTO findById(Integer id) {
+        if(developerRepository.findById(id).isPresent()){
+            DeveloperDTO developerDTO = developerMapper.toDeveloperDTO(developerRepository.getById(id));
+            List<ProjectToLikedProjectDTO> likedProjectDTOs = developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(id));
+            developerDTO.setLikedProjects(likedProjectDTOs);
+            return developerDTO;
+        }else{
+            throw new ResourceNotFoundException("Developer not found");
+        }
     }
 
     @Override
-    public Optional<Developer> findDeveloperById(Integer idDeveloper) {
-        return developerRepository.findById(idDeveloper);
+    public DeveloperDTO findRandom() {
+        return developerMapper.toDeveloperDTO(developerRepository.getFirstRandomDeveloper());
     }
 
     @Override
-    public Developer findRandomDeveloper() {
-        return developerRepository.getFirstRandomDeveloper();
+    public List<DeveloperDTO> findAll() {
+        List<DeveloperDTO> developerDTOS = developerMapper.toDeveloperDTOs(developerRepository.findAll());
+        for(DeveloperDTO developerDTO : developerDTOS){
+            developerDTO.setLikedProjects(developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(developerDTO.getId())));
+        }
+        return developerDTOS;
     }
+
+    public boolean isExistById(Integer id){
+        return developerRepository.findById(id).isPresent();
+    }
+
+
 
 }
