@@ -4,5 +4,5 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.match.
 
 public interface TableToMatchService {
 
-    void match(ProjectDevDto projectDevDto);
+    boolean match(ProjectDevDto projectDevDto);
 }

@@ -22,8 +22,8 @@ public class TableToMatchServiceImpl implements TableToMatchService {
     private final ProjectRepository projectRepository;
 
 
-     @Override
-    public void match(ProjectDevDto projectDevDto) {
+
+    public boolean match(ProjectDevDto projectDevDto) {
         Integer devId = projectDevDto.getIdDev();
         Integer prjId = projectDevDto.getIdProject();
         Optional<TableToMatch> tableToMatchOptional =
@@ -33,6 +33,7 @@ public class TableToMatchServiceImpl implements TableToMatchService {
             TableToMatch tableToMatch = tableToMatchOptional.get();
             tableToMatch.setMatch(true);
             tableToMatchRepository.save(tableToMatch);
+            return true;
 
         } else {
             TableToMatch tableToMatch = new TableToMatch();
@@ -42,6 +43,8 @@ public class TableToMatchServiceImpl implements TableToMatchService {
             tableToMatch.setProject(getProjectById);
             tableToMatchRepository.save(tableToMatch);
         }
+        return false;
     }
+
 }
 

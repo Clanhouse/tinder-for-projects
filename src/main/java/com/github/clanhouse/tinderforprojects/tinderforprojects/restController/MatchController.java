@@ -8,6 +8,7 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.Compa
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.service.TableToMatchService;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl.TableToMatchServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/match")
 @RequiredArgsConstructor
+@ResponseStatus(HttpStatus.OK)
 public class MatchController {
 
+    private final TableToMatchServiceImpl tableToMatchService;
+
+    @PostMapping
+    public boolean match(@RequestBody ProjectDevDto projectDevDto){
+        return tableToMatchService.match(projectDevDto);
+    }
 
 }
 

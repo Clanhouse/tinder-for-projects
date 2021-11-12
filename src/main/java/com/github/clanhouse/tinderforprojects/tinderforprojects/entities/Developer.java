@@ -43,7 +43,5 @@ public class Developer extends StampedModel {
     @OneToMany(mappedBy = "developer")
     private List<TableToMatch> tableToMatch;
 
-    public Developer() {
-    }
 
 }

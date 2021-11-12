@@ -15,6 +15,8 @@ public interface TableToMatchRepository extends JpaRepository<TableToMatch, Inte
 
     Optional<TableToMatch> findByDeveloperIdAndProjectId(Integer idDev, Integer idProject);
 
+    Optional<TableToMatch> findByDeveloperIdOrProjectId(Integer idDev, Integer idProject);
+
 
     @Query("SELECT p FROM TableToMatch t JOIN t.project p WHERE t.developer.id = :id AND t.isMatch = true")
     List<Project> getAllLikedProjectsByDevId(Integer id);
@@ -22,5 +24,6 @@ public interface TableToMatchRepository extends JpaRepository<TableToMatch, Inte
     @Query("SELECT d FROM TableToMatch t JOIN t.developer d WHERE t.project.id = :id AND t.isMatch = true")
     List<Developer> getAllLikedDevsByProjectId(Integer id);
 
+    Optional<Boolean> findMatchByProjectId(Integer projectId);
 
 }
