@@ -24,6 +24,8 @@ public class Developer extends StampedModel {
 
     private String description;
 
+    private String profession;
+
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name="developers_achievements",

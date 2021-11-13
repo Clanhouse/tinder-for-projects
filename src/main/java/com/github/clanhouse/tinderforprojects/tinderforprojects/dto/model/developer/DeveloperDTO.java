@@ -14,6 +14,7 @@ public class DeveloperDTO {
     private String firstName;
     private String lastName;
     private String description;
+    private String profession;
     private List<AchievementDTO> achievements;
     private List<SkillDTO> skills;
     private List<ProjectToLikedProjectDTO> likedProjects;
