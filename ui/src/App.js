@@ -24,6 +24,7 @@ const App = () => {
     )
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>
+      <div className='App' data-theme={theme}>
     <Router>
       <Switch>
         <Route path="/signin">
@@ -37,6 +38,7 @@ const App = () => {
         </Route>
       </Switch>
     </Router>
+    </div>
     </ThemeContext.Provider>
   )
 }

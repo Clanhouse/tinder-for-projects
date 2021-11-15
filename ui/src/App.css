@@ -1,0 +1,16 @@
+[data-theme="light"]{
+    --background-color: var(--color-primary-light);
+    --background-color-secondary: #ffffff;
+    --text-color: #202020;
+}
+
+[data-theme="dark"]{
+    --background-color: #1a1a1a;
+    --bacground-color-secondary: #853333;
+    --text-color: #ccd3e0;
+}
+
+.App{
+    background-color: var(--background-color)  var(--background-color-secondary);
+    color: var(--text-color);
+}

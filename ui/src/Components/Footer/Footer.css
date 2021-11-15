@@ -1,7 +1,7 @@
 .footer {
   border-top: 2px solid var(--color-primary-light);
   padding: 30px;
-  color: var(--color-primary);
+  color: var(--text-color);
 }
 
 .footer__nav-list {
@@ -58,10 +58,10 @@
 
   .footer a {
     display: block;
-    background-color: var(--color-primary-light);
+    background-color: var(--background-color);
     padding: 0.6em 1em;
     border-radius: 10px;
-    color: var(--text-color-dark);
+    color: var(--text-color);
   }
 
   .footer a:hover {

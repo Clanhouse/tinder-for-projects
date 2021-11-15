@@ -7,7 +7,7 @@
 }
 
 .connection--active {
-  background-color: var(--color-primary-light);
+  background-color: var(--background-color);
 }
 
 .connection:hover {
@@ -25,7 +25,7 @@
 }
 
 .connection__name {
-  background-color: var(--color-primary);
+  background-color: var(--background-color);
   border-radius: 10px;
   width: 100%;
   padding: 10px;

@@ -1,5 +1,6 @@
 .profile {
-    color: var(--text-color-dark);
+    color: var(--text-color);
+    background-color: var(--background-color-secondary);
     font-size: 1em;
     display: flex;
     flex-flow: column;
@@ -24,7 +25,7 @@
 }
 .profile__accounts--header {
     font-weight: 500;
-    color: var(--color-primary);
+    color: var(--text-color);
     padding: 15px;
     margin-bottom: 20px;
 }
@@ -33,7 +34,7 @@
 }
 .profile__settings--header {
     font-weight: 500;
-    color: var(--color-primary);
+    color: var(--text-color);
     padding: 15px;
     margin-bottom: 20px;
 }
@@ -47,7 +48,7 @@
     border-radius: 10px;
 }
 .profile--item--right {
-    color: var(--color-primary);
+    color: var(--text-color);
     align-items: flex-start;
 }
 .profile--item--right:hover {
@@ -65,7 +66,7 @@
     fill: var(--color-primary-light);
 }
 .profile__modal {
-    background-color: var(--color-primary-light);
+    background-color: var(--background-color);
     border-radius: 8px;
     display: flex;
     flex-flow: column;
@@ -87,7 +88,7 @@
     height: 60vh;
     border: 1px solid var(--color-primary-light);
     border-radius: 10px;
-    background-color: var(--color-primary-light);
+    background-color: var(--background-color-secondary);
     padding: 20px;
     display: flex;
     flex-flow: column;
@@ -99,7 +100,7 @@
     border: none;
     border-radius: 10px;
     font-size: 25px;
-    color: var(--color-primary)
+    color: var(--text-color)
 }
 .modal--span {
     font-size: 25px;
@@ -109,5 +110,5 @@
     font-size: 25px;
     border: none;
     border-radius: 10px;
-    color: var(--color-primary)
+    color: var(--text-color)
 }
