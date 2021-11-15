@@ -1,9 +1,8 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef } from 'react'
 import ConversationsList from '../ConversationsList/ConversationsList'
 import './Dashboard.css'
 import ConnectionsList from '../ConnectionList/ConnectionsList'
 import UserProfileRouting from '../UserProfile/UserProfileRouting/UserProfileRouting'
-import { ThemeContext } from '../../Contexts/ThemeContext'
 
 const Dashboard = ({ dashboardState }) => {
   const dashboard = useRef(null)
