@@ -1,28 +1,30 @@
-import React, { useState } from 'react'
-import Button from '../Button/Button'
-import { Modal } from 'react-responsive-modal'
-import 'react-responsive-modal/styles.css'
-import './UserProfile.css'
-import { useHistory } from 'react-router-dom'
-import { profile } from './data'
-import AccountSettings from './AccountSettings/AccountSettings'
-import Settings from './Settings/Settings'
-import Email from 'react-email-autocomplete'
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import React, { useState, useContext } from "react";
+import Button from "../Button/Button";
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import "./UserProfile.css";
+import { useHistory } from "react-router-dom";
+import { profile } from "./data";
+import AccountSettings from "./AccountSettings/AccountSettings";
+import Settings from "./Settings/Settings";
+import Email from "react-email-autocomplete";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import { ThemeContext } from "../../Contexts/ThemeContext";
 
 function UserProfile() {
-  const history = useHistory()
+  const {theme} = useContext(ThemeContext)
+  const history = useHistory();
   // const [userProfileState, setUserProfileState] = useState({ profile })
-  const [isName, setIsName] = useState(false)
-  const [isEmail, setIsEmail] = useState(false)
-  const [isPhone, setIsPhone] = useState(false)
-  const [isLogout, setIsLogout] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
-  const [actualPhone, setActualPhone] = useState()
+  const [isName, setIsName] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+  const [actualPhone, setActualPhone] = useState();
 
   return (
-    <div className="profile">
+    <div className={"profile"}>
       <div className="profile__accounts">
         <span className="profile__accounts--header">ACCOUNT SETTINGS</span>
         <AccountSettings
@@ -41,11 +43,8 @@ function UserProfile() {
         >
           <div className="modal">
             <span className="modal--span">Enter your name</span>
-            <input
-              className="modal--control"
-              value={profile.name}
-            ></input>
-            <Button>Ok</Button>
+            <input className="modal--control" value={profile.name}></input>
+            <Button>OK</Button>
           </div>
         </Modal>
         <Modal
@@ -57,7 +56,7 @@ function UserProfile() {
           <div className="modal">
             <span className="modal--span">Enter your email</span>
             <Email className="modal--control" placeholder={profile.email} />
-            <Button>Ok</Button>
+            <Button>OK</Button>
           </div>
         </Modal>
         <Modal
@@ -74,7 +73,7 @@ function UserProfile() {
               value={actualPhone}
               onChange={() => setActualPhone}
             />
-            <Button>Ok</Button>
+            <Button>OK</Button>
           </div>
         </Modal>
       </div>
@@ -139,7 +138,7 @@ function UserProfile() {
         </div>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default UserProfile
+export default UserProfile;

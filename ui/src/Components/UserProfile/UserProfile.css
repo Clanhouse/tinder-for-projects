@@ -1,5 +1,6 @@
 .profile {
-    color: var(--text-color-dark);
+    color: var(--text-color);
+    background-color: var(--background-color-secondary);
     font-size: 1em;
     display: flex;
     flex-flow: column;
@@ -24,7 +25,7 @@
 }
 .profile__accounts--header {
     font-weight: 500;
-    color: var(--color-primary);
+    color: var(--color-secondary);
     padding: 15px;
     margin-bottom: 20px;
 }
@@ -33,7 +34,7 @@
 }
 .profile__settings--header {
     font-weight: 500;
-    color: var(--color-primary);
+    color: var(--color-secondary);
     padding: 15px;
     margin-bottom: 20px;
 }
@@ -43,8 +44,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border: solid 1px var(--color-primary-light);
+    border: solid 1px var(--background-color);
     border-radius: 10px;
+    border-top: none;
 }
 .profile--item--right {
     color: var(--color-primary);

@@ -7,7 +7,7 @@
 }
 
 .conversation:hover {
-  background-color: var(--color-primary-light);
+  background-color: var(--background-color);
 }
 
 .conversation__image {
@@ -28,11 +28,13 @@
 
 .conversation__name {
   font-size: 24px;
+  color: var(--text-color);
 }
 
 .conversation__message {
   font-size: 16px;
   margin: 0;
+  color: var(--text-color);
 }
 
 .conversation__menu {

@@ -3,7 +3,7 @@
   height: calc(100vh - 80px);
   width: 390px;
   overflow: hidden;
-  background-color: var(--color-white);
+  background-color: var(--background-color-secondary);
   padding: 15px 0;
 }
 

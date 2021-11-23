@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   padding: 0 15px;
-  background-color: #fff;
+  background-color: var(--background-color-secondary);
   z-index: 2;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .user-window-menu__item {
-  color: var(--color-primary);
+  color: var(--text-color);
   font-size: 20px;
   padding-bottom: 1px;
   margin: 0 10px;
