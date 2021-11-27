@@ -1,17 +1,22 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Skill;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface DeveloperService {
 
-    Developer saveDeveloper(Developer developer);
+    DeveloperDTO create(DeveloperDTO developerDTO);
 
-    Optional<Developer> findDeveloperById(Integer idDeveloper);
+    DeveloperDTO findById(Integer id);
 
-    Developer findRandomDeveloper();
+    DeveloperDTO findRandom();
+
+    List<DeveloperDTO> findAll();
+
+    boolean isExistById(Integer id);
+
+
 
 
 }

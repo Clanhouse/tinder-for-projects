@@ -1,92 +1,49 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.List;
 
-@CrossOrigin
 @Entity
-@Table(name = "Developers")
+@Table(name = "developers")
+@Data
 public class Developer extends StampedModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
     private String description;
 
-    private String achievements;
+    private String profession;
 
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name="developers_achievements",
+            joinColumns = @JoinColumn(name = "developer_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id")
+    )
+    private List<Achievement> achievements;
 
-    @ManyToMany(mappedBy = "dev")
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name="developers_skills",
+            joinColumns = @JoinColumn(name = "developer_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
     private List<Skill> skills;
 
-    @JsonIgnore
-    @OneToOne
-    private TableToMatch tableToMatch;
+    @OneToMany(mappedBy = "developer")
+    private List<TableToMatch> tableToMatch;
 
-    public Developer() {
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public TableToMatch getTableToMatch() {
-        return tableToMatch;
-    }
-
-    public void setTableToMatch(TableToMatch tableToMatch) {
-        this.tableToMatch = tableToMatch;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Skill> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
-
-    public String getAchievements() {
-        return achievements;
-    }
-
-    public void setAchievements(String achievements) {
-        this.achievements = achievements;
-    }
 }

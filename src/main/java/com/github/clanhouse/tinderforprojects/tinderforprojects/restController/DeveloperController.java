@@ -1,57 +1,72 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Skill;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.SkillRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/developer")
 public class DeveloperController {
 
-    private DeveloperService developerService;
+    private final DeveloperService developerService;
 
-    private DeveloperRepository developerRepository;
-
-    private SkillRepository skillRepository;
-
-    public DeveloperController(DeveloperService developerService, DeveloperRepository developerRepository, SkillRepository skillRepository) {
-        this.developerService = developerService;
-        this.developerRepository = developerRepository;
-        this.skillRepository = skillRepository;
+    @GetMapping
+    public ResponseEntity<List<DeveloperDTO>> findAll(){
+        List<DeveloperDTO> developerDTOS = developerService.findAll();
+        if(developerDTOS.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else {
+            return new ResponseEntity<>(developerDTOS, HttpStatus.OK);
+        }
     }
 
-    @RequestMapping("/addDev")
-    public Developer addNewDeveloper(@RequestBody Developer developer){
-        return developerService.saveDeveloper(developer);
+    @GetMapping("/{id}")
+    public ResponseEntity<DeveloperDTO> findById(@PathVariable Integer id){
+        try{
+            DeveloperDTO developerDTO = developerService.findById(id);
+            return new ResponseEntity<>(developerDTO, HttpStatus.OK);
+        }catch (ResourceNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping("/getDevById/{idDev}")
-    public Optional<Developer> getDeveloperById(@PathVariable Integer idDev){
-       return developerService.findDeveloperById(idDev);
-    }
-     @PostMapping("/addSkill/{idDev}")
-    public Skill addSkillForDev(@PathVariable Integer idDev,@RequestBody Skill skill ){
-        return developerRepository.findById(idDev).map(dev -> {
-            skill.setDev(Collections.singletonList(dev));
-            return skillRepository.save(skill);
-        }).orElseThrow(() -> new ResourceNotFoundException("idCompany " + idDev + " not found"));
 
+    @GetMapping("/random")
+    public ResponseEntity<DeveloperDTO> findRandom(){
+        return new ResponseEntity<>(developerService.findRandom(), HttpStatus.OK);
     }
-    @GetMapping("/getRandomDeveloper")
-    public Developer getRandomDeveloper(){
-        return developerService.findRandomDeveloper();
+
+    @PostMapping
+    public ResponseEntity<DeveloperDTO> create(@RequestBody DeveloperDTO developerDTO){
+        try{
+            developerService.create(developerDTO);
+            return new ResponseEntity<>(developerDTO, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @PutMapping
+    public ResponseEntity<DeveloperDTO> update(@RequestBody DeveloperDTO developerDTO){
+        if(developerService.isExistById(developerDTO.getId())){
+            try{
+                developerService.create(developerDTO);
+                return new ResponseEntity<>(developerDTO, HttpStatus.OK);
+            }catch (Exception e){
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     }
 

@@ -1,54 +1,24 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "teble_to_matches")
+@Table(name = "table_to_matches")
+@Data
 public class TableToMatch extends StampedModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Developer developer;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Project project;
 
+    @Column(name = "is_match")
     boolean isMatch;
 
-    public TableToMatch() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Developer getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public boolean isMatch() {
-        return isMatch;
-    }
-
-    public void setMatch(boolean match) {
-        isMatch = match;
-    }
 }
