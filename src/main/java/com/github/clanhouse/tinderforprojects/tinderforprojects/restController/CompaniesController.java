@@ -1,21 +1,15 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.CompanyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 @CrossOrigin
 @RestController

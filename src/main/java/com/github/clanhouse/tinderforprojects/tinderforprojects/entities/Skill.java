@@ -1,10 +1,7 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
+import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 

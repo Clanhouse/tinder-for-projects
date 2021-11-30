@@ -2,7 +2,6 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achie
 
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 public class AchievementDTO {

@@ -1,8 +1,7 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 import javax.persistence.*;
 import java.util.List;

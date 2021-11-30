@@ -1,6 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
+
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

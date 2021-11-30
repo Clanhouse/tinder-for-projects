@@ -1,7 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.DeveloperToLikedProjectDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.CompanyToProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;

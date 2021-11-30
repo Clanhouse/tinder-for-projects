@@ -1,7 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.AchievementService;
 import lombok.RequiredArgsConstructor;
