@@ -9,6 +9,6 @@ public interface AchievementService {
     List<AchievementDTO> findAll();
     AchievementDTO findById(Integer id);
     AchievementDTO create(AchievementDTO achievementDTO);
-    boolean isExistById(Integer id);
+    AchievementDTO update(Integer id, String name);
 
 }
