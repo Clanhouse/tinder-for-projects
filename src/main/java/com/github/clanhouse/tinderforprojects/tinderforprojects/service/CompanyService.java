@@ -14,6 +14,6 @@ public interface CompanyService {
 
     CompanyDTO create(CompanyDTO companyDTO);
 
-    boolean isExistById(Integer id);
+    CompanyDTO update(Integer id, String name);
 
 }
