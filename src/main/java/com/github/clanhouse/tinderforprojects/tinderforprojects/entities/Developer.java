@@ -1,10 +1,11 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.model.StampedModel;
 import lombok.Data;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -16,9 +17,12 @@ public class Developer extends StampedModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Size(min = 3, message = "Name must have at least 3 characters")
     @Column(name = "first_name")
     private String firstName;
-
+    @NotBlank
+    @Size(min = 3, message = "Lastname must have at least 3 characters")
     @Column(name = "last_name")
     private String lastName;
 

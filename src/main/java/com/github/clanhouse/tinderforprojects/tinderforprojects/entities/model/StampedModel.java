@@ -1,4 +1,4 @@
-package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
+package com.github.clanhouse.tinderforprojects.tinderforprojects.entities.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
