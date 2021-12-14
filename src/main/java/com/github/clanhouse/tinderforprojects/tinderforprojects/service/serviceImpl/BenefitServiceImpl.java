@@ -2,7 +2,8 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.BenefitMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.benefit.BenefitDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.BenefitRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.BenefitService;
 import lombok.RequiredArgsConstructor;
@@ -19,26 +20,34 @@ public class BenefitServiceImpl implements BenefitService {
 
     @Override
     public List<BenefitDTO> findAll() {
-        return benefitMapper.toBenefitsDTOs(benefitRepository.findAll());
+        List<BenefitDTO> benefits = benefitMapper.toBenefitsDTOs(benefitRepository.findAll());
+        if(benefits.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
+        return benefits;
     }
 
     @Override
     public BenefitDTO findById(Integer id) {
-        if(isExistById(id)){
-            return benefitMapper.toBenefitsDTO(benefitRepository.getById(id));
-        }else {
-            throw new ResourceNotFoundException("Benefit not found");
-        }
+        return benefitMapper.toBenefitsDTO(benefitRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
     }
 
     @Override
     public BenefitDTO create(BenefitDTO benefitDTO) {
-        benefitDTO.setId(benefitRepository.save(benefitMapper.toBenefit(benefitDTO)).getId());
-        return benefitDTO;
+        if(isExistByName(benefitDTO.getName())) throw new ControllerException(ControllerError.EXISTS);
+        return benefitMapper.toBenefitsDTO(benefitRepository.save(benefitMapper.toBenefit(benefitDTO)));
     }
 
     @Override
-    public boolean isExistById(Integer id) {
-        return benefitRepository.findById(id).isPresent();
+    public BenefitDTO update(Integer id, String name) {
+        if(isExistByName(name)) throw new ControllerException(ControllerError.EXISTS);
+        BenefitDTO benefit = benefitMapper.toBenefitsDTO(benefitRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+        benefit.setName(name);
+        return benefitMapper.toBenefitsDTO(benefitRepository.save(benefitMapper.toBenefit(benefit)));
+    }
+
+
+    private boolean isExistByName(String name) {
+        return benefitRepository.findByName(name).isPresent();
     }
 }
