@@ -3,7 +3,6 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.ProjectService;
@@ -39,7 +38,7 @@ public class ProjectController {
         try{
             ProjectDTO projectDTO = projectService.findById(id);
             return new ResponseEntity<>(projectDTO, HttpStatus.OK);
-        }catch (ResourceNotFoundException e){
+        }catch (RuntimeException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

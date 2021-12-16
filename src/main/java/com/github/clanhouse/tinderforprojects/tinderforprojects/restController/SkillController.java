@@ -1,7 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class SkillController {
         try{
             SkillDTO skillDTO = skillService.findById(id);
             return new ResponseEntity<>(skillDTO, HttpStatus.OK);
-        }catch (ResourceNotFoundException e){
+        }catch (RuntimeException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
