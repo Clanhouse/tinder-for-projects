@@ -9,6 +9,6 @@ public interface BenefitService {
     List<BenefitDTO> findAll();
     BenefitDTO findById(Integer id);
     BenefitDTO create(BenefitDTO benefitDTO);
-    boolean isExistById(Integer id);
+    BenefitDTO update(Integer id, String name);
 
 }

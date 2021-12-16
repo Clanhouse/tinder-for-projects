@@ -2,7 +2,8 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.CompanyMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -19,26 +20,34 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CompanyDTO> findAll() {
-        return companyMapper.toCompanyDTOs(companyRepository.findAll());
+        List<CompanyDTO> companies = companyMapper.toCompanyDTOs(companyRepository.findAll());
+        if(companies.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
+        return companies;
     }
 
     @Override
     public CompanyDTO findById(Integer id) {
-        if(isExistById(id)){
-            return companyMapper.toCompanyDTO(companyRepository.getById(id));
-        }else{
-            throw new ResourceNotFoundException("Company not found");
-        }
+        return companyMapper.toCompanyDTO(companyRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
     }
 
     @Override
     public CompanyDTO create(CompanyDTO companyDTO) {
-        companyDTO.setId(companyRepository.save(companyMapper.toCompany(companyDTO)).getId());
-        return companyDTO;
+        if(isExistByName(companyDTO.getName())) throw new ControllerException(ControllerError.EXISTS);
+        return companyMapper.toCompanyDTO(companyRepository.save(companyMapper.toCompany(companyDTO)));
+    }
+
+    @Override
+    public CompanyDTO update(Integer id, String name) {
+        if(isExistByName(name)) throw new ControllerException(ControllerError.EXISTS);
+        CompanyDTO company = companyMapper.toCompanyDTO(companyRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+        company.setName(name);
+        return companyMapper.toCompanyDTO(companyRepository.save(companyMapper.toCompany(company)));
     }
 
 
-    public boolean isExistById(Integer id){
-        return companyRepository.findById(id).isPresent();
+    private boolean isExistByName(String name) {
+        return companyRepository.findByName(name).isPresent();
     }
 }

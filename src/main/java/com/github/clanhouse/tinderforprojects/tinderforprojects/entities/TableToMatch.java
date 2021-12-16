@@ -1,5 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.entities;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.model.StampedModel;
 import lombok.Data;
 
 import javax.persistence.*;

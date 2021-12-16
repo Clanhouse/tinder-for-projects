@@ -14,7 +14,7 @@ public interface DeveloperService {
 
     List<DeveloperDTO> findAll();
 
-    boolean isExistById(Integer id);
+    DeveloperDTO update(DeveloperDTO developerDTO);
 
 
 

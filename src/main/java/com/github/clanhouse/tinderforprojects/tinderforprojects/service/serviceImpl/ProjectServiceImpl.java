@@ -6,7 +6,6 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.develo
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.DeveloperToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
@@ -39,7 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
             projectDTO.setLikedDevelopers(likedDevelopersDTOs);
             return projectDTO;
         }else{
-            throw new ResourceNotFoundException("Developer not found");
+            throw new RuntimeException("Developer not found");
         }
     }
 

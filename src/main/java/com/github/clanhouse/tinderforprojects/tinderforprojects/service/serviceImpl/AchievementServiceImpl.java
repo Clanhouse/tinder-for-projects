@@ -2,7 +2,8 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.AchievementMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.AchievementRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.AchievementService;
 import lombok.RequiredArgsConstructor;
@@ -19,26 +20,34 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Override
     public List<AchievementDTO> findAll() {
-        return achievementMapper.toAchievementDTOs(achievementRepository.findAll());
+        List<AchievementDTO> achievements = achievementMapper.toAchievementDTOs(achievementRepository.findAll());
+        if(achievements.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
+        return achievements;
     }
 
     @Override
     public AchievementDTO findById(Integer id) {
-        if(isExistById(id)){
-            return achievementMapper.toAchievementDTO(achievementRepository.getById(id));
-        }else {
-            throw new ResourceNotFoundException("Achievement not found");
-        }
+        return achievementMapper.toAchievementDTO(achievementRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
     }
 
     @Override
     public AchievementDTO create(AchievementDTO achievementDTO) {
-        achievementDTO.setId(achievementRepository.save(achievementMapper.toAchievement(achievementDTO)).getId());
-        return achievementDTO;
+        if(isExistByName(achievementDTO.getName())) throw new ControllerException(ControllerError.EXISTS);
+        return achievementMapper.toAchievementDTO(achievementRepository.save(achievementMapper.toAchievement(achievementDTO)));
     }
 
     @Override
-    public boolean isExistById(Integer id) {
-        return achievementRepository.findById(id).isPresent();
+    public AchievementDTO update(Integer id, String name) {
+        if(isExistByName(name)) throw new ControllerException(ControllerError.EXISTS);
+        AchievementDTO achievement = achievementMapper.toAchievementDTO(achievementRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+        achievement.setName(name);
+        return achievementMapper.toAchievementDTO(achievementRepository.save(achievementMapper.toAchievement(achievement)));
+    }
+
+
+    private boolean isExistByName(String name) {
+        return achievementRepository.findByName(name).isPresent();
     }
 }

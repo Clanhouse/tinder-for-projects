@@ -3,7 +3,6 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.SkillMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ResourceNotFoundException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.SkillRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.SkillService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,7 @@ public class SkillServiceImpl implements SkillService {
         if(isExistById(id)){
             return skillMapper.toSkillDTO(skillRepository.getById(id));
         }else {
-            throw new ResourceNotFoundException("Skill not found");
+            throw new RuntimeException("Skill not found");
         }
     }
 
