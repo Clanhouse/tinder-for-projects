@@ -2,9 +2,11 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.DeveloperMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,18 +19,28 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     private final DeveloperRepository developerRepository;
     private final DeveloperMapper developerMapper;
+    private final TableToMatchRepository tableToMatchRepository;
 
     @Override
     public List<DeveloperDTO> findAll() {
         List<DeveloperDTO> developers = developerMapper.toDeveloperDTOs(developerRepository.findAll());
         if(developers.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
+        for(DeveloperDTO developerDTO : developers){
+            developerDTO.setLikedProjects(developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(developerDTO.getId())));
+        }
         return developers;
     }
 
     @Override
     public DeveloperDTO findById(Integer id) {
-        return developerMapper.toDeveloperDTO(developerRepository.findById(id)
-                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+        if(developerRepository.findById(id).isPresent()){
+            DeveloperDTO developerDTO = developerMapper.toDeveloperDTO(developerRepository.getById(id));
+            List<ProjectToLikedProjectDTO> likedProjectDTOs = developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(id));
+            developerDTO.setLikedProjects(likedProjectDTOs);
+            return developerDTO;
+        }else{
+            throw new ControllerException(ControllerError.NOT_FOUND);
+        }
     }
 
     @Override
@@ -47,9 +59,6 @@ public class DeveloperServiceImpl implements DeveloperService {
                 .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
         return developerMapper.toDeveloperDTO(developerRepository.save(developerMapper.toDeveloper(developer)));
     }
-
-
-
 
 
 }

@@ -1,4 +1,4 @@
-package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
+package com.github.clanhouse.tinderforprojects.tinderforprojects.controller;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.AchievementService;

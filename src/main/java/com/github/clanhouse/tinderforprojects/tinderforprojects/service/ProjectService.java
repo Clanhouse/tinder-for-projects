@@ -15,7 +15,5 @@ public interface ProjectService {
 
     List<ProjectDTO> findAll();
 
-    boolean isExistById(Integer id);
-
 
 }

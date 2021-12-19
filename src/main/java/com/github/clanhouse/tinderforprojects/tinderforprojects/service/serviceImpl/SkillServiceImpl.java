@@ -3,6 +3,8 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.SkillMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.SkillRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.SkillService;
 import lombok.RequiredArgsConstructor;
@@ -19,27 +21,25 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public List<SkillDTO> findAll() {
-        return skillMapper.toSkillDTOs(skillRepository.findAll());
+        List<SkillDTO> skills = skillMapper.toSkillDTOs(skillRepository.findAll());
+        if(skills.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
+        return skills;
     }
 
     @Override
     public SkillDTO findById(Integer id) {
-        if(isExistById(id)){
-            return skillMapper.toSkillDTO(skillRepository.getById(id));
-        }else {
-            throw new RuntimeException("Skill not found");
-        }
+        return skillMapper.toSkillDTO(skillRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
     }
 
     @Override
     public SkillDTO create(SkillDTO skillDTO) {
-        skillDTO.setId(skillRepository.save(skillMapper.toSkill(skillDTO)).getId());
-        return skillDTO;
+        if(isExistByName(skillDTO.getName())) throw new ControllerException(ControllerError.EXISTS);
+        return skillMapper.toSkillDTO(skillRepository.save(skillMapper.toSkill(skillDTO)));
     }
 
-    @Override
-    public boolean isExistById(Integer id) {
-        return skillRepository.findById(id).isPresent();
+    private boolean isExistByName(String name) {
+        return skillRepository.findByName(name).isPresent();
     }
-    
+
 }

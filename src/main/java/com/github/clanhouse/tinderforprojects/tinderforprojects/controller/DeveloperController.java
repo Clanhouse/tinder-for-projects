@@ -1,4 +1,4 @@
-package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
+package com.github.clanhouse.tinderforprojects.tinderforprojects.controller;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
