@@ -18,46 +18,17 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping
-    public ResponseEntity<List<ProjectDTO>> findAll(){
-        List<ProjectDTO> projectDTOS = projectService.findAll();
-        if(projectDTOS.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else{
-            return new ResponseEntity<>(projectDTOS, HttpStatus.OK);
-        }
+    public List<ProjectDTO> findAll(){
+        return projectService.findAll();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectDTO> findById(@PathVariable Integer id){
-        try{
-            ProjectDTO projectDTO = projectService.findById(id);
-            return new ResponseEntity<>(projectDTO, HttpStatus.OK);
-        }catch (RuntimeException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ProjectDTO findById(@PathVariable Integer id){
+       return projectService.findById(id);
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<ProjectDTO> create(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
-        try{
-            projectService.create(id,projectDTO);
-            return new ResponseEntity<>(projectDTO, HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ProjectDTO> update(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
-        if(projectService.isExistById(projectDTO.getId())){
-            try{
-                projectService.create(id,projectDTO);
-                return new ResponseEntity<>(projectDTO, HttpStatus.OK);
-            }catch (Exception e){
-                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-            }
-        }else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+    public ProjectDTO create(@PathVariable Integer companyId, @RequestBody ProjectDTO projectDTO){
+      return projectService.create(companyId,projectDTO);
     }
 
 
