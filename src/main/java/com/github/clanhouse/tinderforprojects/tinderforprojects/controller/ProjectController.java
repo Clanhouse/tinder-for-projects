@@ -1,20 +1,13 @@
-package com.github.clanhouse.tinderforprojects.tinderforprojects.restController;
+package com.github.clanhouse.tinderforprojects.tinderforprojects.controller;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.ProjectService;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController

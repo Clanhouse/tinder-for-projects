@@ -1,10 +1,7 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.CompanyMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.ProjectMapper;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.DeveloperToLikedProjectDTO;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
