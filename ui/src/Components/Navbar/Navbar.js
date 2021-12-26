@@ -1,15 +1,15 @@
-import React, { useRef } from 'react'
-import RouterButton from '../RouterButton/RouterButton'
-import './Navbar.css'
-import logo from '../../Data/Images/logo.png'
-import { ReactComponent as BurgerButton } from '../../Data/Images/bars-solid.svg'
-import { ReactComponent as CloseButton } from '../../Data/Images/times-solid.svg'
+import React, { useRef } from "react";
+import RouterButton from "../RouterButton/RouterButton";
+import "./Navbar.css";
+import logo from "../../Data/Images/logo.png";
+import { ReactComponent as BurgerButton } from "../../Data/Images/bars-solid.svg";
+import { ReactComponent as CloseButton } from "../../Data/Images/times-solid.svg";
 
 const Navbar = () => {
-  const menu = useRef(null)
+  const menu = useRef(null);
   const toggleMenu = () => {
-    menu.current.classList.toggle('navbar__nav--active')
-  }
+    menu.current.classList.toggle("navbar__nav--active");
+  };
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -18,7 +18,7 @@ const Navbar = () => {
           <div className="navbar__close" onClick={toggleMenu}>
             <CloseButton />
           </div>
-          <ul className="navbar__nav-list">
+          <ul className="navbar__nav-list" data-testid="ul-navbar">
             <li className="navbar__nav-item">
               <a href="/products">Products</a>
             </li>
@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
