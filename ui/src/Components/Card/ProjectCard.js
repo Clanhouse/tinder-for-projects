@@ -3,6 +3,7 @@ import axios from 'axios'
 import LoaderSpinner from '../LoaderSpinner/LoaderSpinner'
 import Card from './Card'
 import { useActiveCard } from '../../Contexts/ActiveCard'
+import { server } from '../../paths/paths'
 
 const ProjectCard = () => {
   const [cardData, setCardData] = useState(null)
@@ -14,7 +15,7 @@ const ProjectCard = () => {
   const fetchRandomCardData = async () => {
     try {
       const result = await axios.get(
-        `https://desolate-chamber-92880.herokuapp.com/getRandomProject`
+        `${server}/project`
       )
       setCardData(result.data)
     } catch (err) {
@@ -27,7 +28,7 @@ const ProjectCard = () => {
   const fetchCardData = async (id) => {
     try {
       const result = await axios.get(
-        `https://desolate-chamber-92880.herokuapp.com/getProjectById/${id}`
+        `${server}/project/${id}`
       )
       setCardData(result.data)
     } catch (err) {
