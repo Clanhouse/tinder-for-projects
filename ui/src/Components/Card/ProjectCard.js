@@ -3,7 +3,6 @@ import axios from 'axios'
 import LoaderSpinner from '../LoaderSpinner/LoaderSpinner'
 import Card from './Card'
 import { useActiveCard } from '../../Contexts/ActiveCard'
-import { server } from '../../paths/paths'
 
 const ProjectCard = () => {
   const [cardData, setCardData] = useState(null)
@@ -15,7 +14,7 @@ const ProjectCard = () => {
   const fetchRandomCardData = async () => {
     try {
       const result = await axios.get(
-        `${server}/project`
+        `${process.env.REACT_APP_API}/project`
       )
       setCardData(result.data)
     } catch (err) {
@@ -28,7 +27,7 @@ const ProjectCard = () => {
   const fetchCardData = async (id) => {
     try {
       const result = await axios.get(
-        `${server}/project/${id}`
+        `${process.env.REACT_APP_API}/project/${id}`
       )
       setCardData(result.data)
     } catch (err) {
