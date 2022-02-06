@@ -14,7 +14,7 @@ const DeveloperCard = () => {
   const fetchRandomCardData = async () => {
     try {
       const result = await axios.get(
-        `https://desolate-chamber-92880.herokuapp.com/getRandomDeveloper`
+        `${process.env.REACT_APP_API}/developer/random`
       )
       setCardData(result.data)
     } catch (err) {
@@ -27,7 +27,7 @@ const DeveloperCard = () => {
   const fetchCardData = async (id) => {
     try {
       const result = await axios.get(
-        `https://desolate-chamber-92880.herokuapp.com/getDevById/${id}`
+        `${process.env.REACT_APP_API}/developer/${id}`
       )
       setCardData(result.data)
     } catch (err) {
