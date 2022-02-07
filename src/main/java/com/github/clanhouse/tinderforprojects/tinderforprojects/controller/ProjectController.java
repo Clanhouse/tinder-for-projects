@@ -26,7 +26,7 @@ public class ProjectController {
        return projectService.findById(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{companyId}")
     public ProjectDTO create(@PathVariable Integer companyId, @RequestBody ProjectDTO projectDTO){
       return projectService.create(companyId,projectDTO);
     }
