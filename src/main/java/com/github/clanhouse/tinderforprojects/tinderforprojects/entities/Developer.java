@@ -49,5 +49,10 @@ public class Developer extends StampedModel {
     @OneToMany(mappedBy = "developer")
     private List<TableToMatch> tableToMatch;
 
+    @OneToMany(
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "developer_id")
+    private List<Photo> photos;
+
 
 }
