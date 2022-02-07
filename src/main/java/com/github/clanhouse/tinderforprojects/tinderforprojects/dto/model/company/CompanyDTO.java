@@ -1,5 +1,6 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.photo.PhotoDTO;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -14,5 +15,6 @@ public class CompanyDTO {
     @Size(min = 3, message = "Name must have at least 3 characters")
     private String name;
     private List<ProjectToCompanyDTO> projects;
+    private List<PhotoDTO> photos;
 
 }

@@ -55,4 +55,5 @@ public class Developer extends StampedModel {
     private List<Photo> photos;
 
 
+
 }

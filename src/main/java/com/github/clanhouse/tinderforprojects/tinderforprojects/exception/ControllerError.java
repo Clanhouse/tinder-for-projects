@@ -4,7 +4,8 @@ public enum ControllerError {
 
     NOT_FOUND("Resource not found"),
     EMPTY("Resource has no content"),
-    EXISTS("Resource already exists");
+    EXISTS("Resource already exists"),
+    BAD_REQUEST("Bad request");
 
     private String message;
 

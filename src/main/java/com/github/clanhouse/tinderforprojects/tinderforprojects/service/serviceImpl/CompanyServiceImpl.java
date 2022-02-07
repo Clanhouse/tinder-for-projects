@@ -1,10 +1,13 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.CompanyMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.PhotoMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.company.CompanyDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.photo.PhotoDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.PhotoRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
+    private final PhotoRepository photoRepository;
+    private final PhotoMapper photoMapper;
 
     @Override
     public List<CompanyDTO> findAll() {
@@ -27,8 +32,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyDTO findById(Integer id) {
-        return companyMapper.toCompanyDTO(companyRepository.findById(id)
-                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+       if(companyRepository.findById(id).isPresent()){
+           CompanyDTO companyDTO = companyMapper.toCompanyDTO(companyRepository.getById(id));
+           companyDTO.setPhotos(photoMapper.toPhotoDTOs(photoRepository.findByCompanyId(id)));
+           return companyDTO;
+       }else {
+           throw new ControllerException(ControllerError.NOT_FOUND);
+       }
     }
 
     @Override

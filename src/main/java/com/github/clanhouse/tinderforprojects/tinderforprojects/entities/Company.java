@@ -29,5 +29,10 @@ public class Company extends StampedModel {
     )
     private List<Project> projects = new ArrayList<>();
 
+    @OneToMany(
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "company_id")
+    private List<Photo> photos;
+
 
 }
