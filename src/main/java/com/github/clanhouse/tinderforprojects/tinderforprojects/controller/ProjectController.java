@@ -1,6 +1,8 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.controller;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.benefit.BenefitDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.ProjectService;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -27,8 +29,23 @@ public class ProjectController {
     }
 
     @PostMapping("/{id}")
-    public ProjectDTO create(@PathVariable Integer companyId, @RequestBody ProjectDTO projectDTO){
-      return projectService.create(companyId,projectDTO);
+    public ProjectDTO create(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
+      return projectService.create(id,projectDTO);
+    }
+
+    @PutMapping("/basic/{id}")
+    public ProjectDTO updateBasicInformation(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
+        return projectService.updateBasicInformation(id,projectDTO);
+    }
+
+    @PutMapping("/skills/{id}")
+    public ProjectDTO updateSkills(@PathVariable Integer id, @RequestBody List<SkillDTO> skillDTOs){
+        return projectService.updateSkills(id, skillDTOs);
+    }
+
+    @PutMapping("/benefits/{id}")
+    public ProjectDTO updateBenefits(@PathVariable Integer id, @RequestBody List<BenefitDTO> benefitDTOs){
+        return projectService.updateBenefits(id, benefitDTOs);
     }
 
 

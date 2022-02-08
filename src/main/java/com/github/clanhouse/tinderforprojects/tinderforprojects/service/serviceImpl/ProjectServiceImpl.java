@@ -1,9 +1,15 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.BenefitMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.CompanyMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.ProjectMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.SkillMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.benefit.BenefitDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.DeveloperToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.project.ProjectDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Benefit;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
@@ -23,6 +29,8 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final CompanyRepository companyRepository;
     private final ProjectMapper projectMapper;
+    private final BenefitMapper benefitMapper;
+    private final SkillMapper skillMapper;
     private final TableToMatchRepository tableToMatchRepository;
 
     @Override
@@ -55,6 +63,36 @@ public class ProjectServiceImpl implements ProjectService {
         projectDTO.setCompany(projectMapper.toCompanyDTO(companyRepository.getById(companyId)));
         return projectMapper.toProjectDTO(projectRepository.save(projectMapper.toProject(projectDTO)));
     }
+
+
+    @Override
+    public ProjectDTO updateBasicInformation(Integer id, ProjectDTO projectDTO) {
+        return projectMapper.toProjectDTO(projectRepository.findById(id)
+                .map(projectFromDb -> {
+                    projectFromDb.setName(projectDTO.getName());
+                    projectFromDb.setDescription(projectDTO.getDescription());
+                    return projectRepository.save(projectFromDb);
+                }).orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+    }
+
+    @Override
+    public ProjectDTO updateSkills(Integer id, List<SkillDTO> skillDTOs) {
+        return projectMapper.toProjectDTO(projectRepository.findById(id)
+        .map(projectFromDb -> {
+            projectFromDb.setSkills(skillMapper.toSkills(skillDTOs));
+            return projectRepository.save(projectFromDb);
+        }).orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+    }
+
+    @Override
+    public ProjectDTO updateBenefits(Integer id, List<BenefitDTO> benefitDTOs) {
+        return projectMapper.toProjectDTO(projectRepository.findById(id)
+                .map(projectFromDb -> {
+                    projectFromDb.setBenefits(benefitMapper.toBenefits(benefitDTOs));
+                    return projectRepository.save(projectFromDb);
+                }).orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+    }
+
 
     private boolean isExistById(Integer id) {
         return projectRepository.findById(id).isPresent();
