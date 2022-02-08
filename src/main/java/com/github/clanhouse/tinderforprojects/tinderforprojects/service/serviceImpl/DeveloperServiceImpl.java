@@ -1,8 +1,12 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.AchievementMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.DeveloperMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.SkillMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
@@ -20,25 +24,28 @@ public class DeveloperServiceImpl implements DeveloperService {
     private final DeveloperRepository developerRepository;
     private final DeveloperMapper developerMapper;
     private final TableToMatchRepository tableToMatchRepository;
+    private final AchievementMapper achievementMapper;
+    private final SkillMapper skillMapper;
 
     @Override
     public List<DeveloperDTO> findAll() {
         List<DeveloperDTO> developers = developerMapper.toDeveloperDTOs(developerRepository.findAll());
-        if(developers.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
-        for(DeveloperDTO developerDTO : developers){
+        if (developers.isEmpty()) throw new ControllerException(ControllerError.EMPTY);
+        for (DeveloperDTO developerDTO : developers) {
             developerDTO.setLikedProjects(developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(developerDTO.getId())));
         }
         return developers;
     }
 
+
     @Override
     public DeveloperDTO findById(Integer id) {
-        if(developerRepository.findById(id).isPresent()){
+        if (developerRepository.findById(id).isPresent()) {
             DeveloperDTO developerDTO = developerMapper.toDeveloperDTO(developerRepository.getById(id));
             List<ProjectToLikedProjectDTO> likedProjectDTOs = developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(id));
             developerDTO.setLikedProjects(likedProjectDTOs);
             return developerDTO;
-        }else{
+        } else {
             throw new ControllerException(ControllerError.NOT_FOUND);
         }
     }
@@ -54,10 +61,33 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public DeveloperDTO update(DeveloperDTO developerDTO) {
-        DeveloperDTO developer = developerMapper.toDeveloperDTO(developerRepository.findById(developerDTO.getId())
-                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
-        return developerMapper.toDeveloperDTO(developerRepository.save(developerMapper.toDeveloper(developer)));
+    public DeveloperDTO updatePersonalInformation(Integer id, DeveloperDTO developerDTO) {
+        return developerMapper.toDeveloperDTO(developerRepository.findById(id)
+                .map(developerFromDb -> {
+                    developerFromDb.setFirstName(developerDTO.getFirstName());
+                    developerFromDb.setLastName(developerDTO.getLastName());
+                    developerFromDb.setDescription(developerDTO.getDescription());
+                    developerFromDb.setProfession(developerDTO.getProfession());
+                    return developerRepository.save(developerFromDb);
+                }).orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+    }
+
+    @Override
+    public DeveloperDTO updateAchievements(Integer id, List<AchievementDTO> achievementDTOs) {
+        return developerMapper.toDeveloperDTO(developerRepository.findById(id)
+        .map(developerFromDb -> {
+            developerFromDb.setAchievements(achievementMapper.toAchievements(achievementDTOs));
+            return developerRepository.save(developerFromDb);
+        }).orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+    }
+
+    @Override
+    public DeveloperDTO updateSkills(Integer id, List<SkillDTO> skillDTOs) {
+        return developerMapper.toDeveloperDTO(developerRepository.findById(id)
+                .map(developerFromDb -> {
+                    developerFromDb.setSkills(skillMapper.toSkills(skillDTOs));
+                    return developerRepository.save(developerFromDb);
+                }).orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
     }
 
 
