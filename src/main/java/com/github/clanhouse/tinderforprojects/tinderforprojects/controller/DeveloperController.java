@@ -9,7 +9,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/developer")
+@RequestMapping("/developers")
 public class DeveloperController {
 
     private final DeveloperService developerService;

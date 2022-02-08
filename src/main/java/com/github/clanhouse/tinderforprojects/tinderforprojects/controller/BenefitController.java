@@ -10,7 +10,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/benefit")
+@RequestMapping("/benefits")
 public class BenefitController {
 
     private final BenefitService benefitService;

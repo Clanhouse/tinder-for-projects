@@ -11,7 +11,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/company")
+@RequestMapping("/companys")
 public class CompanyController {
 
     private final CompanyService companyService;

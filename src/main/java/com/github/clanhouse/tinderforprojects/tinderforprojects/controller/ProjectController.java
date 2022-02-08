@@ -12,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @Data
-@RequestMapping("/project")
+@RequestMapping("/projects")
 public class ProjectController {
 
     private final ProjectService projectService;
