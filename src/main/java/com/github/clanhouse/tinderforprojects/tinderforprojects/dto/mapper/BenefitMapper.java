@@ -12,7 +12,7 @@ public interface BenefitMapper {
 
     BenefitDTO toBenefitsDTO(Benefit benefit);
     List<BenefitDTO> toBenefitsDTOs(List<Benefit> benefits);
-    @InheritInverseConfiguration(name = "toBenefitsDTO")
+    @InheritInverseConfiguration(name = "toBenefitsDTOs")
     List<Benefit> toBenefits(List<BenefitDTO> benefitDTOS);
     Benefit toBenefit(BenefitDTO benefitDTO);
 
