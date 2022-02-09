@@ -37,17 +37,17 @@ public class DeveloperController {
         return developerService.create(developerDTO);
     }
 
-    @PutMapping("/personal/{id}")
+    @PutMapping("/{id}/personal")
     public DeveloperDTO updatePersonalInformation(@PathVariable Integer id, @RequestBody DeveloperDTO developerDTO) {
         return developerService.updatePersonalInformation(id, developerDTO);
     }
 
-    @PutMapping("/achievements/{id}")
+    @PutMapping("/{id}/achievements")
     public DeveloperDTO updateAchievements(@PathVariable Integer id, @RequestBody List<AchievementDTO> achievementDTOs) {
         return developerService.updateAchievements(id, achievementDTOs);
     }
 
-    @PutMapping("/skills/{id}")
+    @PutMapping("/{id}/skills")
     public DeveloperDTO updateSkills(@PathVariable Integer id, @RequestBody List<SkillDTO> skillDTOs) {
         return developerService.updateSkills(id, skillDTOs);
     }

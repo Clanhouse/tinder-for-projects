@@ -20,34 +20,34 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping
-    public List<ProjectDTO> findAll(){
+    public List<ProjectDTO> findAll() {
         return projectService.findAll();
     }
+
     @GetMapping("/{id}")
-    public ProjectDTO findById(@PathVariable Integer id){
-       return projectService.findById(id);
+    public ProjectDTO findById(@PathVariable Integer id) {
+        return projectService.findById(id);
     }
 
     @PostMapping("/{id}")
-    public ProjectDTO create(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
-      return projectService.create(id,projectDTO);
+    public ProjectDTO create(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO) {
+        return projectService.create(id, projectDTO);
     }
 
-    @PutMapping("/basic/{id}")
-    public ProjectDTO updateBasicInformation(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
-        return projectService.updateBasicInformation(id,projectDTO);
+    @PutMapping("/{id}/basic")
+    public ProjectDTO updateBasicInformation(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO) {
+        return projectService.updateBasicInformation(id, projectDTO);
     }
 
-    @PutMapping("/skills/{id}")
-    public ProjectDTO updateSkills(@PathVariable Integer id, @RequestBody List<SkillDTO> skillDTOs){
+    @PutMapping("/{id}/skills")
+    public ProjectDTO updateSkills(@PathVariable Integer id, @RequestBody List<SkillDTO> skillDTOs) {
         return projectService.updateSkills(id, skillDTOs);
     }
 
-    @PutMapping("/benefits/{id}")
-    public ProjectDTO updateBenefits(@PathVariable Integer id, @RequestBody List<BenefitDTO> benefitDTOs){
+    @PutMapping("/{id}/benefits")
+    public ProjectDTO updateBenefits(@PathVariable Integer id, @RequestBody List<BenefitDTO> benefitDTOs) {
         return projectService.updateBenefits(id, benefitDTOs);
     }
-
 
 
 }
