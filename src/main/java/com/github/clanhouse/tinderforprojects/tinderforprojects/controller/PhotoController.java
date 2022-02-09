@@ -13,7 +13,7 @@ public class PhotoController {
 
     private final PhotoService photoService;
 
-    @PostMapping("/{type}/{id}")
+    @PostMapping("/{id}/{type}")
     public void upload(@RequestBody byte[] image, @PathVariable Integer id, @PathVariable String type) {
         photoService.upload(image, id, type);
     }
