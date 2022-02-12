@@ -29,6 +29,7 @@ public class ProjectController {
         return projectService.findById(id);
     }
 
+
     @PostMapping("/{id}")
     public ProjectDTO create(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO) {
         return projectService.create(id, projectDTO);
@@ -37,6 +38,7 @@ public class ProjectController {
     @PutMapping("/{id}/basic")
     public ProjectDTO updateBasicInformation(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO) {
         return projectService.updateBasicInformation(id, projectDTO);
+
     }
 
     @PutMapping("/{id}/skills")

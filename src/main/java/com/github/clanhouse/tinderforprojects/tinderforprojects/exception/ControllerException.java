@@ -8,7 +8,7 @@ public class ControllerException extends RuntimeException{
         this.controllerError = controllerError;
     }
 
-    public ControllerError getStudentError() {
+    public ControllerError getError() {
         return controllerError;
     }
 
