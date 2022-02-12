@@ -1,6 +1,7 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.photo.PhotoDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class DeveloperDTO {
     private List<AchievementDTO> achievements;
     private List<SkillDTO> skills;
     private List<ProjectToLikedProjectDTO> likedProjects;
+    private List<PhotoDTO> photos;
 
 }

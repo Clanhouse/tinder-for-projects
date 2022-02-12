@@ -1,11 +1,13 @@
 package com.github.clanhouse.tinderforprojects.tinderforprojects.service.serviceImpl;
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.DeveloperMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.PhotoMapper;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.PhotoRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ public class DeveloperServiceImpl implements DeveloperService {
     private final DeveloperRepository developerRepository;
     private final DeveloperMapper developerMapper;
     private final TableToMatchRepository tableToMatchRepository;
+    private final PhotoRepository photoRepository;
+    private final PhotoMapper photoMapper;
 
     @Override
     public List<DeveloperDTO> findAll() {
@@ -37,6 +41,7 @@ public class DeveloperServiceImpl implements DeveloperService {
             DeveloperDTO developerDTO = developerMapper.toDeveloperDTO(developerRepository.getById(id));
             List<ProjectToLikedProjectDTO> likedProjectDTOs = developerMapper.toProjectDTOs(tableToMatchRepository.getAllLikedProjectsByDevId(id));
             developerDTO.setLikedProjects(likedProjectDTOs);
+            developerDTO.setPhotos(photoMapper.toPhotoDTOs(photoRepository.findByDeveloperId(id)));
             return developerDTO;
         }else{
             throw new ControllerException(ControllerError.NOT_FOUND);

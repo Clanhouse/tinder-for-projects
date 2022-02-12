@@ -15,10 +15,19 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ControllerException.class)
     public ResponseEntity<ErrorInfo> handleException(ControllerException e) {
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        if (ControllerError.NOT_FOUND.equals(e.getStudentError())) {
+        if (ControllerError.NOT_FOUND.equals(e.getError())) {
             httpStatus = HttpStatus.NOT_FOUND;
         }
-        return ResponseEntity.status(httpStatus).body(new ErrorInfo(e.getStudentError().getMessage()));
+        if(ControllerError.BAD_REQUEST.equals(e.getError())){
+            httpStatus = HttpStatus.BAD_REQUEST;
+        }
+        if(ControllerError.EXISTS.equals(e.getError())){
+            httpStatus = HttpStatus.CONFLICT;
+        }
+        if(ControllerError.EMPTY.equals(e.getError())){
+            httpStatus = HttpStatus.NO_CONTENT;
+        }
+        return ResponseEntity.status(httpStatus).body(new ErrorInfo(e.getError().getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
