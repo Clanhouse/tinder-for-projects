@@ -17,6 +17,7 @@ public interface AchievementMapper {
     @InheritInverseConfiguration(name = "toAchievementDTO")
     Achievement toAchievement(AchievementDTO achievementDTO);
 
+
     @InheritInverseConfiguration(name = "toAchievementDTOs")
     List<Achievement> toAchievements(List<AchievementDTO> achievementsDTO);
 
