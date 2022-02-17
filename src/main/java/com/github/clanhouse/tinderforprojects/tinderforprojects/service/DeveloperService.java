@@ -12,7 +12,7 @@ public interface DeveloperService {
 
     DeveloperDTO findById(Integer id);
 
-    DeveloperDTO findRandom();
+    DeveloperDTO findRandom(Integer projectId);
 
     List<DeveloperDTO> findAll();
 
