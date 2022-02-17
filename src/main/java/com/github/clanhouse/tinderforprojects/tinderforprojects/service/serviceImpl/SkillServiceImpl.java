@@ -2,6 +2,7 @@ package com.github.clanhouse.tinderforprojects.tinderforprojects.service.service
 
 
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.SkillMapper;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.achievement.AchievementDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
@@ -36,6 +37,15 @@ public class SkillServiceImpl implements SkillService {
     public SkillDTO create(SkillDTO skillDTO) {
         if(isExistByName(skillDTO.getName())) throw new ControllerException(ControllerError.EXISTS);
         return skillMapper.toSkillDTO(skillRepository.save(skillMapper.toSkill(skillDTO)));
+    }
+
+    @Override
+    public SkillDTO update(Integer id, String name) {
+        if(isExistByName(name)) throw new ControllerException(ControllerError.EXISTS);
+        SkillDTO skill = skillMapper.toSkillDTO(skillRepository.findById(id)
+                .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND)));
+        skill.setName(name);
+        return skillMapper.toSkillDTO(skillRepository.save(skillMapper.toSkill(skill)));
     }
 
     private boolean isExistByName(String name) {
