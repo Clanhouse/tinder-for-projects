@@ -27,9 +27,9 @@ public class DeveloperController {
         return developerService.findById(id);
     }
 
-    @GetMapping("/random")
-    public DeveloperDTO findRandom() {
-        return developerService.findRandom();
+    @GetMapping("/random/{projectId}")
+    public DeveloperDTO findRandom(@PathVariable Integer projectId) {
+        return developerService.findRandom(projectId);
     }
 
     @PostMapping

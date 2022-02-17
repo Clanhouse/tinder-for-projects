@@ -35,6 +35,11 @@ public class ProjectController {
         return projectService.create(id, projectDTO);
     }
 
+    @GetMapping("/random/{developerId}")
+    public ProjectDTO random(@PathVariable Integer developerId){
+        return projectService.findRandom(developerId);
+    }
+
     @PutMapping("/{id}/basic")
     public ProjectDTO updateBasicInformation(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO) {
         return projectService.updateBasicInformation(id, projectDTO);
