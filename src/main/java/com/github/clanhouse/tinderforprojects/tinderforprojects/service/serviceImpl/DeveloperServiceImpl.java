@@ -12,8 +12,6 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.develo
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
-import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.TableToMatch;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
@@ -69,11 +67,16 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public DeveloperDTO findRandom(Integer projectId) {
-        List<Developer> developers = developerRepository.getFirstRandomDeveloper(projectId);
+        List<Developer> developers = developerRepository.getRandomDevelopers(projectId);
         for(Developer developer : developers){
-            if(!tableToMatchRepository.findByDeveloperIdAndProjectId(developer.getId(), projectId).isPresent()){
-                return developerMapper.toDeveloperDTO(developer);
+            if(tableToMatchRepository.findByDeveloperIdAndProjectId(developer.getId(), projectId).isPresent()){
+                if(!tableToMatchRepository.findByDeveloperIdAndProjectId(developer.getId(), projectId).get().isMatch()){
+                    return developerMapper.toDeveloperDTO(developer);
+                } else {
+                    throw new ControllerException(ControllerError.NOT_FOUND);
+                }
             }
+            return developerMapper.toDeveloperDTO(developer);
         }
         throw new ControllerException(ControllerError.NOT_FOUND);
     }

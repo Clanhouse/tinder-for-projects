@@ -16,6 +16,8 @@ public interface ProjectService {
 
     ProjectDTO findById(Integer id);
 
+    ProjectDTO findRandom(Integer developerId);
+
     List<ProjectDTO> findAll();
 
     ProjectDTO updateBasicInformation(Integer id, ProjectDTO projectDTO);
