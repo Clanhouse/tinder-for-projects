@@ -32,4 +32,9 @@ public class SkillController {
        return skillService.create(skillDTO);
     }
 
+    @PutMapping("/{id}")
+    public SkillDTO update(@PathVariable Integer id, @RequestBody String name){
+        return skillService.update(id, name);
+    }
+
 }

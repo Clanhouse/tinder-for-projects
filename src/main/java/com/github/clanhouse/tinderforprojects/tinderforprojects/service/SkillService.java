@@ -11,4 +11,5 @@ public interface SkillService {
 
     SkillDTO create(SkillDTO skillDTO);
 
+    SkillDTO update(Integer id, String name);
 }

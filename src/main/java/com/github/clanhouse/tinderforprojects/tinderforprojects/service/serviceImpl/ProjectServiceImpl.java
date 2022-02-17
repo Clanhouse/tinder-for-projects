@@ -11,6 +11,8 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.projec
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Benefit;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Company;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.CompanyRepository;
@@ -54,6 +56,22 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ControllerException(ControllerError.NOT_FOUND);
         }
 
+    }
+
+    @Override
+    public ProjectDTO findRandom(Integer developerId) {
+        List<Project> projects = projectRepository.getRandomProjects(developerId);
+        for(Project project : projects){
+            if(tableToMatchRepository.findByDeveloperIdAndProjectId(developerId, project.getId()).isPresent()){
+                if(!tableToMatchRepository.findByDeveloperIdAndProjectId(developerId, project.getId()).get().isMatch()){
+                    return projectMapper.toProjectDTO(project);
+                } else {
+                    throw new ControllerException(ControllerError.NOT_FOUND);
+                }
+            }
+            return projectMapper.toProjectDTO(project);
+        }
+        throw new ControllerException(ControllerError.NOT_FOUND);
     }
 
     @Override

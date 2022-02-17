@@ -11,10 +11,12 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.mapper.Photo
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.developer.DeveloperDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.likedProject.ProjectToLikedProjectDTO;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.skill.SkillDTO;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.PhotoRepository;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,8 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     private final PhotoRepository photoRepository;
     private final PhotoMapper photoMapper;
+
+    private final ProjectRepository projectRepository;
 
 
     @Override
@@ -62,8 +66,19 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public DeveloperDTO findRandom() {
-        return developerMapper.toDeveloperDTO(developerRepository.getFirstRandomDeveloper());
+    public DeveloperDTO findRandom(Integer projectId) {
+        List<Developer> developers = developerRepository.getRandomDevelopers(projectId);
+        for(Developer developer : developers){
+            if(tableToMatchRepository.findByDeveloperIdAndProjectId(developer.getId(), projectId).isPresent()){
+                if(!tableToMatchRepository.findByDeveloperIdAndProjectId(developer.getId(), projectId).get().isMatch()){
+                    return developerMapper.toDeveloperDTO(developer);
+                } else {
+                    throw new ControllerException(ControllerError.NOT_FOUND);
+                }
+            }
+            return developerMapper.toDeveloperDTO(developer);
+        }
+        throw new ControllerException(ControllerError.NOT_FOUND);
     }
 
     @Override

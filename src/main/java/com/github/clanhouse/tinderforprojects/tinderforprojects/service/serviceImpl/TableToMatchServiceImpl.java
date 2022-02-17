@@ -4,6 +4,8 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.match.
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Developer;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.Project;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.entities.TableToMatch;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerError;
+import com.github.clanhouse.tinderforprojects.tinderforprojects.exception.ControllerException;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.DeveloperRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.ProjectRepository;
 import com.github.clanhouse.tinderforprojects.tinderforprojects.repository.TableToMatchRepository;
@@ -22,8 +24,7 @@ public class TableToMatchServiceImpl implements TableToMatchService {
     private final ProjectRepository projectRepository;
 
 
-
-    public boolean match(ProjectDevDto projectDevDto) {
+    public boolean like(ProjectDevDto projectDevDto) {
         Integer devId = projectDevDto.getIdDev();
         Integer prjId = projectDevDto.getIdProject();
         Optional<TableToMatch> tableToMatchOptional =
@@ -31,18 +32,48 @@ public class TableToMatchServiceImpl implements TableToMatchService {
 
         if (tableToMatchOptional.isPresent()) {
             TableToMatch tableToMatch = tableToMatchOptional.get();
-            tableToMatch.setMatch(true);
-            tableToMatchRepository.save(tableToMatch);
-            return true;
+            if(tableToMatch.isLike()){
+                tableToMatch.setMatch(true);
+                tableToMatchRepository.save(tableToMatch);
+                return true;
+            } else {
+                return false;
+            }
 
         } else {
             TableToMatch tableToMatch = new TableToMatch();
-            Developer getDevById = developerRepository.getById(devId);
-            Project getProjectById = projectRepository.getById(prjId);
+            Developer getDevById = developerRepository.findById(devId)
+                    .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND));
+            Project getProjectById = projectRepository.findById(prjId)
+                    .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND));
             tableToMatch.setDeveloper(getDevById);
             tableToMatch.setProject(getProjectById);
             tableToMatchRepository.save(tableToMatch);
         }
+        return false;
+    }
+
+    public boolean unLike(ProjectDevDto projectDevDto) {
+        Integer developerId = projectDevDto.getIdDev();
+        Integer projectId = projectDevDto.getIdProject();
+
+        Optional<TableToMatch> tableToMatchOptional =
+                tableToMatchRepository.findByDeveloperIdAndProjectId(developerId, projectId);
+        TableToMatch tableToMatch;
+        if (tableToMatchOptional.isPresent()) {
+            tableToMatch = tableToMatchOptional.get();
+        } else {
+            tableToMatch = new TableToMatch();
+            Developer getDevById = developerRepository.findById(developerId)
+                    .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND));
+            Project getProjectById = projectRepository.findById(projectId)
+                    .orElseThrow(() -> new ControllerException(ControllerError.NOT_FOUND));
+            tableToMatch.setDeveloper(getDevById);
+            tableToMatch.setProject(getProjectById);
+        }
+        tableToMatch.setMatch(false);
+        tableToMatch.setLike(false);
+        tableToMatchRepository.save(tableToMatch);
         return false;
     }
 
