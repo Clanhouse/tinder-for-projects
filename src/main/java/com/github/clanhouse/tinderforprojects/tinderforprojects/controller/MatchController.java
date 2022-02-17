@@ -15,9 +15,14 @@ public class MatchController {
 
     private final TableToMatchServiceImpl tableToMatchService;
 
-    @PostMapping
-    public boolean match(@RequestBody ProjectDevDto projectDevDto){
-        return tableToMatchService.match(projectDevDto);
+    @PostMapping("/like")
+    public boolean like(@RequestBody ProjectDevDto projectDevDto){
+        return tableToMatchService.like(projectDevDto);
+    }
+
+    @PostMapping("/unlike")
+    public boolean unLike(@RequestBody ProjectDevDto projectDevDto){
+        return tableToMatchService.unLike(projectDevDto);
     }
 
 }

@@ -4,5 +4,6 @@ import com.github.clanhouse.tinderforprojects.tinderforprojects.dto.model.match.
 
 public interface TableToMatchService {
 
-    boolean match(ProjectDevDto projectDevDto);
+    boolean like(ProjectDevDto projectDevDto);
+    boolean unLike(ProjectDevDto projectDevDto);
 }

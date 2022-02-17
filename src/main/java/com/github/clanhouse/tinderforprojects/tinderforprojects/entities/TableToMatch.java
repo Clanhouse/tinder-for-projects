@@ -22,4 +22,11 @@ public class TableToMatch extends StampedModel {
     @Column(name = "is_match")
     boolean isMatch;
 
+    @Column(name = "is_like")
+    boolean isLike;
+
+    @PrePersist
+    public void prePersist(){
+        isLike = true;
+    }
 }
