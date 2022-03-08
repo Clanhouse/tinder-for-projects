@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Photo {
 
     @Id
@@ -33,4 +33,8 @@ public class Photo {
 
     @ManyToOne
     private Company company;
+
+    public Photo() {
+
+    }
 }

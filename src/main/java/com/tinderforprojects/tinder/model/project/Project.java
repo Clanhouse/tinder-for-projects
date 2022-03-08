@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     @Id
@@ -52,4 +52,8 @@ public class Project {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
+
+    public Project() {
+
+    }
 }

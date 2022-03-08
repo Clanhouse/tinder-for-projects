@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Match {
 
     @Id
@@ -31,6 +31,10 @@ public class Match {
 
     @Column(name = "is_like")
     boolean isLike;
+
+    public Match() {
+
+    }
 
     @PrePersist
     public void prePersist(){

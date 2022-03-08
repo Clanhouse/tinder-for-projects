@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Skill {
 
     @Id
@@ -33,4 +33,7 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     List<Project> projects;
 
+    public Skill() {
+
+    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Company {
 
     @Id
@@ -37,4 +37,8 @@ public class Company {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "company_id")
     private List<Photo> photos;
+
+    public Company() {
+
+    }
 }

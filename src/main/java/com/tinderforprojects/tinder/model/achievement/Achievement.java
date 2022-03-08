@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Achievement {
 
     @Id
@@ -26,4 +26,8 @@ public class Achievement {
     private String name;
     @ManyToMany(mappedBy = "achievements")
     private List<Developer> developers;
+
+    public Achievement() {
+
+    }
 }

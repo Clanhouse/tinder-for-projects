@@ -1,10 +1,12 @@
 package com.tinderforprojects.tinder.model.benefit;
 
+import com.tinderforprojects.tinder.model.project.Project;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "benefits")
@@ -13,7 +15,7 @@ import javax.validation.constraints.Size;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class Benefit {
 
     @Id
@@ -24,4 +26,8 @@ public class Benefit {
     private String name;
     @ManyToMany(mappedBy = "benefits")
     private List<Project> projects;
+
+    public Benefit() {
+
+    }
 }
