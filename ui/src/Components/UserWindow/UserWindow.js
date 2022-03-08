@@ -1,26 +1,40 @@
 import React, { useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
 import UserWindowMenu from "./UserWindowMenu/UserWindowMenu";
+import ProjectCard from "../Card/ProjectCard";
+import DeveloperCard from "../Card/DeveloperCard";
+import ProjectCardEditable from "../Card/ProjectCardEditable";
+import DeveloperCardEditable from "../Card/DeveloperCardEditable";
 import { PopupProvider, PopupWrapper } from "../Popup/Popup";
 import "./UserWindow.css";
 
-const UserWindow = ({ cardComponent }) => {
-  const [dashboardState, setdashboardState] = useState("connections");
-  const Card = cardComponent;
+const UserWindow = ({ user }) => {
+  const [dashboardState, setDashboardState] = useState("connections");
+  const [userEditMode, setUserEditMode] = useState(false);
+  let cardComponent = null;
+  if (user.role === "developer") {
+    cardComponent = userEditMode ? <DeveloperCardEditable user={user} /> : <ProjectCard />;
+  }
+  if (user.role === "project") {
+    cardComponent = userEditMode ? (
+      <DeveloperCardEditable user={user} />
+    ) : (
+      <DeveloperCard />
+    );
+  }
   return (
     <PopupProvider>
       <PopupWrapper>
         <div className="user-window">
-          <div className="user-window__aside">
+          <aside className="user-window__aside">
             <UserWindowMenu
               dashboardState={dashboardState}
-              setdashboardState={setdashboardState}
+              setdashboardState={setDashboardState}
+              setUserEditMode={setUserEditMode}
             />
             <Dashboard dashboardState={dashboardState} />
-          </div>
-          <div className="user-window__main">
-            <Card />
-          </div>
+          </aside>
+          <main className="user-window__main">{cardComponent}</main>
         </div>
       </PopupWrapper>
     </PopupProvider>

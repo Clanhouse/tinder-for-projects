@@ -18,7 +18,7 @@ const SignIn = ({ setUser }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(userData)
-    setUser({ role: 'developer' })
+    setUser({ role: 'developer', id: 1 })
     history.push('/')
   }
   return (
