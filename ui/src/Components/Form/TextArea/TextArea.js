@@ -1,17 +1,17 @@
 import React from 'react'
-import './InputField.css'
+import './TextArea.css'
 
-const InputField = ({ name, label, type, value, onChange, size="normal" }) => {
+const InputField = ({ name, label, value, onChange, size="normal" }) => {
   return (
     <label className={`input ${size}`}>
       <span className={`input__label ${size}`}>{label}</span>
-      <input
-        className={`input__field ${size}`} 
-        type={type}
+      <textarea
+        className={`input__field ${size}`}
         name={name}
         value={value}
         onChange={onChange}
-      />
+        rows="5"
+      ></textarea>
     </label>
   )
 }

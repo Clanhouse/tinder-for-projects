@@ -18,6 +18,7 @@
   color: var(--text-color-dark);
   padding: .6em 1em;
   width: 100%;
+  resize: none;
 }
 
 .input__field.small {
