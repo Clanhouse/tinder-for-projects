@@ -1,10 +1,14 @@
 package com.tinderforprojects.tinder.model.company;
 
+import com.tinderforprojects.tinder.model.photo.Photo;
+import com.tinderforprojects.tinder.model.project.Project;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")

@@ -1,10 +1,12 @@
 package com.tinderforprojects.tinder.model.achievement;
 
+import com.tinderforprojects.tinder.model.developer.Developer;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "achievements")

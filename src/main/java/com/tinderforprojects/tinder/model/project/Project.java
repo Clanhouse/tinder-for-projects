@@ -1,5 +1,16 @@
 package com.tinderforprojects.tinder.model.project;
 
+import com.tinderforprojects.tinder.model.benefit.Benefit;
+import com.tinderforprojects.tinder.model.company.Company;
+import com.tinderforprojects.tinder.model.match.Match;
+import com.tinderforprojects.tinder.model.skill.Skill;
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.List;
+
 @Entity
 @Table(name = "projects")
 @Builder

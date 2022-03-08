@@ -1,5 +1,14 @@
 package com.tinderforprojects.tinder.model.skill;
 
+import com.tinderforprojects.tinder.model.developer.Developer;
+import com.tinderforprojects.tinder.model.project.Project;
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.List;
+
 @Entity
 @Table(name = "skills")
 @Builder

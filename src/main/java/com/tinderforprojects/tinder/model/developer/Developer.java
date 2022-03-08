@@ -1,10 +1,15 @@
 package com.tinderforprojects.tinder.model.developer;
 
+import com.tinderforprojects.tinder.model.achievement.Achievement;
+import com.tinderforprojects.tinder.model.match.Match;
+import com.tinderforprojects.tinder.model.photo.Photo;
+import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "developers")
@@ -48,7 +53,7 @@ public class Developer {
     private List<Skill> skills;
 
     @OneToMany(mappedBy = "developer")
-    private List<TableToMatch> tableToMatch;
+    private List<Match> matches;
 
     @OneToMany(
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
