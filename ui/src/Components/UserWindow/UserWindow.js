@@ -17,7 +17,7 @@ const UserWindow = ({ user }) => {
   }
   if (user.role === "project") {
     cardComponent = userEditMode ? (
-      <DeveloperCardEditable user={user} />
+      <ProjectCardEditable user={user} />
     ) : (
       <DeveloperCard />
     );
