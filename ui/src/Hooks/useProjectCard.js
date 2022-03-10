@@ -97,7 +97,7 @@ export const useProjectCard = (projectId) => {
 
   const updateGeneralInfo = async () => {
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${projectId}/personal`,
+      `${process.env.REACT_APP_API}/projects/${projectId}/basic`,
       generalInfo
     );
   };
@@ -120,7 +120,7 @@ export const useProjectCard = (projectId) => {
     setQualification("");
     await setQualifications(newQualifications);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${projectId}/skills`,
+      `${process.env.REACT_APP_API}/projects/${projectId}/skills`,
       newQualifications
     );
   };
@@ -143,7 +143,7 @@ export const useProjectCard = (projectId) => {
     setQualification("");
     await setQualifications(newQualifications);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${projectId}/qualifications`,
+      `${process.env.REACT_APP_API}/projects/${projectId}/skills`,
       newQualifications
     );
   };
@@ -162,7 +162,7 @@ export const useProjectCard = (projectId) => {
     setBenefit("");
     await setBenefits(newBenefits);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${projectId}/benefits`,
+      `${process.env.REACT_APP_API}/projects/${projectId}/benefits`,
       newBenefits
     );
   };
