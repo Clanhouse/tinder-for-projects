@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useActiveCard } from "../Contexts/ActiveCard";
+import { useUser } from "./useUser";
 
 export const useDeveloperCard = (userId) => {
+  const { user } = useUser();
   const [generalInfo, setGeneralInfo] = useState(null);
   const [skills, setSkills] = useState(null);
   const [skill, setSkill] = useState("");
@@ -25,7 +27,7 @@ export const useDeveloperCard = (userId) => {
     try {
       const result = id
         ? await axios.get(`${process.env.REACT_APP_API}/developers/${id}`)
-        : await axios.get(`${process.env.REACT_APP_API}/developers/random`);
+        : await axios.get(`${process.env.REACT_APP_API}/developers/random/${user.id}`);
       setGeneralInfo({
         firstName: result.data.firstName,
         lastName: result.data.lastName,
@@ -202,6 +204,6 @@ export const useDeveloperCard = (userId) => {
     addSkillFromList,
     addNewSkill,
     addAchievementFromList,
-    addNewAchievement
+    addNewAchievement,
   };
 };

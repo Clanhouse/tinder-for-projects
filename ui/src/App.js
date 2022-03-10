@@ -6,21 +6,22 @@ import SignIn from "./Components/SignIn/SignIn";
 import UserWindow from "./Components/UserWindow/UserWindow";
 import { ActiveCardProvider } from "./Contexts/ActiveCard";
 import { ThemeContext } from "./Contexts/ThemeContext";
+import { useUser } from "./Hooks/useUser";
 import "./App.css";
 
 const App = () => {
-  const [user, setUser] = useState(null);
   const [theme, setTheme] = useState("light");
+  const { user } = useUser();
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div data-theme={theme}>
         <Router>
           <Switch>
             <Route path="/signin">
-              <SignIn setUser={setUser} />
+              <SignIn />
             </Route>
             <Route path="/signup">
-              <SignUp setUser={setUser} />
+              <SignUp />
             </Route>
             <Route exact path="/">
               {user ? (
