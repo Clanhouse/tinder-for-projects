@@ -28,7 +28,6 @@ export const useProjectCard = (projectId) => {
       const result = id
         ? await axios.get(`${process.env.REACT_APP_API}/projects/${id}`)
         : await axios.get(`${process.env.REACT_APP_API}/projects/random/${user.id}`);
-      console.log(result.data.name);
       setGeneralInfo({
         name: result.data.name,
         description: result.data.description,
@@ -37,7 +36,6 @@ export const useProjectCard = (projectId) => {
       });
       setQualifications(result.data.skills);
       setBenefits(result.data.benefits);
-      console.log(qualifications);
     } catch (err) {
       setError(err);
     } finally {

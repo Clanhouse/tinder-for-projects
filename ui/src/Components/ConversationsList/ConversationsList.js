@@ -53,18 +53,6 @@ const ConversationsList = () => {
                 conversation={conversation}
               />
             ))}
-            {data.map((conversation) => (
-              <ConversationsItem
-                key={conversation.id}
-                conversation={conversation}
-              />
-            ))}
-            {data.map((conversation) => (
-              <ConversationsItem
-                key={conversation.id}
-                conversation={conversation}
-              />
-            ))}
           </ul>
         ) : (
           <div className="conversations__empty">

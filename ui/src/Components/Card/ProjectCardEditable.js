@@ -6,7 +6,6 @@ import InputField from "../Form/InputField/InputField";
 import TextArea from "../Form/TextArea/TextArea";
 
 const ProjectCardEditable = ({ user }) => {
-  console.log(user)
   const {
     generalInfo,
     qualification,
