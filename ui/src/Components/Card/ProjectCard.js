@@ -1,71 +1,77 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import LoaderSpinner from '../LoaderSpinner/LoaderSpinner'
-import Card from './Card'
-import { useActiveCard } from '../../Contexts/ActiveCard'
+import React from "react";
+import { useProjectCard } from "../../Hooks/useProjectCard";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
+import { useActiveCard } from "../../Contexts/ActiveCard";
+import "./Card.css";
 
 const ProjectCard = () => {
-  const [cardData, setCardData] = useState(null)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true)
-
-  const { selectCard, activeCard } = useActiveCard()
-
-  const fetchRandomCardData = async () => {
-    try {
-      const result = await axios.get(
-        `${process.env.REACT_APP_API}/project`
-      )
-      setCardData(result.data)
-    } catch (err) {
-      setError(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fetchCardData = async (id) => {
-    try {
-      const result = await axios.get(
-        `${process.env.REACT_APP_API}/project/${id}`
-      )
-      setCardData(result.data)
-    } catch (err) {
-      setError(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchRandomCardData()
-  }, [])
-
-  useEffect(() => {
-    if (activeCard) {
-      setLoading(true)
-      fetchCardData(activeCard)
-    }
-  }, [activeCard])
+  const { activeCard } = useActiveCard();
+  const { generalInfo, qualifications, benefits, error, loading, getCardData } =
+    useProjectCard(activeCard);
 
   const handleClick = () => {
-    selectCard('')
-    setLoading(true)
-    fetchRandomCardData()
-  }
+    getCardData();
+  };
 
-  if (loading) return <LoaderSpinner />
-  if (error) return <p>{error.message}</p>
+  if (loading) return <LoaderSpinner />;
+  if (error) return <p>{error.message}</p>;
   return (
-    <Card
-      title={`${cardData.projectName}`}
-      subtitle={cardData.companyName || ''}
-      description={cardData.description}
-      qualifications={cardData.qualifications}
-      benefits={cardData.benefits}
-      handleClick={handleClick}
-    />
-  )
-}
+    <div className="card">
+      <div className="card__container">
+        <div className="card__inner">
+          <div className="header">
+            <div className="header__image">
+              <img
+                src={
+                  (generalInfo.photos && generalInfo.photos.length > 0 &&
+                    generalInfo.photos[0].url) ||
+                  null
+                }
+                alt={`${generalInfo.name}`}
+              />
+            </div>
+            <div className="header__content">
+              <h1 className="header__heading header__heading--primary">
+                {`${generalInfo.name}`}
+              </h1>
+              <h2 className="header__heading header__heading--secondary">
+                {generalInfo.company.name}
+              </h2>
+              <p className="header__description">{generalInfo.description}</p>
+            </div>
+          </div>
+          {qualifications.length > 0 ? (
+            <div className="features">
+              <h3 className="features__heading">Qualifications</h3>
+              <ul className="features__list">
+                {qualifications.map((qualification) => (
+                  <li key={qualification.id} className="features__item">
+                    {qualification.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {benefits.length > 0 ? (
+            <div className="features">
+              <h3 className="features__heading">Benefits</h3>
+              <ul className="features__list">
+                {benefits.map((benefit) => (
+                  <li key={benefit.id} className="features__item">
+                    {benefit.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      </div>
+      <div className="card__buttons">
+        <button className="thumbUp" onClick={handleClick}></button>
+        <button className="thumbDown" onClick={handleClick}></button>
+      </div>
+    </div>
+  );
+};
 
-export default ProjectCard
+export default ProjectCard;
