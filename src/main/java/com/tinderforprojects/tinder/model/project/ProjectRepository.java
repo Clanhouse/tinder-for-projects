@@ -11,6 +11,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             "    left join table_to_matches ttm on projects.id = ttm.project_id\n" +
             "where ttm.project_id is null\n" +
             "   or ttm.developer_id <> :developerId")
-    List<Project> getRandomProjects(Integer developerId);
+    Project getRandomProjects(Long developerId);
 
 }
