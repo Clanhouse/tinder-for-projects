@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProjectService {
 
-    Project create(Long companyId, Project project);
+    Project create(Project project);
 
     Project findById(Long id);
 

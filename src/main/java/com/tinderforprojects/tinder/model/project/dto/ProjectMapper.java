@@ -74,4 +74,12 @@ public class ProjectMapper {
         return projectsToCompanyDto;
     }
 
+    public List<ProjectDto> toProjectsDto(List<Project> projects) {
+        List<ProjectDto> projectsDto = new ArrayList<>();
+        for(Project project : projects) {
+            projectsDto.add(toProjectDto(project));
+        }
+        return projectsDto;
+    }
+
 }
