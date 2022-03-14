@@ -14,7 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
-public class Match {
+public class TableToMatch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class Match {
     @Column(name = "is_like")
     boolean isLike;
 
-    public Match() {
+    public TableToMatch() {
 
     }
 

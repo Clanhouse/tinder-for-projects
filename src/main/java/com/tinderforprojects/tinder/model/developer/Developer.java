@@ -1,7 +1,7 @@
 package com.tinderforprojects.tinder.model.developer;
 
 import com.tinderforprojects.tinder.model.achievement.Achievement;
-import com.tinderforprojects.tinder.model.match.Match;
+import com.tinderforprojects.tinder.model.match.TableToMatch;
 import com.tinderforprojects.tinder.model.photo.Photo;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.*;
@@ -53,7 +53,7 @@ public class Developer {
     private List<Skill> skills;
 
     @OneToMany(mappedBy = "developer")
-    private List<Match> matches;
+    private List<TableToMatch> tableToMatches;
 
     @OneToMany(
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})

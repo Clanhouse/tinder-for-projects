@@ -2,7 +2,7 @@ package com.tinderforprojects.tinder.model.project;
 
 import com.tinderforprojects.tinder.model.benefit.Benefit;
 import com.tinderforprojects.tinder.model.company.Company;
-import com.tinderforprojects.tinder.model.match.Match;
+import com.tinderforprojects.tinder.model.match.TableToMatch;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.*;
 
@@ -23,7 +23,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank
     @Size(min = 3, message = "Name must have at least 3 characters")
@@ -48,7 +48,7 @@ public class Project {
     private List<Benefit> benefits;
 
     @OneToMany(mappedBy = "project")
-    private List<Match> matches;
+    private List<TableToMatch> tableToMatches;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;

@@ -7,7 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +30,7 @@ public class Company {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Project> projects = new ArrayList<>();
+    private List<Project> projects;
 
     @OneToMany(
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})

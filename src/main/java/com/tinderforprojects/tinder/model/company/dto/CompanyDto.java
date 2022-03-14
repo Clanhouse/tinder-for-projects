@@ -2,7 +2,7 @@ package com.tinderforprojects.tinder.model.company.dto;
 
 
 import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
-import com.tinderforprojects.tinder.model.project.dto.ProjectDto;
+import com.tinderforprojects.tinder.model.project.dto.ProjectToCompanyDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class CompanyDto {
 
     private Long id;
     private String name;
-    private List<ProjectDto> projectsDto;
+    private List<ProjectToCompanyDto> projectsDto;
     private List<PhotoDto> photosDto;
 
 }

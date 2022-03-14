@@ -20,5 +20,6 @@ public interface DeveloperService {
     Developer updateAchievements(Long id, List<Achievement> achievements);
 
     Developer updateSkills(Long id, List<Skill> skills);
+
     
 }

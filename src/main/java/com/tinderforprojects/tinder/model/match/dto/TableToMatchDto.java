@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MatchDto {
+public class TableToMatchDto {
 
     private Long idDeveloper;
     private Long idProject;
