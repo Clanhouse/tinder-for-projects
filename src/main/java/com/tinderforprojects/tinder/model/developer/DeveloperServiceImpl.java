@@ -8,49 +8,59 @@ import com.tinderforprojects.tinder.model.photo.dto.PhotoMapper;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DeveloperServiceImpl implements DeveloperService{
 
     private final DeveloperRepository developerRepository;
-    private final PhotoMapper photoMapper;
-    private final PhotoRepository photoRepository;
+
 
     @Override
     public Developer create(Developer developer) {
+        log.info("Creating developer");
         return developerRepository.save(developer);
     }
 
     @Override
     public Developer findById(Long id) {
+        log.info(String.format("Downloading developer by id: %d", id));
         return developerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
     }
 
     @Override
     public Developer findRandom(Long projectId) {
-        return null;
+        log.info(String.format("Downloading random developer by projectId: %d", projectId));
+        return developerRepository.getRandomDevelopers(projectId);
     }
 
     @Override
     public List<Developer> findAll() {
+        log.info("Downloading all developers");
         return developerRepository.findAll();
     }
 
     @Override
     public Developer updatePersonalInformation(Long id, Developer developer) {
+        log.info(String.format("Updating developer by id: %d", id));
         return developerRepository.findById(id)
                 .map(developerFromDb -> {
                     developerFromDb.setFirstName(developer.getFirstName());
                     developerFromDb.setLastName(developer.getLastName());
                     developerFromDb.setDescription(developer.getDescription());
                     developerFromDb.setProfession(developer.getProfession());
+                    log.info("Developer updated");
                     return developerRepository.save(developerFromDb);
-                }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+                }).orElseThrow(() -> {
+                    log.error(String.format("Developer id: %d does not exists", id));
+                    return new NotFoundException(ErrorMessage.NOT_FOUND);
+                });
     }
 
     @Override
@@ -59,7 +69,10 @@ public class DeveloperServiceImpl implements DeveloperService{
                 .map(developerFromDb -> {
                     developerFromDb.setAchievements(achievements);
                     return developerRepository.save(developerFromDb);
-                }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+                }).orElseThrow(() -> {
+                    log.error(String.format("Developer id: %d does not exists", id));
+                    return new NotFoundException(ErrorMessage.NOT_FOUND);
+                });
     }
 
     @Override
@@ -68,7 +81,10 @@ public class DeveloperServiceImpl implements DeveloperService{
                 .map(developerFromDb -> {
                     developerFromDb.setSkills(skills);
                     return developerRepository.save(developerFromDb);
-                }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+                }).orElseThrow(() -> {
+                    log.error(String.format("Developer id: %d does not exists", id));
+                    return new NotFoundException(ErrorMessage.NOT_FOUND);
+                });
     }
 
 }
