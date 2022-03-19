@@ -1,6 +1,7 @@
 package com.tinderforprojects.tinder.model.achievement;
 
 import com.tinderforprojects.tinder.exception.ErrorMessage;
+import com.tinderforprojects.tinder.exception.badRequest.BadRequestException;
 import com.tinderforprojects.tinder.exception.notFound.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Override
     public Achievement create(String name) {
+        validateName(name);
         return achievementRepository.save(
                 Achievement.builder()
                 .name(name)
@@ -34,10 +36,15 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Override
     public Achievement update(Long id, String name) {
+        validateName(name);
         return achievementRepository.findById(id)
                 .map(achievementFromDb -> {
                     achievementFromDb.setName(name);
                     return achievementRepository.save(achievementFromDb);
                 }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+    }
+
+    private void validateName(String name) {
+        if(name.length() < 3) throw new BadRequestException(ErrorMessage.BAD_REQUEST);
     }
 }

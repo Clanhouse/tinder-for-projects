@@ -6,6 +6,7 @@ import com.tinderforprojects.tinder.model.benefit.dto.BenefitMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,13 +30,13 @@ public class BenefitController {
     }
 
     @PostMapping
-    public BenefitDTO create(@RequestBody String name) {
+    public BenefitDTO create(@RequestBody @Valid String name) {
         return benefitMapper.toBenefitsDTO(
                 benefitService.create(name));
     }
 
     @PutMapping("/{id}")
-    public BenefitDTO update(@PathVariable Long id, @RequestBody String name) {
+    public BenefitDTO update(@PathVariable Long id, @RequestBody @Valid String name) {
         return benefitMapper.toBenefitsDTO(
                 benefitService.update(id, name));
     }

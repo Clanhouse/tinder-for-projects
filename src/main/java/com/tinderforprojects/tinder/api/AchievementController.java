@@ -6,6 +6,7 @@ import com.tinderforprojects.tinder.model.achievement.dto.AchievementMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,13 +30,13 @@ public class AchievementController {
     }
 
     @PostMapping
-    public AchievementDTO create(@RequestBody String name) {
+    public AchievementDTO create(@RequestBody @Valid String name) {
         return achievementMapper.toAchievementDTO(
                 achievementService.create(name));
     }
 
     @PutMapping("/{id}")
-    public AchievementDTO update(@PathVariable Long id, @RequestBody String name) {
+    public AchievementDTO update(@PathVariable Long id, @RequestBody @Valid String name) {
         return achievementMapper.toAchievementDTO(
                 achievementService.update(id, name));
     }

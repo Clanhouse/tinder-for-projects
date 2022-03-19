@@ -3,6 +3,7 @@ package com.tinderforprojects.tinder.model.project;
 import com.tinderforprojects.tinder.model.benefit.Benefit;
 import com.tinderforprojects.tinder.model.company.Company;
 import com.tinderforprojects.tinder.model.match.TableToMatch;
+import com.tinderforprojects.tinder.model.photo.Photo;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.*;
 
@@ -52,6 +53,11 @@ public class Project {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
+
+    @OneToMany(
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "project_id")
+    private List<Photo> photos;
 
     public Project() {
 

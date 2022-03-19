@@ -2,6 +2,7 @@ package com.tinderforprojects.tinder.model.photo;
 
 import com.tinderforprojects.tinder.model.company.Company;
 import com.tinderforprojects.tinder.model.developer.Developer;
+import com.tinderforprojects.tinder.model.project.Project;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -33,6 +34,9 @@ public class Photo {
 
     @ManyToOne
     private Company company;
+
+    @ManyToOne
+    private Project project;
 
     public Photo() {
 

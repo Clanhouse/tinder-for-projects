@@ -3,6 +3,8 @@ package com.tinderforprojects.tinder.model.developer;
 import com.tinderforprojects.tinder.exception.ErrorMessage;
 import com.tinderforprojects.tinder.exception.notFound.NotFoundException;
 import com.tinderforprojects.tinder.model.achievement.Achievement;
+import com.tinderforprojects.tinder.model.photo.PhotoRepository;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoMapper;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.List;
 public class DeveloperServiceImpl implements DeveloperService{
 
     private final DeveloperRepository developerRepository;
+    private final PhotoMapper photoMapper;
+    private final PhotoRepository photoRepository;
 
     @Override
     public Developer create(Developer developer) {

@@ -11,5 +11,6 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     Optional<Photo> findByHash(String hash);
     List<Photo> findByDeveloperId(Long id);
     List<Photo> findByCompanyId(Long id);
+    List<Photo> findByProjectId(Long id);
 
 }

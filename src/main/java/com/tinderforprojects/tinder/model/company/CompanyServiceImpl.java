@@ -1,6 +1,7 @@
 package com.tinderforprojects.tinder.model.company;
 
 import com.tinderforprojects.tinder.exception.ErrorMessage;
+import com.tinderforprojects.tinder.exception.badRequest.BadRequestException;
 import com.tinderforprojects.tinder.exception.notFound.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,10 +32,15 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public Company update(Long id, String name) {
+        validateName(name);
         return companyRepository.findById(id)
                 .map(companyFromDb -> {
                     companyFromDb.setName(name);
                     return companyRepository.save(companyFromDb);
                 }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+    }
+
+    private void validateName(String name) {
+        if(name.length() < 3) throw new BadRequestException(ErrorMessage.BAD_REQUEST);
     }
 }

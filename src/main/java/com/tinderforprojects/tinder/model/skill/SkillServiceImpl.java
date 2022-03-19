@@ -1,6 +1,7 @@
 package com.tinderforprojects.tinder.model.skill;
 
 import com.tinderforprojects.tinder.exception.ErrorMessage;
+import com.tinderforprojects.tinder.exception.badRequest.BadRequestException;
 import com.tinderforprojects.tinder.exception.notFound.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Skill create(String name) {
+        validateName(name);
         return skillRepository.save(Skill.builder()
                 .name(name)
                 .build());
@@ -33,10 +35,15 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Skill update(Long id, String name) {
+        validateName(name);
         return skillRepository.findById(id)
                 .map(skillFromDb -> {
                     skillFromDb.setName(name);
                     return skillRepository.save(skillFromDb);
                 }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+    }
+
+    private void validateName(String name) {
+        if(name.length() < 3) throw new BadRequestException(ErrorMessage.BAD_REQUEST);
     }
 }

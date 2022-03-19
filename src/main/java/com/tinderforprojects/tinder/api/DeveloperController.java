@@ -10,6 +10,7 @@ import com.tinderforprojects.tinder.model.skill.dto.SkillMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,14 +42,14 @@ public class DeveloperController {
     }
 
     @PostMapping
-    public DeveloperDTO create(@RequestBody DeveloperDTO developerDto) {
+    public DeveloperDTO create(@Valid @RequestBody DeveloperDTO developerDto) {
         return developerMapper.toDeveloperDTO(
                 developerService.create(
                         developerMapper.toDeveloper(developerDto)));
     }
 
     @PutMapping("/{id}/personal")
-    public DeveloperDTO updatePersonalInformation(@PathVariable Long id, @RequestBody DeveloperDTO developerDto) {
+    public DeveloperDTO updatePersonalInformation(@PathVariable Long id, @RequestBody @Valid DeveloperDTO developerDto) {
         return developerMapper.toDeveloperDTO(
                 developerService.updatePersonalInformation(id, developerMapper.toDeveloper(developerDto)));
     }
