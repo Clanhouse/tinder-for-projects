@@ -21,5 +21,4 @@ public interface DeveloperService {
 
     Developer updateSkills(Long id, List<Skill> skills);
 
-    
 }
