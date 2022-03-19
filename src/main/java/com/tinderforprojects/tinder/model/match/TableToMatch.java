@@ -7,7 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "companies")
+@Table(name = "table_to_matches")
 @Builder
 @Getter
 @Setter

@@ -1,6 +1,7 @@
 package com.tinderforprojects.tinder.model.project.dto;
 
 import com.tinderforprojects.tinder.model.benefit.dto.BenefitMapper;
+import com.tinderforprojects.tinder.model.company.dto.CompanyMapper;
 import com.tinderforprojects.tinder.model.project.Project;
 import com.tinderforprojects.tinder.model.skill.dto.SkillMapper;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class ProjectMapper {
 
     private final SkillMapper skillMapper;
     private final BenefitMapper benefitMapper;
+    private final CompanyMapper companyMapper;
 
     public ProjectDto toProjectDto(Project project) {
         return ProjectDto.builder()
@@ -24,6 +26,7 @@ public class ProjectMapper {
                 .skills(skillMapper.toSkillsDto(project.getSkills()))
                 .benefits(benefitMapper.toBenefitsDto(project.getBenefits()))
                 .likedDevelopers(new ArrayList<>())
+                .company(companyMapper.toCompanyDto(project.getCompany()))
                 .build();
     }
 
@@ -34,6 +37,7 @@ public class ProjectMapper {
                 .description(projectDto.getDescription())
                 .skills(skillMapper.toSkills(projectDto.getSkills()))
                 .benefits(benefitMapper.toBenefits(projectDto.getBenefits()))
+                .company(companyMapper.toCompany(projectDto.getCompany()))
                 .build();
     }
 
@@ -44,6 +48,7 @@ public class ProjectMapper {
                 .description(project.getDescription())
                 .benefits(benefitMapper.toBenefitsDto(project.getBenefits()))
                 .skills(skillMapper.toSkillsDto(project.getSkills()))
+                .company(project.getCompany())
                 .build();
     }
 

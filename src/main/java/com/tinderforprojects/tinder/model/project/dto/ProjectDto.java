@@ -22,7 +22,7 @@ public class ProjectDto {
     private String description;
     private List<SkillDto> skills;
     private List<BenefitDto> benefits;
-    private List<CompanyDto> company;
+    private CompanyDto company;
     private List<DeveloperToProjectDto> likedDevelopers;
 
 }
