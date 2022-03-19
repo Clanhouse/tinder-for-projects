@@ -1,7 +1,7 @@
 package com.tinderforprojects.tinder.api;
 
 import com.tinderforprojects.tinder.model.company.CompanyService;
-import com.tinderforprojects.tinder.model.company.dto.CompanyDto;
+import com.tinderforprojects.tinder.model.company.dto.CompanyDTO;
 import com.tinderforprojects.tinder.model.company.dto.CompanyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,28 +17,28 @@ public class CompanyController {
     private final CompanyMapper companyMapper;
 
     @GetMapping
-    public List<CompanyDto> findAll() {
-        return companyMapper.toCompaniesDto(
+    public List<CompanyDTO> findAll() {
+        return companyMapper.toCompanyDTOs(
                 companyService.findAll());
     }
 
     @GetMapping("/{id}")
-    public CompanyDto findById(@PathVariable Long id) {
-        return companyMapper.toCompanyDto(
+    public CompanyDTO findById(@PathVariable Long id) {
+        return companyMapper.toCompanyDTO(
                 companyService.findById(id));
     }
 
     @PostMapping
-    public CompanyDto create(@RequestBody CompanyDto companyDto) {
-        return companyMapper.toCompanyDto(
+    public CompanyDTO create(@RequestBody CompanyDTO companyDto) {
+        return companyMapper.toCompanyDTO(
                 companyService.create(
                         companyMapper.toCompany(companyDto)
                 ));
     }
 
     @PutMapping("/{id}")
-    public CompanyDto update(@PathVariable Long id, @RequestBody String name) {
-        return companyMapper.toCompanyDto(
+    public CompanyDTO update(@PathVariable Long id, @RequestBody String name) {
+        return companyMapper.toCompanyDTO(
                 companyService.update(id, name));
     }
     
