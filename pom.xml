@@ -12,9 +12,11 @@
     <artifactId>tinder</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>tinder</name>
+    <packaging>jar</packaging>
     <description>Tinder for projects app</description>
     <properties>
         <java.version>17</java.version>
+        <start-class>com.tinderforprojects.tinder.TinderForProjectsApplication</start-class>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <spring-doc-openapi.version>1.6.4</spring-doc-openapi.version>
@@ -97,6 +99,21 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
 
