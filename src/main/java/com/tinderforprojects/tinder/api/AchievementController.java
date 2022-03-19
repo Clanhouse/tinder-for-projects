@@ -4,6 +4,7 @@ import com.tinderforprojects.tinder.model.achievement.AchievementService;
 import com.tinderforprojects.tinder.model.achievement.dto.AchievementDTO;
 import com.tinderforprojects.tinder.model.achievement.dto.AchievementMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

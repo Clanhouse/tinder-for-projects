@@ -1,5 +1,6 @@
 package com.tinderforprojects.tinder.model.project;
 
+import com.tinderforprojects.tinder.model.BaseEntity;
 import com.tinderforprojects.tinder.model.benefit.Benefit;
 import com.tinderforprojects.tinder.model.company.Company;
 import com.tinderforprojects.tinder.model.match.TableToMatch;
@@ -17,10 +18,10 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
-public class Project {
+public class Project extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

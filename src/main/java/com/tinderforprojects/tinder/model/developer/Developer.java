@@ -1,5 +1,6 @@
 package com.tinderforprojects.tinder.model.developer;
 
+import com.tinderforprojects.tinder.model.BaseEntity;
 import com.tinderforprojects.tinder.model.achievement.Achievement;
 import com.tinderforprojects.tinder.model.match.TableToMatch;
 import com.tinderforprojects.tinder.model.photo.Photo;
@@ -16,10 +17,10 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
-public class Developer {
+public class Developer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.tinderforprojects.tinder.model.benefit;
 
+import com.tinderforprojects.tinder.model.BaseEntity;
 import com.tinderforprojects.tinder.model.project.Project;
 import lombok.*;
 
@@ -13,10 +14,10 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
-public class Benefit {
+public class Benefit extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

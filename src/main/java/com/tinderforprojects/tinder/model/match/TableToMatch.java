@@ -1,5 +1,6 @@
 package com.tinderforprojects.tinder.model.match;
 
+import com.tinderforprojects.tinder.model.BaseEntity;
 import com.tinderforprojects.tinder.model.developer.Developer;
 import com.tinderforprojects.tinder.model.project.Project;
 import lombok.*;
@@ -11,10 +12,10 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
-public class TableToMatch {
+public class TableToMatch extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

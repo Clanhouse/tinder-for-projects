@@ -1,5 +1,6 @@
 package com.tinderforprojects.tinder.model.achievement;
 
+import com.tinderforprojects.tinder.model.BaseEntity;
 import com.tinderforprojects.tinder.model.developer.Developer;
 import lombok.*;
 
@@ -13,10 +14,10 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
-public class Achievement {
+public class Achievement extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.tinderforprojects.tinder.model.skill;
 
+import com.tinderforprojects.tinder.model.BaseEntity;
 import com.tinderforprojects.tinder.model.developer.Developer;
 import com.tinderforprojects.tinder.model.project.Project;
 import lombok.*;
@@ -14,10 +15,10 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
-public class Skill {
+public class Skill extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

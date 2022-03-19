@@ -7,6 +7,7 @@ import com.tinderforprojects.tinder.model.photo.PhotoRepository;
 import com.tinderforprojects.tinder.model.photo.dto.PhotoMapper;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
