@@ -87,4 +87,10 @@ public class DeveloperServiceImpl implements DeveloperService{
                 });
     }
 
+    @Override
+    public Developer findByUserId(String userId) {
+        return developerRepository.findByUserId(userId)
+                .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
+    }
+
 }

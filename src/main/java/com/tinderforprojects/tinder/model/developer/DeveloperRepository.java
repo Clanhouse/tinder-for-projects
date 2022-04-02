@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 
@@ -12,5 +13,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Long> {
             "where ttm.developer_id is null\n" +
             "   or ttm.project_id <> :projectId")
     Developer getRandomDevelopers(Long projectId);
+
+    Optional<Developer> findByUserId(String userId);
 
 }

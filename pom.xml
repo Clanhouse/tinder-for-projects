@@ -20,6 +20,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <spring-doc-openapi.version>1.6.4</spring-doc-openapi.version>
+        <keycloak-starter.version>17.0.1</keycloak-starter.version>
     </properties>
     <dependencies>
         <dependency>
@@ -59,6 +60,10 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <scope>runtime</scope>
@@ -73,7 +78,29 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${spring-doc-openapi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+            <version>${keycloak-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>${keycloak-starter.version}</version>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>${keycloak-starter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

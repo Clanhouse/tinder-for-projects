@@ -5,6 +5,7 @@ import com.tinderforprojects.tinder.model.achievement.Achievement;
 import com.tinderforprojects.tinder.model.match.TableToMatch;
 import com.tinderforprojects.tinder.model.photo.Photo;
 import com.tinderforprojects.tinder.model.skill.Skill;
+import com.tinderforprojects.tinder.model.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -60,6 +61,9 @@ public class Developer extends BaseEntity {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "developer_id")
     private List<Photo> photos;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private User user;
 
     public Developer() {
 
