@@ -10,9 +10,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check Scripts
+          name: connect-to-vps
           command: |
-            echo test
+            ssh root@srv11.mikr.us -p10157
+            $SSH_PASSWORD
+            mkdir test
 workflows:
   version: 2
   check-build:
