@@ -1,0 +1,19 @@
+  version 2.1
+
+  jobs:
+    shellcheck:
+      docker:
+        - image koalaman/shellcheck-alpine:stable
+        auth:
+          username: norsu296
+          password $DOCKER_HUB_PASSWORD
+        steps:
+          - checkout
+          - run:
+              name: Check Scripts
+              command: |
+                echo test
+  workflows:
+    shellcheck-workflow:
+      jobs:
+        - shellcheck
