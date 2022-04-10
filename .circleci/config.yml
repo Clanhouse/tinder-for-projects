@@ -12,6 +12,7 @@ jobs:
       - run:
           name: connect-to-vps
           command: |
+            sudo apt install openssh-client
             ssh root@srv11.mikr.us -p10157
             $SSH_PASSWORD
             mkdir test
