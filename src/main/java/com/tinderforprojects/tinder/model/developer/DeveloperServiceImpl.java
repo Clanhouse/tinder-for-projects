@@ -3,12 +3,12 @@ package com.tinderforprojects.tinder.model.developer;
 import com.tinderforprojects.tinder.exception.ErrorMessage;
 import com.tinderforprojects.tinder.exception.notFound.NotFoundException;
 import com.tinderforprojects.tinder.model.achievement.Achievement;
-import com.tinderforprojects.tinder.model.photo.PhotoRepository;
-import com.tinderforprojects.tinder.model.photo.dto.PhotoMapper;
+import com.tinderforprojects.tinder.model.photo.PhotoService;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import com.tinderforprojects.tinder.model.skill.Skill;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.List;
 public class DeveloperServiceImpl implements DeveloperService{
 
     private final DeveloperRepository developerRepository;
+    private final PhotoService photoService;
 
 
     @Override
@@ -37,7 +38,12 @@ public class DeveloperServiceImpl implements DeveloperService{
     @Override
     public Developer findRandom(Long projectId) {
         log.info(String.format("Downloading random developer by projectId: %d", projectId));
-        return developerRepository.getRandomDevelopers(projectId);
+        List<Developer> developers = developerRepository.getRandomDevelopers(projectId);
+        if(developers.isEmpty()) {
+            throw new NotFoundException(ErrorMessage.NOT_FOUND);
+        } else {
+            return developers.get(0);
+        }
     }
 
     @Override
@@ -85,6 +91,21 @@ public class DeveloperServiceImpl implements DeveloperService{
                     log.error(String.format("Developer id: %d does not exists", id));
                     return new NotFoundException(ErrorMessage.NOT_FOUND);
                 });
+    }
+
+    @Override
+    public List<PhotoDto> downloadPhotos(Long id) {
+        return photoService.getPhotosUrlsByIdAndType(id, "developer");
+    }
+
+    @Override
+    public ResponseEntity<String> uploadPhoto(byte[] image, Long id) {
+        if (photoService.upload(image, id, "developer")) {
+            return ResponseEntity.ok()
+                    .body("Photo created");
+        } else {
+            return ResponseEntity.badRequest().body("Error while creating photo - check logs");
+        }
     }
 
 }

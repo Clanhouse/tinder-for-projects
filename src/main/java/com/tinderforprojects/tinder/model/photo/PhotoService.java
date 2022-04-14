@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PhotoService {
 
-    void upload(byte[] image, Long id, String type);
+    boolean upload(byte[] image, Long id, String type);
 
     byte[] download(String hash);
 

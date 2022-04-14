@@ -2,12 +2,15 @@ package com.tinderforprojects.tinder.api;
 
 import com.tinderforprojects.tinder.model.benefit.dto.BenefitDTO;
 import com.tinderforprojects.tinder.model.benefit.dto.BenefitMapper;
+import com.tinderforprojects.tinder.model.photo.PhotoService;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import com.tinderforprojects.tinder.model.project.ProjectService;
 import com.tinderforprojects.tinder.model.project.dto.ProjectDTO;
 import com.tinderforprojects.tinder.model.project.dto.ProjectMapper;
 import com.tinderforprojects.tinder.model.skill.dto.SkillDTO;
 import com.tinderforprojects.tinder.model.skill.dto.SkillMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +24,7 @@ public class ProjectController {
     private final ProjectMapper projectMapper;
     private final SkillMapper skillMapper;
     private final BenefitMapper benefitMapper;
+    private final PhotoService photoService;
 
     @GetMapping
     public List<ProjectDTO> findAll() {
@@ -63,6 +67,16 @@ public class ProjectController {
     public ProjectDTO updateBenefits(@PathVariable Long id, @RequestBody List<BenefitDTO> benefitsDto) {
         return projectMapper.toProjectDTO(
                 projectService.updateBenefits(id, benefitMapper.toBenefits(benefitsDto)));
+    }
+
+    @PutMapping("/{id}/photos")
+    public ResponseEntity<String> uploadPhoto(@RequestBody byte[] image, @PathVariable Long id) {
+        return projectService.uploadPhoto(image, id);
+    }
+
+    @GetMapping("/{id}/photos")
+    public List<PhotoDto> getPhotosByProjectId(@PathVariable Long id){
+        return projectService.downloadPhotos(id);
     }
 
 }

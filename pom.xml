@@ -20,6 +20,8 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <spring-doc-openapi.version>1.6.4</spring-doc-openapi.version>
+        <flyway.version>8.5.7</flyway.version>
+        <springfox-bean-validation.version>3.0.0</springfox-bean-validation.version>
     </properties>
     <dependencies>
         <dependency>
@@ -73,6 +75,16 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${spring-doc-openapi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
+            <version>${springfox-bean-validation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -115,8 +127,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
         </plugins>
     </build>
 
