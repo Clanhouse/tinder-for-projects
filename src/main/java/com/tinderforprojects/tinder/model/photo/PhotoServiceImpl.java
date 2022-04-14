@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 @Service
@@ -26,37 +25,34 @@ public class PhotoServiceImpl implements PhotoService {
     private final PhotoMapper photoMapper;
 
     @Override
-    public void upload(byte[] image, Long id, String type) {
+    public boolean upload(byte[] image, Long id, String type) {
         switch (type) {
             case "developer": {
-                System.out.println("devel");
                 Photo photo = new Photo();
                 photo.setDeveloper(developerRepository.findById(id)
                         .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND)));
                 photo.setPhoto(image);
                 photo.setHash(UUID.randomUUID().toString());
                 photoRepository.save(photo);
-                break;
+                return true;
             }
             case "company": {
-                System.out.println("comp");
                 Photo photo = new Photo();
                 photo.setCompany(companyRepository.findById(id)
                         .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND)));
                 photo.setPhoto(image);
                 photo.setHash(UUID.randomUUID().toString());
                 photoRepository.save(photo);
-                break;
+                return true;
             }
             case "project": {
-                System.out.println("proj");
                 Photo photo = new Photo();
                 photo.setProject(projectRepository.findById(id)
                         .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND)));
                 photo.setPhoto(image);
                 photo.setHash(UUID.randomUUID().toString());
                 photoRepository.save(photo);
-                break;
+                return true;
             }
             default:
                 throw new BadRequestException(ErrorMessage.BAD_REQUEST);

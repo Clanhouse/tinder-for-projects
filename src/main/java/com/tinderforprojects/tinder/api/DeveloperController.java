@@ -5,9 +5,11 @@ import com.tinderforprojects.tinder.model.achievement.dto.AchievementMapper;
 import com.tinderforprojects.tinder.model.developer.DeveloperService;
 import com.tinderforprojects.tinder.model.developer.dto.DeveloperDTO;
 import com.tinderforprojects.tinder.model.developer.dto.DeveloperMapper;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import com.tinderforprojects.tinder.model.skill.dto.SkillDTO;
 import com.tinderforprojects.tinder.model.skill.dto.SkillMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -64,6 +66,16 @@ public class DeveloperController {
     public DeveloperDTO updateSkills(@PathVariable Long id, @RequestBody List<SkillDTO> skillsDto) {
         return developerMapper.toDeveloperDTO(
                 developerService.updateSkills(id, skillMapper.toSkills(skillsDto)));
+    }
+
+    @GetMapping("/{id}/photos")
+    public List<PhotoDto> findPhotosByDeveloperId(@PathVariable Long id) {
+        return developerService.downloadPhotos(id);
+    }
+
+    @PutMapping("/{id}/photos")
+    public ResponseEntity<String> uploadPhoto(@RequestBody byte[] image, @PathVariable Long id) {
+        return developerService.uploadPhoto(image, id);
     }
 
 

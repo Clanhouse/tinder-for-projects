@@ -31,6 +31,7 @@ public class Project extends BaseEntity {
     @Size(min = 3, message = "Name must have at least 3 characters")
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

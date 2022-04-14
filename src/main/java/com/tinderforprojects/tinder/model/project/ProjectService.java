@@ -1,7 +1,9 @@
 package com.tinderforprojects.tinder.model.project;
 
 import com.tinderforprojects.tinder.model.benefit.Benefit;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import com.tinderforprojects.tinder.model.skill.Skill;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -21,4 +23,7 @@ public interface ProjectService {
 
     Project updateBenefits(Long id, List<Benefit> benefits);
 
+    ResponseEntity<String> uploadPhoto(byte[] image, Long id);
+
+    List<PhotoDto> downloadPhotos(Long id);
 }

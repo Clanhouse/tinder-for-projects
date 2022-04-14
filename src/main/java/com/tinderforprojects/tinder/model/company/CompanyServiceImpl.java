@@ -3,8 +3,11 @@ package com.tinderforprojects.tinder.model.company;
 import com.tinderforprojects.tinder.exception.ErrorMessage;
 import com.tinderforprojects.tinder.exception.badRequest.BadRequestException;
 import com.tinderforprojects.tinder.exception.notFound.NotFoundException;
+import com.tinderforprojects.tinder.model.photo.PhotoService;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService{
 
     private final CompanyRepository companyRepository;
+    private final PhotoService photoService;
 
     @Override
     public List<Company> findAll() {
@@ -50,6 +54,22 @@ public class CompanyServiceImpl implements CompanyService{
                     return new NotFoundException(ErrorMessage.NOT_FOUND);
                 });
     }
+
+    @Override
+    public List<PhotoDto> downloadPhotos(Long id) {
+        return photoService.getPhotosUrlsByIdAndType(id, "company");
+    }
+
+    @Override
+    public ResponseEntity<String> uploadPhoto(byte[] image, Long id) {
+        if (photoService.upload(image, id, "company")) {
+            return ResponseEntity.ok()
+                    .body("Photo created");
+        } else {
+            return ResponseEntity.badRequest().body("Error while creating photo - check logs");
+        }
+    }
+
 
     private void validateName(String name) {
         if(name.length() < 3) {
