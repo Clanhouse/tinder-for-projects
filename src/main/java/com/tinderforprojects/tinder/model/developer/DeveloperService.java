@@ -1,7 +1,9 @@
 package com.tinderforprojects.tinder.model.developer;
 
 import com.tinderforprojects.tinder.model.achievement.Achievement;
+import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import com.tinderforprojects.tinder.model.skill.Skill;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ public interface DeveloperService {
 
     Developer updateSkills(Long id, List<Skill> skills);
 
-    Developer findByUserId(String userId);
+    List<PhotoDto> downloadPhotos(Long id);
+
+    ResponseEntity<String> uploadPhoto(byte[] image, Long id);
 
 }

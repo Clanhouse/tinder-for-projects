@@ -12,7 +12,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Long> {
             "    left join table_to_matches ttm on developers.id = ttm.developer_id\n" +
             "where ttm.developer_id is null\n" +
             "   or ttm.project_id <> :projectId")
-    Developer getRandomDevelopers(Long projectId);
+    List<Developer> getRandomDevelopers(Long projectId);
 
     Optional<Developer> findByUserId(String userId);
 
