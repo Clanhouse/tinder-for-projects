@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/benefits")
