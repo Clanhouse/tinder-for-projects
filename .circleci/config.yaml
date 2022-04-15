@@ -1,0 +1,42 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:17.0.2
+
+    working_directory: ~/tinderforprojects
+
+    steps:
+      # git pull
+      - checkout
+
+      # setup testing env
+      # the following commented lines are not allowed in the free version of circleci
+      #       - setup_remote_docker:
+      #           docker_layer_caching: true
+      - run:
+          name: Login to DockerHub
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - sample-springboot-api-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: sample-springboot-api-{{ checksum "pom.xml" }}
+
+      # package into a jar
+      - run: mvn clean package
+
+      # build and push docker image to docker hub
+      - run: mvn clean compile jib:build -Dimage=zarinlo/springboot-api:$CIRCLE_BUILD_NUM
+
+      # store raw contents of src code
+      - store_artifacts:
+          path: target/classes
+          destination: sample-springboot-api
