@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +43,7 @@ public class DeveloperServiceImpl implements DeveloperService{
         if(developers.isEmpty()) {
             throw new NotFoundException(ErrorMessage.NOT_FOUND);
         } else {
-            return developers.get(0);
+            return developers.get(getRandomId(developers.size() - 1));
         }
     }
 
@@ -106,6 +107,10 @@ public class DeveloperServiceImpl implements DeveloperService{
         } else {
             return ResponseEntity.badRequest().body("Error while creating photo - check logs");
         }
+    }
+
+    private int getRandomId(int max) {
+        return new Random().nextInt(max);
     }
 
 }

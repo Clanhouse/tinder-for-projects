@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class ProjectServiceImpl implements ProjectService {
         if (projects.isEmpty()) {
             throw new NotFoundException(ErrorMessage.NOT_FOUND);
         } else {
-            return projects.get(0);
+            return projects.get(getRandomId(projects.size()-1));
         }
     }
 
@@ -89,5 +90,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<PhotoDto> downloadPhotos(Long id) {
         return photoService.getPhotosUrlsByIdAndType(id, "project");
+    }
+
+    private int getRandomId(int max) {
+        return new Random().nextInt(max);
     }
 }

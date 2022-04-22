@@ -1,9 +1,8 @@
 package com.tinderforprojects.tinder.model.developer.dto;
 
 import com.tinderforprojects.tinder.model.achievement.dto.AchievementDTO;
-import com.tinderforprojects.tinder.model.photo.dto.PhotoDto;
 import com.tinderforprojects.tinder.model.skill.dto.SkillDTO;
-import lombok.*;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -23,6 +22,5 @@ public class DeveloperDTO {
     private String profession;
     private List<AchievementDTO> achievements;
     private List<SkillDTO> skills;
-    private List<PhotoDto> photos;
 
 }
