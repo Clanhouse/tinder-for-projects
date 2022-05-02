@@ -52,7 +52,7 @@ public class ProjectController {
                         projectMapper.toProject(projectDto)));
     }
 
-    @PutMapping("/{id}/basic")
+    @PutMapping("/{id}/general")
     public ProjectDTO updateBasicInformation(@PathVariable Long id, @RequestBody ProjectDTO projectDto) {
         return projectMapper.toProjectDTO(
                 projectService.updateBasicInformation(id, projectMapper.toProject(projectDto)));

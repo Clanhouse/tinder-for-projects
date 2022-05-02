@@ -51,7 +51,7 @@ public class DeveloperController {
                         developerMapper.toDeveloper(developerDto)));
     }
 
-    @PutMapping("/{id}/personal")
+    @PutMapping("/{id}/general")
     public DeveloperDTO updatePersonalInformation(@PathVariable Long id, @RequestBody @Valid DeveloperDTO developerDto) {
         return developerMapper.toDeveloperDTO(
                 developerService.updatePersonalInformation(id, developerMapper.toDeveloper(developerDto)));
