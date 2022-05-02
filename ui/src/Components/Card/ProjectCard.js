@@ -1,13 +1,13 @@
 import React from "react";
-import { useProjectCard } from "../../Hooks/useProjectCard";
+import { useCardData } from "../../Hooks/useCardData";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
 
 const ProjectCard = () => {
   const { activeCard } = useActiveCard();
-  const { generalInfo, qualifications, benefits, error, loading, getCardData } =
-    useProjectCard(activeCard);
+  const { generalInfo, skills, benefits, error, loading, getCardData } =
+    useCardData(activeCard, "projects");
 
   const handleClick = () => {
     getCardData();
@@ -41,13 +41,13 @@ const ProjectCard = () => {
               <p className="header__description">{generalInfo.description}</p>
             </div>
           </div>
-          {qualifications.length > 0 ? (
+          {skills.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Qualifications</h3>
               <ul className="features__list">
-                {qualifications.map((qualification) => (
-                  <li key={qualification.id} className="features__item">
-                    {qualification.name}
+                {skills.map((skill) => (
+                  <li key={skill.id} className="features__item">
+                    {skill.name}
                   </li>
                 ))}
               </ul>

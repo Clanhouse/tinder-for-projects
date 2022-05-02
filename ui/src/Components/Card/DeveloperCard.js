@@ -1,5 +1,5 @@
 import React from "react";
-import { useDeveloperCard } from "../../Hooks/useDeveloperCard";
+import { useCardData } from "../../Hooks/useCardData";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
@@ -7,7 +7,7 @@ import "./Card.css";
 const DeveloperCard = () => {
   const { activeCard } = useActiveCard();
   const { generalInfo, skills, achievements, error, loading, getCardData } =
-    useDeveloperCard(activeCard);
+    useCardData(activeCard, "developers");
 
   const handleClick = () => {
     getCardData();
