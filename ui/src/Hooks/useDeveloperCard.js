@@ -29,6 +29,7 @@ export const useDeveloperCard = (userId) => {
         ? await axios.get(`${process.env.REACT_APP_API}/developers/${id}`)
         : await axios.get(`${process.env.REACT_APP_API}/developers/random/${user.id}`);
       setGeneralInfo({
+        id: result.data.id,
         firstName: result.data.firstName,
         lastName: result.data.lastName,
         description: result.data.description,

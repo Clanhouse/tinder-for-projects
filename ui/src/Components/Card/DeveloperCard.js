@@ -1,26 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDeveloperCard } from "../../Hooks/useDeveloperCard";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
+import axios from "axios";
+import MatchModal from "../../Modals/Match/MatchModal";
+import { useUser } from "../../Hooks/useUser";
 
 const DeveloperCard = () => {
-
+  const { user } = useUser();
+  console.log("Developer card user: ", user);
+  const [open, setOpen] = useState(false);
   const { activeCard } = useActiveCard();
-  const {
-    generalInfo,
-    skills,
-    achievements,
-    error,
-    loading,
-    getCardData,
-  } = useDeveloperCard(activeCard);
-
-  const handleClick = () => {
+  const { generalInfo, skills, achievements, error, loading, getCardData } =
+    useDeveloperCard(activeCard);
+  // todo:
+  const handleClick = (e) => {
+    if (e.target.name === "thumbUp") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/like`, {
+          //TODO: change id's
+          idDeveloper: 3,
+          idProject: 2,
+        })
+        .then(function (response) {
+          console.log(response.data);
+          <MatchModal
+            open={response.data}
+            setOpen={setOpen}
+            user={undefined}
+            card={undefined}
+          />;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (e.target.name === "thumbDown") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/like`, {
+          //TODO: change id's
+          idDeveloper: 3,
+          idProject: 2,
+        })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
     getCardData();
   };
 
   if (loading) return <LoaderSpinner />;
+  // @ts-ignore
   if (error) return <p>{error.message}</p>;
   return (
     <div className="card">
@@ -74,8 +108,16 @@ const DeveloperCard = () => {
         </div>
       </div>
       <div className="card__buttons">
-        <button className="thumbUp" onClick={handleClick}></button>
-        <button className="thumbDown" onClick={handleClick}></button>
+        <button
+          className="thumbUp"
+          name="thumbUp"
+          onClick={handleClick}
+        ></button>
+        <button
+          className="thumbDown"
+          name="thumbDown"
+          onClick={handleClick}
+        ></button>
       </div>
     </div>
   );

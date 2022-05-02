@@ -29,6 +29,7 @@ export const useProjectCard = (projectId) => {
         ? await axios.get(`${process.env.REACT_APP_API}/projects/${id}`)
         : await axios.get(`${process.env.REACT_APP_API}/projects/random/${user.id}`);
       setGeneralInfo({
+        id: result.data.id,
         name: result.data.name,
         description: result.data.description,
         company: result.data.company.name,
@@ -45,6 +46,7 @@ export const useProjectCard = (projectId) => {
 
   useEffect(() => {
     getCardData(projectId || activeCard);
+    console.log("getCardData: ", activeCard);
   }, [projectId, activeCard]);
 
   useEffect(() => {

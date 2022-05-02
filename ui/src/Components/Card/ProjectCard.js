@@ -1,19 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { useProjectCard } from "../../Hooks/useProjectCard";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
+import axios from "axios";
+import MatchModal from "../../Modals/Match/MatchModal";
+import { useUser } from "../../Hooks/useUser";
 
 const ProjectCard = () => {
+  const { user } = useUser();
+  console.log("user: ", user);
+  const [open, setOpen] = useState(false);
   const { activeCard } = useActiveCard();
   const { generalInfo, qualifications, benefits, error, loading, getCardData } =
     useProjectCard(activeCard);
+    console.log("ActiveCard: ", generalInfo);
 
-  const handleClick = () => {
+
+  const handleClick = (e) => {
+    if (e.target.name === "thumbUp") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/like`, {
+          //TODO: change id's
+          idDeveloper: user.id,
+          idProject: generalInfo.id
+        })
+        .then(function (response) {
+          console.log("Project card2: ", response.data);
+          setOpen(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (e.target.name === "thumbDown") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/unlike`, {
+          //TODO: change id's
+          idDeveloper: user.id,
+          idProject: generalInfo.id
+        })
+        .then(function (response) {
+          console.log("thumbDown ", response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
     getCardData();
   };
 
   if (loading) return <LoaderSpinner />;
+  // @ts-ignore
   if (error) return <p>{error.message}</p>;
   return (
     <div className="card">
@@ -23,7 +61,8 @@ const ProjectCard = () => {
             <div className="header__image">
               <img
                 src={
-                  (generalInfo.photos && generalInfo.photos.length > 0 &&
+                  (generalInfo.photos &&
+                    generalInfo.photos.length > 0 &&
                     generalInfo.photos[0].url) ||
                   null
                 }
@@ -67,9 +106,18 @@ const ProjectCard = () => {
         </div>
       </div>
       <div className="card__buttons">
-        <button className="thumbUp" onClick={handleClick}></button>
-        <button className="thumbDown" onClick={handleClick}></button>
+        <button
+          className="thumbUp"
+          name="thumbUp"
+          onClick={handleClick}
+        ></button>
+        <button
+          className="thumbDown"
+          name="thumbDown"
+          onClick={handleClick}
+        ></button>
       </div>
+      <MatchModal open={open} setOpen={setOpen} user={undefined} card={undefined} />
     </div>
   );
 };

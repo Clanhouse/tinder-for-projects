@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 
+// @ts-ignore
 export const ActiveCardContext = createContext()
 export const useActiveCard = () => {
   return useContext(ActiveCardContext)
