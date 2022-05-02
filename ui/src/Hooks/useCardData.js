@@ -133,7 +133,7 @@ export const useCardData = (cardId, cardType) => {
 
   const updateGeneralInfo = async () => {
     await axios.put(
-      `${process.env.REACT_APP_API}/${cardType}/${cardId}/basic`,
+      `${process.env.REACT_APP_API}/${cardType}/${cardId}/general`,
       generalInfo
     );
   };
