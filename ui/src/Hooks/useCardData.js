@@ -40,7 +40,7 @@ export const useCardData = (cardId, cardType) => {
           name: result.data.name || null,
           description: result.data.description || null,
           profession: result.data.profession || null,
-          company: (result.data.company && result.data.company.name) || null,
+          company: result.data.company || null,
           photos: result.data.photos || null,
         });
         setSkills(result.data.skills || null);
