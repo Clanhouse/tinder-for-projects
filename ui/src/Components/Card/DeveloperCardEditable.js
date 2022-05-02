@@ -26,6 +26,8 @@ const DeveloperCardEditable = ({ user }) => {
     addNewAchievement,
   } = useDeveloperCard(user.id);
 
+  console.log(generalInfo);
+
   const addSkillOnKeyPress = (e) => {
     if (e.which === 13 && skill) {
       if (
@@ -83,7 +85,8 @@ const DeveloperCardEditable = ({ user }) => {
               <div className="header__image">
                 <img
                   src={
-                    (generalInfo.photos.length > 0 &&
+                    (generalInfo.photos &&
+                      generalInfo.photos.length > 0 &&
                       generalInfo.photos[0].url) ||
                     null
                   }
