@@ -22,6 +22,8 @@
         <spring-doc-openapi.version>1.6.4</spring-doc-openapi.version>
         <flyway.version>8.5.7</flyway.version>
         <springfox-bean-validation.version>3.0.0</springfox-bean-validation.version>
+        <spring-security.version>2.6.7</spring-security.version>
+        <keycloak.version>18.0.0</keycloak.version>
     </properties>
     <dependencies>
         <dependency>
@@ -81,11 +83,36 @@
             <version>${springfox-bean-validation.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+            <version>${keycloak.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>${keycloak.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+
     </dependencies>
+
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>18.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

@@ -27,4 +27,6 @@ public interface DeveloperService {
 
     ResponseEntity<String> uploadPhoto(byte[] image, Long id);
 
+    Developer findByUserId(String userId);
+
 }

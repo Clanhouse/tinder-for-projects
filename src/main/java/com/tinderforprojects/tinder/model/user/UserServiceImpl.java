@@ -22,9 +22,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
-import static com.tinderforprojects.tinder.config.security.KeycloakConfig.getInstance;
 
 @Service
 @Slf4j
@@ -35,12 +32,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-
         UserRepresentation user = getUserRepresentation(userDto);
         UsersResource userResource = getInstance();
         Response response = userResource.create(user);
         if (response.getStatus() != 201) {
-            log.error(String.format("Error while creating user. Auth server response details: \n status: %d, message: %s ",
+            log.error(String.format("Error while creating user. Auth server response details: status: %d, message: %s ",
                     response.getStatus(), response.getStatusInfo()));
             throw new ResponseStatusException(HttpStatus.valueOf(response.getStatus()));
         }
@@ -123,7 +119,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUserName());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmailId());
+        user.setEmail(userDto.getEmail());
         user.setCredentials(Collections.singletonList(credential));
         user.setRealmRoles(Arrays.asList("app-user"));
         user.setEnabled(true);
