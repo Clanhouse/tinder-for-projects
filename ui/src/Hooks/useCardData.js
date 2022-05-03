@@ -55,22 +55,22 @@ export const useCardData = (cardId, cardType) => {
     [cardType, user.id]
   );
 
+  const fetchFeatures = useCallback(async (type) => {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_API}/${type}`);
+      return result.data;
+    } catch (err) {
+      setError(err.message);
+    }
+  }, []);
+
   useEffect(() => {
     getCardData(cardId || activeCard);
   }, [cardId, activeCard, getCardData]);
 
   useEffect(() => {
-    const fetchSkills = async () => {
-      try {
-        const result = await axios.get(`${process.env.REACT_APP_API}/skills`);
-        return result.data;
-      } catch (err) {
-        setError(err);
-      }
-    };
-
     const getSkillSuggestions = async () => {
-      const skills = await fetchSkills();
+      const skills = await fetchFeatures("skills");
       const skillsSuggestions = createSuggestions(skill, skills);
       setSkillSuggestions(skillsSuggestions);
     };
@@ -80,20 +80,11 @@ export const useCardData = (cardId, cardType) => {
     } else {
       setSkillSuggestions([]);
     }
-  }, [skill]);
+  }, [skill, fetchFeatures]);
 
   useEffect(() => {
-    const fetchBenefits = async () => {
-      try {
-        const result = await axios.get(`${process.env.REACT_APP_API}/benefits`);
-        return result.data;
-      } catch (err) {
-        setError(err);
-      }
-    };
-
     const getbenefitSuggestions = async () => {
-      const benefits = await fetchBenefits();
+      const benefits = await fetchFeatures("benefits");
       const benefitSuggestions = createSuggestions(benefit, benefits);
       setBenefitsuggestions(benefitSuggestions);
     };
@@ -102,22 +93,11 @@ export const useCardData = (cardId, cardType) => {
     } else {
       setBenefitsuggestions([]);
     }
-  }, [benefit]);
+  }, [benefit, fetchFeatures]);
 
   useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_API}/achievements`
-        );
-        return result.data;
-      } catch (err) {
-        setError(err);
-      }
-    };
-
     const getAchievementSuggestions = async () => {
-      const achievements = await fetchAchievements();
+      const achievements = await fetchFeatures("achievements");
       const achievementSuggestions = createSuggestions(
         achievement,
         achievements
@@ -129,7 +109,7 @@ export const useCardData = (cardId, cardType) => {
     } else {
       setAchievementSuggestions([]);
     }
-  }, [achievement]);
+  }, [achievement, fetchFeatures]);
 
   const updateGeneralInfo = async () => {
     await axios.put(
