@@ -34,7 +34,7 @@ public class Project extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name="projects_skills",
             joinColumns = @JoinColumn(name = "project_id"),
@@ -42,7 +42,7 @@ public class Project extends BaseEntity {
     )
     private List<Skill> skills;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name="projects_benefits",
             joinColumns = @JoinColumn(name = "project_id"),

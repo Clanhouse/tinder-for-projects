@@ -45,7 +45,7 @@ public class Developer extends BaseEntity {
     )
     private List<Achievement> achievements;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "developers_skills",
             joinColumns = @JoinColumn(name = "developer_id"),
