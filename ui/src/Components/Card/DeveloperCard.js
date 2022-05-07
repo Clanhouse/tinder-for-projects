@@ -9,28 +9,25 @@ import { useUser } from "../../Hooks/useUser";
 
 const DeveloperCard = () => {
   const { user } = useUser();
-  console.log("Developer card user: ", user);
   const [open, setOpen] = useState(false);
   const { activeCard } = useActiveCard();
   const { generalInfo, skills, achievements, error, loading, getCardData } =
     useDeveloperCard(activeCard);
-  // todo:
+
   const handleClick = (e) => {
     if (e.target.name === "thumbUp") {
+            //TODO: to remove
+      console.log("user: ", user.role);
+      console.log("user: ", user.id);
+      console.log("General: ", generalInfo);
+
       axios
         .post(`${process.env.REACT_APP_API}/match/like`, {
-          //TODO: change id's
-          idDeveloper: 3,
-          idProject: 2,
+          idDeveloper: generalInfo.id,
+          idProject: user.id,
         })
         .then(function (response) {
-          console.log(response.data);
-          <MatchModal
-            open={response.data}
-            setOpen={setOpen}
-            user={undefined}
-            card={undefined}
-          />;
+          setOpen(true);
         })
         .catch(function (error) {
           console.log(error);
@@ -39,9 +36,8 @@ const DeveloperCard = () => {
     if (e.target.name === "thumbDown") {
       axios
         .post(`${process.env.REACT_APP_API}/match/like`, {
-          //TODO: change id's
-          idDeveloper: 3,
-          idProject: 2,
+          idDeveloper: generalInfo.id,
+          idProject: user.id,
         })
         .then(function (response) {
           console.log(response.data);
@@ -64,7 +60,7 @@ const DeveloperCard = () => {
             <div className="header__image">
               <img
                 src={
-                  (generalInfo.photos.length > 0 &&
+                  (generalInfo.photos?.length > 0 &&
                     generalInfo.photos[0].url) ||
                   null
                 }
@@ -81,7 +77,7 @@ const DeveloperCard = () => {
               <p className="header__description">{generalInfo.description}</p>
             </div>
           </div>
-          {skills.length > 0 ? (
+          {skills?.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Skills</h3>
               <ul className="features__list">
@@ -93,7 +89,7 @@ const DeveloperCard = () => {
               </ul>
             </div>
           ) : null}
-          {achievements.length > 0 ? (
+          {achievements?.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Achievements</h3>
               <ul className="features__list">
@@ -119,6 +115,12 @@ const DeveloperCard = () => {
           onClick={handleClick}
         ></button>
       </div>
+      <MatchModal
+      open={open}
+      setOpen={setOpen}
+      user={user}
+      generalInfo={generalInfo}
+    />;
     </div>
   );
 };

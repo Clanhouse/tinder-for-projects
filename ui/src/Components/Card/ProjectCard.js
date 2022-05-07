@@ -9,36 +9,40 @@ import { useUser } from "../../Hooks/useUser";
 
 const ProjectCard = () => {
   const { user } = useUser();
-  console.log("user: ", user);
   const [open, setOpen] = useState(false);
   const { activeCard } = useActiveCard();
   const { generalInfo, qualifications, benefits, error, loading, getCardData } =
     useProjectCard(activeCard);
-    console.log("ActiveCard: ", generalInfo);
-
 
   const handleClick = (e) => {
+    console.log("info przed modalem: ", generalInfo);
+    console.log("user przed modalem: ", user);
+
+
     if (e.target.name === "thumbUp") {
       axios
         .post(`${process.env.REACT_APP_API}/match/like`, {
-          //TODO: change id's
           idDeveloper: user.id,
-          idProject: generalInfo.id
+          idProject: generalInfo.id,
         })
         .then(function (response) {
-          console.log("Project card2: ", response.data);
-          setOpen(response.data);
+          console.log("ProjectCard like: ", response.data);
+          setOpen(true);
         })
         .catch(function (error) {
           console.log(error);
         });
     }
     if (e.target.name === "thumbDown") {
+      //TODO:
+      console.log("user: ", user.role);
+      console.log("user: ", user);
+      console.log("General: ", generalInfo);
+
       axios
         .post(`${process.env.REACT_APP_API}/match/unlike`, {
-          //TODO: change id's
           idDeveloper: user.id,
-          idProject: generalInfo.id
+          idProject: generalInfo.id,
         })
         .then(function (response) {
           console.log("thumbDown ", response.data);
@@ -62,7 +66,7 @@ const ProjectCard = () => {
               <img
                 src={
                   (generalInfo.photos &&
-                    generalInfo.photos.length > 0 &&
+                    generalInfo.photos?.length > 0 &&
                     generalInfo.photos[0].url) ||
                   null
                 }
@@ -79,7 +83,7 @@ const ProjectCard = () => {
               <p className="header__description">{generalInfo.description}</p>
             </div>
           </div>
-          {qualifications.length > 0 ? (
+          {qualifications?.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Qualifications</h3>
               <ul className="features__list">
@@ -91,7 +95,7 @@ const ProjectCard = () => {
               </ul>
             </div>
           ) : null}
-          {benefits.length > 0 ? (
+          {benefits?.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Benefits</h3>
               <ul className="features__list">
@@ -117,7 +121,12 @@ const ProjectCard = () => {
           onClick={handleClick}
         ></button>
       </div>
-      <MatchModal open={open} setOpen={setOpen} user={undefined} card={undefined} />
+      <MatchModal
+        open={open}
+        setOpen={setOpen}
+        user={user}
+        generalInfo={generalInfo}
+      />
     </div>
   );
 };
