@@ -1,5 +1,5 @@
 import React from "react";
-import { useDeveloperCard } from "../../Hooks/useDeveloperCard";
+import { useCardData } from "../../Hooks/useCardData";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import Button from "../Button/Button";
 import InputField from "../Form/InputField/InputField";
@@ -24,7 +24,7 @@ const DeveloperCardEditable = ({ user }) => {
     addNewSkill,
     addAchievementFromList,
     addNewAchievement,
-  } = useDeveloperCard(user.id);
+  } = useCardData(user.id, "developers");
 
   const addSkillOnKeyPress = (e) => {
     if (e.which === 13 && skill) {
@@ -83,7 +83,8 @@ const DeveloperCardEditable = ({ user }) => {
               <div className="header__image">
                 <img
                   src={
-                    (generalInfo.photos.length > 0 &&
+                    (generalInfo.photos &&
+                      generalInfo.photos.length > 0 &&
                       generalInfo.photos[0].url) ||
                     null
                   }

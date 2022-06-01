@@ -1,18 +1,21 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useActiveCard } from "../Contexts/ActiveCard";
 import { useUser } from "./useUser";
 
-export const useDeveloperCard = (userId) => {
+export const useCardData = (cardId, cardType) => {
   const { user } = useUser();
   const [generalInfo, setGeneralInfo] = useState(null);
   const [skills, setSkills] = useState(null);
   const [skill, setSkill] = useState("");
   const [skillSuggestions, setSkillSuggestions] = useState([]);
+  const [benefits, setBenefits] = useState(null);
+  const [benefit, setBenefit] = useState("");
+  const [benefitSuggestions, setBenefitsuggestions] = useState([]);
   const [achievements, setAchievements] = useState(null);
   const [achievement, setAchievement] = useState("");
   const [achievementSuggestions, setAchievementSuggestions] = useState([]);
-  const { selectCard, activeCard } = useActiveCard();
+  const { activeCard } = useActiveCard();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -22,44 +25,52 @@ export const useDeveloperCard = (userId) => {
     );
   };
 
-  const getCardData = async (id) => {
-    setLoading(true);
-    try {
-      const result = id
-        ? await axios.get(`${process.env.REACT_APP_API}/developers/${id}`)
-        : await axios.get(`${process.env.REACT_APP_API}/developers/random/${user.id}`);
-      setGeneralInfo({
-        firstName: result.data.firstName,
-        lastName: result.data.lastName,
-        description: result.data.description,
-        profession: result.data.profession,
-        photos: result.data.photos,
-      });
-      setSkills(result.data.skills);
-      setAchievements(result.data.achievements);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getCardData(userId || activeCard);
-  }, [userId, activeCard]);
-
-  useEffect(() => {
-    const fetchSkills = async () => {
+  const getCardData = useCallback(
+    async (id) => {
+      setLoading(true);
       try {
-        const result = await axios.get(`${process.env.REACT_APP_API}/skills`);
-        return result.data;
+        const result = id
+          ? await axios.get(`${process.env.REACT_APP_API}/${cardType}/${id}`)
+          : await axios.get(
+              `${process.env.REACT_APP_API}/${cardType}/random/${user.id}`
+            );
+        setGeneralInfo({
+          firstName: result.data.firstName || null,
+          lastName: result.data.lastName || null,
+          name: result.data.name || null,
+          description: result.data.description || null,
+          profession: result.data.profession || null,
+          company: result.data.company || null,
+          photos: result.data.photos || null,
+        });
+        setSkills(result.data.skills || null);
+        setBenefits(result.data.benefits || null);
+        setAchievements(result.data.achievements);
       } catch (err) {
         setError(err);
+      } finally {
+        setLoading(false);
       }
-    };
+    },
+    [cardType, user.id]
+  );
 
+  const fetchFeatures = useCallback(async (type) => {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_API}/${type}`);
+      return result.data;
+    } catch (err) {
+      setError(err.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    getCardData(cardId || activeCard);
+  }, [cardId, activeCard, getCardData]);
+
+  useEffect(() => {
     const getSkillSuggestions = async () => {
-      const skills = await fetchSkills();
+      const skills = await fetchFeatures("skills");
       const skillsSuggestions = createSuggestions(skill, skills);
       setSkillSuggestions(skillsSuggestions);
     };
@@ -69,22 +80,24 @@ export const useDeveloperCard = (userId) => {
     } else {
       setSkillSuggestions([]);
     }
-  }, [skill]);
+  }, [skill, fetchFeatures]);
 
   useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_API}/achievements`
-        );
-        return result.data;
-      } catch (err) {
-        setError(err);
-      }
+    const getbenefitSuggestions = async () => {
+      const benefits = await fetchFeatures("benefits");
+      const benefitSuggestions = createSuggestions(benefit, benefits);
+      setBenefitsuggestions(benefitSuggestions);
     };
+    if (benefit) {
+      getbenefitSuggestions();
+    } else {
+      setBenefitsuggestions([]);
+    }
+  }, [benefit, fetchFeatures]);
 
+  useEffect(() => {
     const getAchievementSuggestions = async () => {
-      const achievements = await fetchAchievements();
+      const achievements = await fetchFeatures("achievements");
       const achievementSuggestions = createSuggestions(
         achievement,
         achievements
@@ -96,11 +109,11 @@ export const useDeveloperCard = (userId) => {
     } else {
       setAchievementSuggestions([]);
     }
-  }, [achievement]);
+  }, [achievement, fetchFeatures]);
 
   const updateGeneralInfo = async () => {
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${userId}/personal`,
+      `${process.env.REACT_APP_API}/${cardType}/${cardId}/general`,
       generalInfo
     );
   };
@@ -119,7 +132,7 @@ export const useDeveloperCard = (userId) => {
     setSkill("");
     await setSkills(newSkills);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${userId}/skills`,
+      `${process.env.REACT_APP_API}/${cardType}/${cardId}/skills`,
       newSkills
     );
   };
@@ -139,8 +152,49 @@ export const useDeveloperCard = (userId) => {
     setSkill("");
     await setSkills(newSkills);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${userId}/skills`,
+      `${process.env.REACT_APP_API}/${cardType}/${cardId}/skills`,
       newSkills
+    );
+  };
+
+  const addBenefitFromList = async (benefitId) => {
+    if (benefits.some((benefit) => benefit.id === benefitId)) {
+      setBenefitsuggestions([]);
+      setBenefit("");
+      return;
+    }
+    const result = await axios.get(
+      `${process.env.REACT_APP_API}/benefits/${benefitId}`
+    );
+    const newBenefits = [...benefits, result.data];
+    setBenefitsuggestions([]);
+    setBenefit("");
+    await setBenefits(newBenefits);
+    await axios.put(
+      `${process.env.REACT_APP_API}/${cardType}/${cardId}/benefits`,
+      newBenefits
+    );
+  };
+
+  const addNewBenefit = async (benefit) => {
+    const _benefit = benefit.trim();
+    if (
+      benefits.some(
+        (benefit) => benefit.name.toLowerCase() === _benefit.toLowerCase()
+      )
+    ) {
+      setBenefitsuggestions([]);
+      setBenefit("");
+      return;
+    }
+    const newBenefit = { name: _benefit };
+    const newBenefits = [...benefits, newBenefit];
+    setBenefitsuggestions([]);
+    setBenefit("");
+    await setBenefits(newBenefits);
+    await axios.put(
+      `${process.env.REACT_APP_API}/${cardType}/${cardId}/benefits`,
+      newBenefits
     );
   };
 
@@ -158,7 +212,7 @@ export const useDeveloperCard = (userId) => {
     setAchievement("");
     await setAchievements(newAchievements);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${userId}/achievements`,
+      `${process.env.REACT_APP_API}/developers/${cardId}/achievements`,
       newAchievements
     );
   };
@@ -181,7 +235,7 @@ export const useDeveloperCard = (userId) => {
     setAchievement("");
     await setAchievements(newAchievements);
     await axios.put(
-      `${process.env.REACT_APP_API}/developers/${userId}/achievements`,
+      `${process.env.REACT_APP_API}/developers/${cardId}/achievements`,
       newAchievements
     );
   };
@@ -191,6 +245,9 @@ export const useDeveloperCard = (userId) => {
     skill,
     skills,
     skillSuggestions,
+    benefit,
+    benefits,
+    benefitSuggestions,
     achievement,
     achievements,
     achievementSuggestions,
@@ -199,10 +256,13 @@ export const useDeveloperCard = (userId) => {
     getCardData,
     setGeneralInfo,
     setSkill,
+    setBenefit,
     setAchievement,
     updateGeneralInfo,
     addSkillFromList,
     addNewSkill,
+    addBenefitFromList,
+    addNewBenefit,
     addAchievementFromList,
     addNewAchievement,
   };

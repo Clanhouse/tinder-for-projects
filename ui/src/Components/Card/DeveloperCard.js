@@ -1,20 +1,13 @@
 import React from "react";
-import { useDeveloperCard } from "../../Hooks/useDeveloperCard";
+import { useCardData } from "../../Hooks/useCardData";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
 
 const DeveloperCard = () => {
-
   const { activeCard } = useActiveCard();
-  const {
-    generalInfo,
-    skills,
-    achievements,
-    error,
-    loading,
-    getCardData,
-  } = useDeveloperCard(activeCard);
+  const { generalInfo, skills, achievements, error, loading, getCardData } =
+    useCardData(activeCard, "developers");
 
   const handleClick = () => {
     getCardData();
@@ -30,7 +23,8 @@ const DeveloperCard = () => {
             <div className="header__image">
               <img
                 src={
-                  (generalInfo.photos.length > 0 &&
+                  (generalInfo.photos &&
+                    generalInfo.photos.length > 0 &&
                     generalInfo.photos[0].url) ||
                   null
                 }

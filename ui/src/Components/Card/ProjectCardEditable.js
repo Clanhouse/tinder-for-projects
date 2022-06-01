@@ -1,5 +1,5 @@
 import React from "react";
-import { useProjectCard } from "../../Hooks/useProjectCard";
+import { useCardData } from "../../Hooks/useCardData";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import Button from "../Button/Button";
 import InputField from "../Form/InputField/InputField";
@@ -24,7 +24,7 @@ const ProjectCardEditable = ({ user }) => {
     addNewQualification,
     addBenefitFromList,
     addNewBenefit,
-  } = useProjectCard(user.id);
+  } = useCardData(user.id, "projects");
 
   const addQualificationOnKeyPress = (e) => {
     if (e.which === 13 && qualification) {
@@ -86,7 +86,8 @@ const ProjectCardEditable = ({ user }) => {
               <div className="header__image">
                 <img
                   src={
-                    (generalInfo.photos && generalInfo.photos.length > 0 &&
+                    (generalInfo.photos &&
+                      generalInfo.photos.length > 0 &&
                       generalInfo.photos[0].url) ||
                     null
                   }
