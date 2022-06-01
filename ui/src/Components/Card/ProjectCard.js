@@ -7,18 +7,18 @@ import axios from "axios";
 import MatchModal from "../../Modals/Match/MatchModal";
 import { useUser } from "../../Hooks/useUser";
 
-const ProjectCard = () => {
+const ProjectCard = ({ updateConnectionsList, setUpdateConnectionsList }) => {
+  const [matchModalOpen, setMatchModalOpen] = useState(false);
   const { user } = useUser();
-  const [open, setOpen] = useState(false);
   const { activeCard } = useActiveCard();
   const { generalInfo, qualifications, benefits, error, loading, getCardData } =
     useProjectCard(activeCard);
+  const [matchModalContent, setMatchModalContent] = useState({
+    user,
+    generalInfo,
+  });
 
   const handleClick = (e) => {
-    console.log("info przed modalem: ", generalInfo);
-    console.log("user przed modalem: ", user);
-
-
     if (e.target.name === "thumbUp") {
       axios
         .post(`${process.env.REACT_APP_API}/match/like`, {
@@ -26,32 +26,34 @@ const ProjectCard = () => {
           idProject: generalInfo.id,
         })
         .then(function (response) {
-          console.log("ProjectCard like: ", response.data);
-          setOpen(true);
+          if (response.data) {
+            setMatchModalContent({ user, generalInfo });
+            setMatchModalOpen(true);
+          }
         })
         .catch(function (error) {
           console.log(error);
         });
     }
     if (e.target.name === "thumbDown") {
-      //TODO:
-      console.log("user: ", user.role);
-      console.log("user: ", user);
-      console.log("General: ", generalInfo);
-
       axios
         .post(`${process.env.REACT_APP_API}/match/unlike`, {
           idDeveloper: user.id,
           idProject: generalInfo.id,
         })
         .then(function (response) {
-          console.log("thumbDown ", response.data);
+          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
         });
     }
-    getCardData();
+    if (!matchModalOpen) getCardData();
+  };
+
+  const addToConnections = () => {
+    setUpdateConnectionsList(true);
+    setMatchModalOpen(false);
   };
 
   if (loading) return <LoaderSpinner />;
@@ -122,10 +124,11 @@ const ProjectCard = () => {
         ></button>
       </div>
       <MatchModal
-        open={open}
-        setOpen={setOpen}
-        user={user}
-        generalInfo={generalInfo}
+        open={matchModalOpen}
+        setOpen={setMatchModalOpen}
+        user={matchModalContent.user}
+        generalInfo={matchModalContent.generalInfo}
+        addToConnections={addToConnections}
       />
     </div>
   );

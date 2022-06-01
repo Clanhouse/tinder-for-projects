@@ -7,27 +7,29 @@ import axios from "axios";
 import MatchModal from "../../Modals/Match/MatchModal";
 import { useUser } from "../../Hooks/useUser";
 
-const DeveloperCard = () => {
+const DeveloperCard = ({ updateConnectionsList, setUpdateConnectionsList }) => {
   const { user } = useUser();
-  const [open, setOpen] = useState(false);
+  const [matchModalOpen, setMatchModalOpen] = useState(false);
   const { activeCard } = useActiveCard();
   const { generalInfo, skills, achievements, error, loading, getCardData } =
     useDeveloperCard(activeCard);
+  const [matchModalContent, setMatchModalContent] = useState({
+    user,
+    generalInfo,
+  });
 
   const handleClick = (e) => {
     if (e.target.name === "thumbUp") {
-            //TODO: to remove
-      console.log("user: ", user.role);
-      console.log("user: ", user.id);
-      console.log("General: ", generalInfo);
-
       axios
         .post(`${process.env.REACT_APP_API}/match/like`, {
           idDeveloper: generalInfo.id,
           idProject: user.id,
         })
         .then(function (response) {
-          setOpen(true);
+          if (response.data) {
+            setMatchModalContent({ user, generalInfo });
+            setMatchModalOpen(true);
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -35,7 +37,7 @@ const DeveloperCard = () => {
     }
     if (e.target.name === "thumbDown") {
       axios
-        .post(`${process.env.REACT_APP_API}/match/like`, {
+        .post(`${process.env.REACT_APP_API}/match/unlike`, {
           idDeveloper: generalInfo.id,
           idProject: user.id,
         })
@@ -46,7 +48,12 @@ const DeveloperCard = () => {
           console.log(error);
         });
     }
-    getCardData();
+    if (!matchModalOpen) getCardData();
+  };
+
+  const addToConnections = () => {
+    setUpdateConnectionsList(true);
+    setMatchModalOpen(false);
   };
 
   if (loading) return <LoaderSpinner />;
@@ -116,11 +123,13 @@ const DeveloperCard = () => {
         ></button>
       </div>
       <MatchModal
-      open={open}
-      setOpen={setOpen}
-      user={user}
-      generalInfo={generalInfo}
-    />;
+        open={matchModalOpen}
+        setOpen={setMatchModalOpen}
+        user={matchModalContent.user}
+        generalInfo={matchModalContent.generalInfo}
+        addToConnections={addToConnections}
+      />
+      ;
     </div>
   );
 };

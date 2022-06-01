@@ -11,15 +11,27 @@ import "./UserWindow.css";
 const UserWindow = ({ user }) => {
   const [dashboardState, setDashboardState] = useState("connections");
   const [userEditMode, setUserEditMode] = useState(false);
+  const [updateConnectionsList, setUpdateConnectionsList] = useState(false);
+
   let cardComponent = null;
   if (user.role === "developer") {
-    cardComponent = userEditMode ? <DeveloperCardEditable user={user} /> : <ProjectCard />;
+    cardComponent = userEditMode ? (
+      <DeveloperCardEditable user={user} />
+    ) : (
+      <ProjectCard
+        updateConnectionsList={updateConnectionsList}
+        setUpdateConnectionsList={setUpdateConnectionsList}
+      />
+    );
   }
   if (user.role === "project") {
     cardComponent = userEditMode ? (
       <ProjectCardEditable user={user} />
     ) : (
-      <DeveloperCard />
+      <DeveloperCard
+        updateConnectionsList={updateConnectionsList}
+        setUpdateConnectionsList={setUpdateConnectionsList}
+      />
     );
   }
   return (
@@ -32,7 +44,11 @@ const UserWindow = ({ user }) => {
               setdashboardState={setDashboardState}
               setUserEditMode={setUserEditMode}
             />
-            <Dashboard dashboardState={dashboardState} />
+            <Dashboard
+              dashboardState={dashboardState}
+              updateConnectionsList={updateConnectionsList}
+              setUpdateConnectionsList={setUpdateConnectionsList}
+            />
           </aside>
           <main className="user-window__main">{cardComponent}</main>
         </div>

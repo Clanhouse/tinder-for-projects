@@ -42,6 +42,28 @@
   height: 40px;
 }
 
+.online {
+  width: 20px;
+  height: 20px;
+  background: var(--color-green);
+  border: 2px solid white;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  border-radius: 100%;
+}
+
+.offline {
+  width: 20px;
+  height: 20px;
+  background: var(--color-red);
+  border: 2px solid white;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  border-radius: 100%;
+}
+
 @media only screen and (max-width: 768px) and (min-width: 480px) {
   .connection {
     width: 25%;
