@@ -9,12 +9,11 @@
 
 .connections__empty {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 100%;
-  transform: translate(-50%, -50%);
   padding: 0 30px;
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--color-primary-light);
+  font-size: 1rem;
+  color: var(--text-color-dark);
 }
+

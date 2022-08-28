@@ -1,0 +1,37 @@
+.matchmodal__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 500px;
+    height: 600px;
+    background-color: #cccccc;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .matchmodal__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+  }
+  .matchmodal__header-images {
+    display: flex;
+    justify-content: space-around;
+  }
+  .matchmodal__container-buttons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .image {
+    width: 200px;
+    border-radius: 100%;
+  }
+  .matchmodal__description {
+    font-family: Caveat;
+    font-weight: 700;
+    font-size: 64px;
+  }

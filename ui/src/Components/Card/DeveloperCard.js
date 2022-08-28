@@ -1,16 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCardData } from "../../Hooks/useCardData";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
+import MatchModal from "../../Modals/Match/MatchModal";
+import { useUser } from "../../Hooks/useUser";
+import axios from "axios";
 
-const DeveloperCard = () => {
+const DeveloperCard = ({ updateConnectionsList, setUpdateConnectionsList }) => {
+  const { user } = useUser();
+  const [matchModalOpen, setMatchModalOpen] = useState(false);
   const { activeCard } = useActiveCard();
   const { generalInfo, skills, achievements, error, loading, getCardData } =
     useCardData(activeCard, "developers");
+  const [matchModalContent, setMatchModalContent] = useState({
+    user: Object,
+    generalInfo: Object,
+  });
 
-  const handleClick = () => {
-    getCardData();
+  const handleClick = (e) => {
+    if (e.target.name === "thumbUp") {
+
+      axios
+        .post(`${process.env.REACT_APP_API}/match/like`, {
+          idDeveloper: generalInfo.id,
+          idProject: user.id,
+        })
+        .then(function (response) {
+          setMatchModalContent({ user, generalInfo });
+          setMatchModalOpen(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (e.target.name === "thumbDown") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/unlike`, {
+          idDeveloper: generalInfo.id,
+          idProject: user.id,
+        })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (!matchModalOpen) getCardData();
+  };
+
+  const addToConnections = () => {
+    setUpdateConnectionsList(true);
+    setMatchModalOpen(false);
   };
 
   if (loading) return <LoaderSpinner />;
@@ -41,7 +83,7 @@ const DeveloperCard = () => {
               <p className="header__description">{generalInfo.description}</p>
             </div>
           </div>
-          {skills.length > 0 ? (
+          {skills && skills.length > 0 ? (
             <div className="features">
               <h3 className="features__heading">Skills</h3>
               <ul className="features__list">
@@ -68,9 +110,16 @@ const DeveloperCard = () => {
         </div>
       </div>
       <div className="card__buttons">
-        <button className="thumbUp" onClick={handleClick}></button>
-        <button className="thumbDown" onClick={handleClick}></button>
+        <button className="thumbUp" name="thumbUp" onClick={handleClick}></button>
+        <button className="thumbDown" name="thumbDown" onClick={handleClick}></button>
       </div>
+      <MatchModal
+        open={matchModalOpen}
+        setOpen={setMatchModalOpen}
+        user={matchModalContent.user}
+        generalInfo={matchModalContent.generalInfo}
+        addToConnections={addToConnections}
+      />
     </div>
   );
 };
