@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(userData)
-    setUser({ role: userData.role, id: 3 })
+    setUser({ role: userData.role, id: 10 })
     history.push('/')
   }
   return (

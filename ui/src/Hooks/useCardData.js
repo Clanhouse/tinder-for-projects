@@ -35,13 +35,14 @@ export const useCardData = (cardId, cardType) => {
               `${process.env.REACT_APP_API}/${cardType}/random/${user.id}`
             );
         setGeneralInfo({
-          firstName: result.data.firstName || null,
-          lastName: result.data.lastName || null,
-          name: result.data.name || null,
-          description: result.data.description || null,
-          profession: result.data.profession || null,
-          company: result.data.company || null,
-          photos: result.data.photos || null,
+          id: result.data.id || 0,
+          firstName: result.data.firstName || "",
+          lastName: result.data.lastName || "",
+          name: result.data.name || "",
+          description: result.data.description || "",
+          profession: result.data.profession || "",
+          company: result.data.company || "",
+          photos: result.data.photos || "",
         });
         setSkills(result.data.skills || null);
         setBenefits(result.data.benefits || null);

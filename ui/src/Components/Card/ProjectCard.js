@@ -1,16 +1,57 @@
-import React from "react";
-import { useCardData } from "../../Hooks/useCardData";
+import React, { useState } from "react";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { useActiveCard } from "../../Contexts/ActiveCard";
 import "./Card.css";
+import axios from "axios";
+import MatchModal from "../../Modals/Match/MatchModal";
+import { useUser } from "../../Hooks/useUser";
+import { useCardData } from "../../Hooks/useCardData";
 
-const ProjectCard = () => {
+const ProjectCard = ({ updateConnectionsList, setUpdateConnectionsList }) => {
   const { activeCard } = useActiveCard();
+  const [matchModalOpen, setMatchModalOpen] = useState(false);
   const { generalInfo, skills, benefits, error, loading, getCardData } =
     useCardData(activeCard, "projects");
+  const { user } = useUser();
+  const [matchModalContent, setMatchModalContent] = useState({
+    user: Object,
+    generalInfo: Object,
+  });
 
-  const handleClick = () => {
-    getCardData();
+  const handleClick = (e) => {
+    if (e.target.name === "thumbUp") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/like`, {
+          idDeveloper: user.id,
+          idProject: generalInfo.id,
+        })
+        .then(function (response) {
+          setMatchModalContent({ user, generalInfo });
+          setMatchModalOpen(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (e.target.name === "thumbDown") {
+      axios
+        .post(`${process.env.REACT_APP_API}/match/unlike`, {
+          idDeveloper: user.id,
+          idProject: generalInfo.id,
+        })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (!matchModalOpen) getCardData();
+  };
+
+  const addToConnections = () => {
+    setUpdateConnectionsList(true);
+    setMatchModalOpen(false);
   };
 
   if (loading) return <LoaderSpinner />;
@@ -46,7 +87,7 @@ const ProjectCard = () => {
               <h3 className="features__heading">Qualifications</h3>
               <ul className="features__list">
                 {skills.map((skill) => (
-                  <li key={skill.id} className="features__item">
+                  <li key={skill.name} className="features__item">
                     {skill.name}
                   </li>
                 ))}
@@ -58,7 +99,7 @@ const ProjectCard = () => {
               <h3 className="features__heading">Benefits</h3>
               <ul className="features__list">
                 {benefits.map((benefit) => (
-                  <li key={benefit.id} className="features__item">
+                  <li key={benefit.name} className="features__item">
                     {benefit.name}
                   </li>
                 ))}
@@ -68,9 +109,24 @@ const ProjectCard = () => {
         </div>
       </div>
       <div className="card__buttons">
-        <button className="thumbUp" onClick={handleClick}></button>
-        <button className="thumbDown" onClick={handleClick}></button>
+        <button
+          className="thumbUp"
+          name="thumbUp"
+          onClick={handleClick}
+        ></button>
+        <button
+          className="thumbDown"
+          name="thumbDown"
+          onClick={handleClick}
+        ></button>
       </div>
+      <MatchModal
+        open={matchModalOpen}
+        setOpen={setMatchModalOpen}
+        user={matchModalContent.user}
+        generalInfo={matchModalContent.generalInfo}
+        addToConnections={addToConnections}
+      />
     </div>
   );
 };
