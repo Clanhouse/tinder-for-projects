@@ -10,6 +10,8 @@ import "./SignIn.css";
 import axios from "axios";
 import { useKeycloak } from "@react-keycloak/web";
 
+//TODO: Sign in unused at this moment - we using Keycloak flow to log user in
+
 const SignIn = () => {
   const { setUser } = useUser();
   const [userData, setUserData] = useState({

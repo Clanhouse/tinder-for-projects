@@ -15,6 +15,7 @@ const LandingPage = () => {
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
     keycloak.authenticated
+    //TODO: setUser with right data
       ? setUser({ role: "project", id: 3 })
       : setUser(null);
   }, [keycloak.authenticated]);

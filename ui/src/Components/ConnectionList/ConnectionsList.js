@@ -40,7 +40,6 @@ const ConnectionsList = ({
   }
 
   useEffect(() => {
-    console.log("ConnectionList :", `${process.env.REACT_APP_API}/match/projects/${user.id}`);
     fetchMatches();
   }, []);
 
