@@ -1,15 +1,19 @@
-import React, { useRef } from 'react'
-import RouterButton from '../RouterButton/RouterButton'
-import './Navbar.css'
-import logo from '../../Data/Images/logo.png'
-import { ReactComponent as BurgerButton } from '../../Data/Images/bars-solid.svg'
-import { ReactComponent as CloseButton } from '../../Data/Images/times-solid.svg'
+import React, { useRef } from "react";
+import "./Navbar.css";
+import logo from "../../Data/Images/logo.png";
+import { ReactComponent as BurgerButton } from "../../Data/Images/bars-solid.svg";
+import { ReactComponent as CloseButton } from "../../Data/Images/times-solid.svg";
+import Button from "../Button/Button";
+import { useKeycloak } from "@react-keycloak/web";
 
 const Navbar = () => {
-  const menu = useRef(null)
+  const menu = useRef(null);
+  const { keycloak } = useKeycloak();
   const toggleMenu = () => {
-    menu.current.classList.toggle('navbar__nav--active')
-  }
+    // @ts-ignore
+    menu.current.classList.toggle("navbar__nav--active");
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -27,9 +31,10 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="navbar__cta">
-            <RouterButton ghost size="small" to="/signin">
+            {/* @ts-ignore */}
+            <Button ghost size="small" onClick={() => keycloak.login()}>
               Log In
-            </RouterButton>
+            </Button>
           </div>
         </div>
         <div className="navbar__burger" onClick={toggleMenu}>
@@ -37,7 +42,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

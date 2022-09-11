@@ -11,9 +11,10 @@ import Email from "react-email-autocomplete";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { ThemeContext } from "../../Contexts/ThemeContext";
+import { useKeycloak } from "@react-keycloak/web";
 
 function UserProfile() {
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
   const history = useHistory();
   // const [userProfileState, setUserProfileState] = useState({ profile })
   const [isName, setIsName] = useState(false);
@@ -22,6 +23,7 @@ function UserProfile() {
   const [isLogout, setIsLogout] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [actualPhone, setActualPhone] = useState();
+  const { keycloak } = useKeycloak();
 
   return (
     <div className={"profile"}>
@@ -118,7 +120,11 @@ function UserProfile() {
           <span>Do you really want to log out?</span>
           <div className="profile__modal--buttons">
             <Button ghost>Cancel</Button>
-            <Button>Log me out</Button>
+            <Button onClick={() => localStorage.removeItem("token")}>
+              <a href="https://unicorn-auth.cytr.us/auth/realms/dev/protocol/openid-connect/logout">
+                Log me out
+              </a>
+            </Button>
           </div>
         </div>
       </Modal>
