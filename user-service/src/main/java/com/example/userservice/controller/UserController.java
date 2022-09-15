@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -18,12 +17,12 @@ public class UserController {
 
     @PostMapping
     public UserResponse create(@RequestBody CreateUserRequest userRequest) {
+        //TODO remove logging
         log.info("UserRequest: {}", userRequest);
         return userService.create(userRequest);
     }
     @GetMapping("/{userName}")
-    public UserResponse findByUsername(@PathVariable String userName) {
-        log.info("Find by userName request: {}", userName);
-        return userService.findByUserName(userName);
+    public String sayHello(@PathVariable String userName) {
+        return "Hello " + userName;
     }
 }

@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+  eureka:
+    image: docker.io/norsu1212/eureka:latest
+    ports:
+      - "8761"
+    networks:
+      - backend
+  gateway:
+    image: docker.io/norsu1212/gateway:latest
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka:8761/eureka/
+    ports:
+      - "9000:9000"
+    networks:
+      - backend
+    depends_on:
+      - eureka
+  user-service:
+    depends_on:
+      - gateway
+      - user-service-db
+    restart: on-failure
+    image: docker.io/norsu1212/user-service:latest
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka:8761/eureka/
+      spring.datasource.url: jdbc:mysql://user-service-db/tfp_users?PublicKeyRetrieval=true?useSSL=false
+      spring.datasource.username: root
+      spring.datasource.password: root
+      server.port: 8011
+    networks:
+      - backend
+  user-service-db:
+    image: mysql:latest
+    restart: unless-stopped
+    ports:
+      - "5432"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tfp_users
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

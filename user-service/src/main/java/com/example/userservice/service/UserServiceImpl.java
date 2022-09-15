@@ -28,11 +28,13 @@ class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private static final String REALM_USER_ROLE_NAME = "user";
+    private static final String REALM_NAME = "dev";
+    private final UsersResource keycloakUserResource = getInstance();
 
     @Override
     public UserResponse create(CreateUserRequest userRequest) {
         val user = getUserRepresentation(userRequest);
-        val keycloakUserResource = getInstance();
+
         val response = keycloakUserResource.create(user);
         if (response.getStatus() != 201) {
             log.error("Cannot create user. Auth server response details: {}", response.getStatusInfo());
@@ -41,6 +43,7 @@ class UserServiceImpl implements UserService {
         val keycloakId = CreatedResponseUtil.getCreatedId(response);
         //TODO save to developer/company DB(service) ? Now or later after registration?
         val id = saveToDb(userRequest, keycloakId).getId();
+
         return new UserResponse(
                 id,
                 keycloakId,
@@ -55,8 +58,10 @@ class UserServiceImpl implements UserService {
     public UserResponse findByUserName(String username) {
         //TODO get userDetails from develop/company DB?
         val user = userRepository.findByUsername(username);
+        //TODO exception
         return UserMapper.toResponse(user.get());
     }
+
 
     private User saveToDb(CreateUserRequest userRequest, String keycloakId) {
         val user = User.builder()
@@ -87,6 +92,6 @@ class UserServiceImpl implements UserService {
     }
 
     private UsersResource getInstance() {
-        return KeycloakConfig.getInstance().realm(KeycloakConfig.REALM).users();
+        return KeycloakConfig.getInstance().realm(REALM_NAME).users();
     }
 }

@@ -11,4 +11,6 @@ public interface UserService {
 
     UserResponse findByUserName(String username);
 
+   //TODO add finding user by Id, username, email itp
+
 }
