@@ -1,42 +1,45 @@
-import React from 'react'
-import { PopupMenu, PopupScrollHandler } from '../Popup/Popup'
-import ConversationsItem from './ConversationsItem/ConversationsItem'
-import './ConversationsList.css'
+import React, { useState, useContext } from "react";
+import { PopupMenu, PopupScrollHandler } from "../Popup/Popup";
+import ConversationsItem from "./ConversationsItem/ConversationsItem";
+import "./ConversationsList.css";
+import { ActiveConversationContext } from "../../Contexts/ActiveConversation";
 
 const data = [
   {
-    id: '1',
-    name: 'Julia Williams',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    picture: 'https://randomuser.me/api/portraits/women/67.jpg',
+    id: "1",
+    name: "Julia Williams",
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    picture: "https://randomuser.me/api/portraits/women/67.jpg",
   },
   {
-    id: '2',
-    name: 'Keith Robertson',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    picture: 'https://randomuser.me/api/portraits/men/41.jpg',
+    id: "2",
+    name: "Keith Robertson",
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    picture: "https://randomuser.me/api/portraits/men/41.jpg",
   },
   {
-    id: '3',
-    name: 'Nadia Mcclean',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    picture: 'https://randomuser.me/api/portraits/women/24.jpg',
+    id: "3",
+    name: "Nadia Mcclean",
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    picture: "https://randomuser.me/api/portraits/women/24.jpg",
   },
   {
-    id: '4',
-    name: 'Joseph Perez',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    picture: 'https://randomuser.me/api/portraits/men/77.jpg',
+    id: "4",
+    name: "Joseph Perez",
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    picture: "https://randomuser.me/api/portraits/men/77.jpg",
   },
   {
-    id: '5',
-    name: 'Christina Dam',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    picture: 'https://randomuser.me/api/portraits/women/58.jpg',
+    id: "5",
+    name: "Christina Dam",
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    picture: "https://randomuser.me/api/portraits/women/58.jpg",
   },
-]
+];
 
 const ConversationsList = () => {
+  const { selectConversation } = useContext(ActiveConversationContext);
+
   return (
     <PopupScrollHandler>
       <PopupMenu>
@@ -51,6 +54,7 @@ const ConversationsList = () => {
               <ConversationsItem
                 key={conversation.id}
                 conversation={conversation}
+                handleSelectConversation={selectConversation}
               />
             ))}
             {data.map((conversation) => (
@@ -76,7 +80,7 @@ const ConversationsList = () => {
         )}
       </div>
     </PopupScrollHandler>
-  )
-}
+  );
+};
 
-export default ConversationsList
+export default ConversationsList;

@@ -1,10 +1,14 @@
-import React from 'react'
-import { PopupButton } from '../../Popup/Popup'
-import './ConversationsItem.css'
+import React from "react";
+import { PopupButton } from "../../Popup/Popup";
+import "./ConversationsItem.css";
 
-const ConversationsItem = ({ conversation }) => {
+const ConversationsItem = ({ conversation, handleSelectConversation }) => {
+  const activateConversation = () => {
+    handleSelectConversation(conversation);
+  };
+
   return (
-    <li className="conversation">
+    <li className="conversation" onClick={activateConversation}>
       <div className="conversation__image">
         <img src={conversation.picture} alt={conversation.name} />
       </div>
@@ -19,7 +23,7 @@ const ConversationsItem = ({ conversation }) => {
         <PopupButton />
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default ConversationsItem
+export default ConversationsItem;

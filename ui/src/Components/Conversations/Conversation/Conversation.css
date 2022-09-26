@@ -1,0 +1,15 @@
+.cs-chat-container {
+  height: 100%;
+}
+
+.test {
+  font-weight: 400;
+}
+
+.cs-conversation-header__content .cs-conversation-header__user-name {
+  font-family: "roboto", sans-serif;
+  font-size: 24px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  font-weight: "400";
+}
