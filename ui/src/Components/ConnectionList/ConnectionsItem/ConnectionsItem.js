@@ -1,34 +1,49 @@
-import React from 'react'
-import { PopupButton } from '../../Popup/Popup'
-import { useActiveCard } from '../../../Contexts/ActiveCard'
-import './ConnectionsItem.css'
+import React from "react";
+import { PopupButton } from "../../Popup/Popup";
+import { useActiveCard } from "../../../Contexts/ActiveCard";
+import "./ConnectionsItem.css";
 
 const ConnectionsItem = ({ connection }) => {
-  const { selectCard, activeCard } = useActiveCard()
+  const { selectCard, activeCard } = useActiveCard();
 
   const handleConnectionClick = (e) => {
-    const cardId = e.target.closest('.connection').id.replace('connection-', '')
-    selectCard(cardId)
-  }
+    const cardId = e.target
+      .closest(".connection")
+      .id.replace("connection-", "");
+    selectCard(cardId);
+  };
   return (
     <li
       className={`connection ${
-        connection.id === activeCard ? 'connection--active' : ''
+        connection.id === activeCard ? "connection--active" : ""
       }`}
       id={`connection-${connection.id}`}
       onClick={handleConnectionClick}
     >
       <div className="connection__image">
-        <img src={connection.picture} alt={connection.name} />
+        {/* TODO: span className - online indicator */}
+        <span className="online"></span>
+        <img
+          //TODO: random user photo
+          src={
+            connection.picture ||
+            `https://randomuser.me/api/portraits/women/${Math.floor(
+              Math.random() * (50 - 1)
+            )}.jpg`
+          }
+          alt={connection.name ? connection.name : connection.firstName}
+        />
       </div>
       <div className="connection__name">
-        <h3 className="connection__name--name">{connection.name}</h3>
+        <h3 className="connection__name--name">
+          {connection.name ? connection.name : connection.firstName}
+        </h3>
       </div>
       <div className="connection__menu">
         <PopupButton />
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default ConnectionsItem
+export default ConnectionsItem;

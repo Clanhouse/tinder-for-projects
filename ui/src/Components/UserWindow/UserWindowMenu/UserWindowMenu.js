@@ -6,9 +6,14 @@ import { ReactComponent as MessagesIcon } from '../../../Data/Images/comments-so
 import { ReactComponent as ProfileIcon } from '../../../Data/Images/user-solid.svg'
 import './UserWindowMenu.css'
 
-const UserWindowMenu = ({ dashboardState, setdashboardState }) => {
+const UserWindowMenu = ({ dashboardState, setdashboardState, setUserEditMode }) => {
   const handleMenuClick = (e) => {
     setdashboardState(e.target.closest('.user-window-menu__item').id)
+    if (e.target.closest('.user-window-menu__item').id === 'profile') {
+      setUserEditMode(true)
+    } else {
+      setUserEditMode(false)
+    }
   }
 
   return (
