@@ -11,6 +11,7 @@ import "./App.css";
 import keycloak from "./keycloak";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import Protected from "./Keycloak/Protected";
+import { ConversationsProvider } from "./Contexts/Conversations";
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -38,7 +39,9 @@ const App = () => {
                 {user ? (
                   <Protected>
                     <ActiveCardProvider>
-                      <UserWindow user={user} />
+                      <ConversationsProvider>
+                        <UserWindow user={user} />
+                      </ConversationsProvider>
                     </ActiveCardProvider>
                   </Protected>
                 ) : (

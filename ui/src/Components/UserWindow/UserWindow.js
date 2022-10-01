@@ -6,14 +6,17 @@ import DeveloperCard from "../Card/DeveloperCard";
 import ProjectCardEditable from "../Card/ProjectCardEditable";
 import DeveloperCardEditable from "../Card/DeveloperCardEditable";
 import { PopupProvider, PopupWrapper } from "../Popup/Popup";
-import { ActiveConversationProvider } from "../../Contexts/ActiveConversation";
-import Conversations from "../Conversations/Conversations";
+
+import { useChat } from "@chatscope/use-chat";
+import Conversation from "../Conversation/Conversation";
+
 import "./UserWindow.css";
 
 const UserWindow = ({ user }) => {
   const [dashboardState, setDashboardState] = useState("connections");
   const [userEditMode, setUserEditMode] = useState(false);
   const [updateConnectionsList, setUpdateConnectionsList] = useState(false);
+  const { activeConversation } = useChat();
 
   let cardComponent = null;
   if (user.role === "developer") {
@@ -52,7 +55,13 @@ const UserWindow = ({ user }) => {
               setUpdateConnectionsList={setUpdateConnectionsList}
             />{" "}
           </aside>
-          <main className="user-window__main">{cardComponent}</main>
+          <main className="user-window__main">
+            {activeConversation ? (
+              <Conversation conversation={activeConversation} />
+            ) : (
+              cardComponent
+            )}
+          </main>
         </div>
       </PopupWrapper>
     </PopupProvider>

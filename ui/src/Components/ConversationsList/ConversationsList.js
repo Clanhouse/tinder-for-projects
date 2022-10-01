@@ -1,8 +1,18 @@
 import React, { useState, useContext } from "react";
 import { PopupMenu, PopupScrollHandler } from "../Popup/Popup";
 import ConversationsItem from "./ConversationsItem/ConversationsItem";
+import { useChat } from "@chatscope/use-chat";
+import {
+  Conversation,
+  Avatar,
+  MessageGroup,
+  Message,
+  ChatContainer,
+  ConversationHeader,
+  MessageList,
+  MessageInput,
+} from "@chatscope/chat-ui-kit-react";
 import "./ConversationsList.css";
-import { ActiveConversationContext } from "../../Contexts/ActiveConversation";
 
 const data = [
   {
@@ -38,7 +48,7 @@ const data = [
 ];
 
 const ConversationsList = () => {
-  const { selectConversation } = useContext(ActiveConversationContext);
+  const { conversations } = useChat();
 
   return (
     <PopupScrollHandler>
@@ -53,8 +63,8 @@ const ConversationsList = () => {
             {data.map((conversation) => (
               <ConversationsItem
                 key={conversation.id}
-                conversation={conversation}
-                handleSelectConversation={selectConversation}
+                // conversation={conversation}
+                // handleSelectConversation={selectConversation}
               />
             ))}
           </ul>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import "./Conversation.css";
 import {
@@ -27,6 +27,7 @@ const messages = [
 
 const Conversation = ({ conversation }) => {
   console.log(conversation);
+  const [inputValue, setInputValue] = useState("");
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <ChatContainer>
@@ -52,7 +53,11 @@ const Conversation = ({ conversation }) => {
         <MessageInput
           attachButton={false}
           placeholder="Type message here"
+          value={inputValue}
           onChange={(e) => console.log(e)}
+          onSend={(e) => {
+            console.log("pisze", e);
+          }}
         />
       </ChatContainer>
     </div>
