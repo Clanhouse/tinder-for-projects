@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="user-service" />
+        <module name="match-service" />
         <module name="eureka" />
         <module name="gateway" />
-        <module name="user-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="match-service" options="-parameters" />
       <module name="tinder" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
