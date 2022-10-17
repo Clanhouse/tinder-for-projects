@@ -1,0 +1,25 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+              - Path=/users/**
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://unicorn-auth.cytr.us/auth/realms/dev
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web: DEBUG
